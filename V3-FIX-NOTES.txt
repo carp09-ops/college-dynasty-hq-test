@@ -1,0 +1,14 @@
+V3 LAYOUT + VEGAS SPEED FIX
+
+Layout:
+- Removed the double sidebar-width subtraction that caused desktop content to bleed beyond the viewport.
+- The app now fills the remaining body width naturally after the fixed sidebar.
+- Added min-width:0 and overflow guards to major responsive grids/cards.
+- Desktop stays wide, tablet/mobile continue to collapse responsively.
+
+Vegas:
+- Vegas now FETCHES AND RENDERS STORED LINES FIRST.
+- It no longer waits for every scheduled matchup line to regenerate before showing the page.
+- Only genuinely missing scheduled lines are generated afterward.
+- Missing-line refresh runs in small batches after first render, so the page is usable immediately.
+- Final refreshed Vegas data is fetched and rendered once background work completes.
