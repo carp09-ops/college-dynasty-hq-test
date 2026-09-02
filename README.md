@@ -1,2 +1,0 @@
-# CollegeDynastyHQ
-College Dynasty HQ
