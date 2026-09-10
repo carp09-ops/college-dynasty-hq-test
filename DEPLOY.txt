@@ -1,9 +1,0 @@
-Dynasty HQ v4.9 deploy layout
-
-Upload the CONTENTS of this folder to Netlify.
-
-index.html
-assets/   <- keep this folder intact
-hero-background.jpg <- copy your existing hero image beside index.html
-
-You no longer need to pull individual icon files out of assets/.
