@@ -1,0 +1,60 @@
+name: Apply Saturday Foundry 9.6.10 bowl history fix
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/fix-9.6.10-bowl-history.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Patch Trophy Room bowl history
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text()
+          old=' const isBowlGame=g=>norm(g?.game_type)==="bowl";'
+          new=''' const isBowlGame=g=>norm(g?.game_type)==="bowl"||/\\bbowl\\b/.test(norm(g?.event_name));\n const legacyBowlBaseline={\n   // Verified Saturday Foundry archive through Season 3. The normalized import does not fully preserve all four historical decisions.\n   "b6d17b8d-e74f-4266-80cb-7a4b2b256cad":{throughSeason:3,w:3,l:1}\n };'''
+          if old not in s:
+              raise SystemExit('Expected 9.6.9 bowl classifier not found')
+          s=s.replace(old,new,1)
+          old2='   const bowls=games.filter(isBowlGame),bowlW=bowls.filter(g=>g.result==="W").length,bowlL=bowls.filter(g=>g.result==="L").length;'
+          new2='''   const baseline=c?.person_id?legacyBowlBaseline[String(c.person_id)]:null;\n   const bowls=games.filter(g=>isBowlGame(g)&&(!baseline||Number(g.season_number||0)>Number(baseline.throughSeason||0)));\n   const bowlW=Number(baseline?.w||0)+bowls.filter(g=>g.result==="W").length,bowlL=Number(baseline?.l||0)+bowls.filter(g=>g.result==="L").length;'''
+          if old2 not in s:
+              raise SystemExit('Expected 9.6.9 bowl calculation not found')
+          s=s.replace(old2,new2,1)
+          s=s.replace('/* 9.6.9 — Coach-centric continuity: coach owns the résumé; programs are historical context. */','/* 9.6.10 — Bowl history reconciliation: verified archival baseline + dynamic future bowl decisions. */',1)
+          s=s.replace('<!-- Saturday Foundry 9.6.9 — Coach-Centric Continuity -->','<!-- Saturday Foundry 9.6.10 — Bowl History Reconciliation -->',1)
+          s=s.replace('<meta name="saturday-foundry-release" content="9.6.9-coach-centric-continuity">','<meta name="saturday-foundry-release" content="9.6.10-bowl-history-reconciliation">',1)
+          p.write_text(s)
+          PY
+
+      - name: Verify JavaScript syntax
+        run: |
+          node - <<'NODE'
+          const fs=require('fs');
+          const s=fs.readFileSync('index.html','utf8');
+          const scripts=[...s.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/gi)].map(m=>m[1]);
+          let bad=0;
+          scripts.forEach((x,i)=>{try{new Function(x)}catch(e){bad++;console.error(`script ${i}: ${e.message}`)}});
+          console.log(`scripts=${scripts.length} bad=${bad}`);
+          if(bad) process.exit(1);
+          NODE
+
+      - name: Commit 9.6.10
+        run: |
+          git config user.name "Saturday Foundry Release Bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add index.html
+          git commit -m "Release Saturday Foundry 9.6.10 bowl history reconciliation"
+          git push
