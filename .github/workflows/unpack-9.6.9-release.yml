@@ -1,0 +1,40 @@
+name: Unpack Saturday Foundry 9.6.9 release
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'saturday-foundry-9.6.9-git-deploy.zip'
+      - '.github/workflows/unpack-9.6.9-release.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  unpack-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Unpack release bundle
+        run: |
+          test -f saturday-foundry-9.6.9-git-deploy.zip
+          rm -rf assets
+          unzip -o saturday-foundry-9.6.9-git-deploy.zip -d .
+          test -f index.html
+          test -f _headers
+          test -d assets
+
+      - name: Commit deploy tree
+        run: |
+          git config user.name "Saturday Foundry Release Bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add index.html _headers assets
+          if git diff --cached --quiet; then
+            echo "Deploy tree already matches the release bundle."
+          else
+            git commit -m "Release Saturday Foundry 9.6.9 coach-centric continuity"
+            git push
+          fi
