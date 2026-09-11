@@ -4532,6 +4532,33 @@ body{background:radial-gradient(circle at 50% 0,rgba(216,170,77,.08),transparent
 .team-select-head h1:after{content:' · SATURDAY FOUNDRY';color:var(--sf-gold);font-size:.42em;letter-spacing:.08em;vertical-align:middle}
 @media(max-width:700px){#siteHeader .hq-site-brand{width:142px!important;height:46px!important}.sf-overview-hero{min-height:440px!important}.sf-overview-hero .sf-hero-backdrop{background:linear-gradient(180deg,rgba(5,6,6,.38),rgba(5,6,6,.68) 42%,rgba(5,6,6,.94) 76%),url('assets/saturday-foundry-mobile-wordless.webp') center 28%/cover no-repeat}.sf-overview-hero>.relative{display:flex!important;flex-direction:column!important;justify-content:flex-end!important;min-height:440px!important;padding:18px!important}.sf-hero-copy{padding-top:205px!important}.sf-hero-lockup{width:285px!important;max-width:86vw!important}.sf-hero-tagline{font-size:9px!important;line-height:1.6!important;letter-spacing:.20em!important}.sf-overview-hero .ref-gotw{width:100%!important}.canonical-nav{display:none!important}}
 </style>
+
+<style id="national-reconciliation-v1">
+.national-control-card{border-color:rgba(79,209,255,.24)!important;background:linear-gradient(145deg,rgba(4,18,25,.98),rgba(3,11,15,.99))!important}
+.national-status-strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:12px 0}
+.national-status-chip{padding:10px;border:1px solid rgba(148,163,184,.13);border-radius:10px;background:rgba(3,12,16,.72)}
+.national-status-chip span{display:block;font-size:8px;letter-spacing:.08em;text-transform:uppercase;color:#71858e;font-weight:900}.national-status-chip b{display:block;margin-top:3px;font-family:"Barlow Condensed",sans-serif;font-size:22px;color:#f8fafc;text-transform:uppercase}.national-status-chip.warn b{color:#f4c542}.national-status-chip.good b{color:#74e4be}
+.national-toolbar{display:grid;grid-template-columns:minmax(150px,.65fr) 1fr;gap:8px;align-items:end}.national-toolbar label,.national-bulk label{display:grid;gap:5px;font-size:8px;text-transform:uppercase;letter-spacing:.08em;color:#7f94a0;font-weight:900}
+.national-progress{margin-top:10px;padding:10px 12px;border:1px solid rgba(148,163,184,.12);border-radius:10px;background:#041116}.national-progress-head{display:flex;justify-content:space-between;gap:10px;align-items:center;font-size:10px;color:#9aabb4}.national-progress-head strong{color:#fff}.national-progress-track{height:7px;border-radius:999px;background:#071820;overflow:hidden;margin-top:8px}.national-progress-fill{height:100%;background:linear-gradient(90deg,#19d39a,#4fd1ff);border-radius:inherit}
+.national-conf-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin-top:10px}.national-conf-chip{display:flex;justify-content:space-between;gap:8px;padding:7px 8px;border:1px solid rgba(148,163,184,.1);border-radius:8px;background:rgba(3,12,16,.62);font-size:9px;color:#91a2aa}.national-conf-chip b{color:#dce8ed}.national-conf-chip.done b{color:#74e4be}.national-conf-chip.pending b{color:#f4c542}
+.national-bulk{display:grid;gap:7px;margin-top:12px}.national-bulk textarea{width:100%;min-height:120px;resize:vertical;background:#030706;border:1px solid rgba(79,209,255,.22);border-radius:9px;padding:10px 11px;color:#fff;font:12px/1.55 ui-monospace,SFMono-Regular,Menlo,monospace}.national-action-row{display:flex;gap:8px;flex-wrap:wrap}.national-action-row .btn{min-height:38px}.national-divider{height:1px;background:rgba(148,163,184,.11);margin:13px 0}
+.national-rapid-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-end;margin-bottom:8px}.national-rapid-head span{font-size:8px;color:#71858e}.national-rapid-grid{display:grid;gap:6px;max-height:420px;overflow:auto;padding-right:2px}.national-result-row{display:grid;grid-template-columns:minmax(0,1fr) 66px auto minmax(0,1fr) 66px;gap:7px;align-items:center;padding:8px;border:1px solid rgba(148,163,184,.11);border-radius:9px;background:#041219}.national-result-team{min-width:0;font-size:10px;font-weight:850;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.national-result-team.away{text-align:right}.national-result-vs{font-size:8px;color:#607782;font-weight:900}.national-score-input{min-height:38px!important;padding:6px!important;text-align:center!important;font-family:"Barlow Condensed",sans-serif!important;font-size:20px!important;font-weight:800!important}.national-locked{padding:10px;border:1px solid rgba(25,211,154,.12);border-radius:9px;background:rgba(25,211,154,.04);font-size:9px;color:#7d929c}.national-locked strong{color:#74e4be}.national-finalize-row{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-top:12px;padding-top:12px;border-top:1px solid rgba(148,163,184,.12)}.national-finalize-row small{display:block;color:#71858e;font-size:8px;max-width:360px}.national-finalize-row .btn:disabled{opacity:.42;cursor:not-allowed}
+@media(max-width:700px){.national-status-strip{grid-template-columns:1fr}.national-toolbar{grid-template-columns:1fr}.national-conf-grid{grid-template-columns:1fr 1fr}.national-action-row{display:grid;grid-template-columns:1fr 1fr}.national-action-row .btn:last-child:nth-child(odd){grid-column:1/-1}.national-result-row{grid-template-columns:minmax(0,1fr) 58px;gap:5px}.national-result-team.away{text-align:left}.national-result-vs{display:none}.national-result-row .national-result-team:nth-of-type(2){grid-column:1}.national-result-row .national-score-input:nth-of-type(2){grid-column:2}.national-finalize-row{align-items:stretch;flex-direction:column}.national-finalize-row .btn{width:100%}}
+</style>
+
+
+<style id="sf-schedule-result-perspective-colors">
+/* Schedule result semantics: controlled-team perspective is directional; CPU-v-CPU is neutral. */
+#schedule .v21-score.schedule-user-win,
+#schedule .schedule-card-actions.schedule-user-win{color:#50e5b3!important}
+#schedule .v21-score.schedule-user-loss,
+#schedule .schedule-card-actions.schedule-user-loss{color:#ff7f8b!important}
+#schedule .v21-score.schedule-neutral-final,
+#schedule .schedule-card-actions.schedule-neutral-final{color:#f4f7f8!important}
+#schedule .v21-score.schedule-user-win span,
+#schedule .v21-score.schedule-user-loss span,
+#schedule .v21-score.schedule-neutral-final span{color:#7f8c95!important}
+</style>
 </head>
 <body>
 <div id="cdhqLoader" role="status" aria-live="polite" aria-label="Saturday Foundry is loading">
@@ -5073,6 +5100,29 @@ body{background:radial-gradient(circle at 50% 0,rgba(216,170,77,.08),transparent
     <div class="conf-race-note"><b>Race status is directional.</b> Saturday Foundry ranks teams by conference winning percentage, conference wins, overall record and point differential. Exact championship-game tiebreakers are not projected until conference-specific rules are modeled.</div>
   </div>
 </section>
+
+<style id="cfp-bracket-v1">
+.cfp-bracket-shell{margin:16px 0 18px;padding:18px;border:1px solid rgba(229,189,99,.32);border-radius:16px;background:linear-gradient(145deg,rgba(5,18,24,.98),rgba(2,9,13,.98));box-shadow:inset 0 1px rgba(255,255,255,.025)}
+.cfp-bracket-shell.hidden{display:none}
+.cfp-bracket-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:14px}
+.cfp-bracket-kicker{font-size:9px;font-weight:900;letter-spacing:.16em;color:var(--sf-gold-bright,#e5bd63)}
+.cfp-bracket-head h3{margin:4px 0 2px;font-family:"Barlow Condensed",sans-serif;font-size:30px;line-height:1;text-transform:uppercase;color:#f6f4ee}
+.cfp-bracket-meta{font-size:10px;color:#7f939d;text-align:right}.cfp-bracket-meta strong{color:#d7e3e8}
+.cfp-bracket-path{margin:0 0 14px;padding:10px 12px;border:1px solid rgba(229,189,99,.2);border-radius:10px;background:rgba(229,189,99,.05);font-size:10px;color:#a9bbc3}.cfp-bracket-path b{color:var(--sf-gold-bright,#e5bd63)}
+.cfp-bracket-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;padding:2px 2px 10px;scrollbar-width:thin}
+.cfp-bracket-grid{display:grid;grid-template-columns:repeat(4,minmax(220px,1fr));gap:14px;min-width:940px;align-items:start}
+.cfp-round{min-width:0}.cfp-round-head{display:flex;align-items:center;gap:8px;margin-bottom:9px;color:#8ca0aa;font-size:9px;font-weight:900;letter-spacing:.12em;text-transform:uppercase}.cfp-round-head:after{content:"";height:1px;flex:1;background:linear-gradient(90deg,rgba(229,189,99,.35),transparent)}
+.cfp-round-stack{display:grid;gap:10px}.cfp-bracket-game{position:relative;border:1px solid rgba(76,120,138,.3);border-radius:11px;background:rgba(6,20,27,.92);overflow:hidden}.cfp-bracket-game.live-path{border-color:rgba(229,189,99,.52);box-shadow:inset 3px 0 0 rgba(229,189,99,.7)}
+.cfp-game-label{display:flex;justify-content:space-between;gap:8px;padding:7px 9px;border-bottom:1px solid rgba(75,108,122,.22);font-size:8px;font-weight:900;letter-spacing:.08em;color:#7f939d;text-transform:uppercase}.cfp-game-label strong{color:#b8c8cf}.cfp-game-label .final{color:#8dd7bb}
+.cfp-team-slot{display:grid;grid-template-columns:24px 28px 1fr auto;gap:7px;align-items:center;min-height:48px;padding:8px 9px;border-top:1px solid rgba(75,108,122,.14)}.cfp-team-slot:first-of-type{border-top:0}.cfp-team-slot.controlled{background:linear-gradient(90deg,rgba(229,189,99,.09),transparent)}.cfp-team-slot.winner{background:linear-gradient(90deg,rgba(44,167,124,.1),transparent)}.cfp-team-slot.tbd{opacity:.64}
+.cfp-seed{font-family:"Barlow Condensed",sans-serif;font-size:18px;font-weight:900;color:#90a3ac;text-align:center}.cfp-team-slot.controlled .cfp-seed{color:var(--sf-gold-bright,#e5bd63)}
+.cfp-team-logo{width:26px;height:26px;object-fit:contain}.cfp-team-logo.fallback{display:grid;place-items:center;border-radius:50%;background:#10232c;color:#7e919a;font-size:10px;font-weight:900}
+.cfp-team-name{min-width:0;font-size:11px;font-weight:900;color:#eef4f6;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.cfp-team-sub{display:block;margin-top:2px;font-size:7px;font-weight:800;letter-spacing:.06em;color:#758a94;text-transform:uppercase}.cfp-team-slot.controlled .cfp-team-sub{color:var(--sf-gold-bright,#e5bd63)}
+.cfp-team-score{font-family:"Barlow Condensed",sans-serif;font-size:22px;font-weight:900;color:#dce6ea}.cfp-team-slot.winner .cfp-team-score{color:#8dd7bb}
+.cfp-champ-stage{min-height:116px;display:grid;align-content:center}.cfp-destination{margin-top:10px;padding:10px;border:1px solid rgba(229,189,99,.22);border-radius:10px;text-align:center}.cfp-destination span{display:block;font-size:8px;letter-spacing:.12em;color:#758a94;text-transform:uppercase}.cfp-destination b{display:block;margin-top:3px;font-family:"Barlow Condensed",sans-serif;font-size:20px;color:var(--sf-gold-bright,#e5bd63);text-transform:uppercase}
+@media(max-width:720px){.cfp-bracket-shell{margin:12px 0 14px;padding:13px 10px}.cfp-bracket-head{align-items:flex-start;flex-direction:column;gap:5px}.cfp-bracket-head h3{font-size:27px}.cfp-bracket-meta{text-align:left}.cfp-bracket-grid{grid-template-columns:repeat(4,210px);min-width:882px}.cfp-bracket-scroll{margin-right:-6px}.cfp-team-slot{grid-template-columns:22px 26px 1fr auto;padding:8px 7px}.cfp-team-name{font-size:10px}}
+</style>
+
 <section id="schedule" class="view">
   <div class="v21-schedule-shell">
     <div class="v21-schedule-hero schedule-control-hero">
@@ -5126,6 +5176,16 @@ body{background:radial-gradient(circle at 50% 0,rgba(216,170,77,.08),transparent
       </div>
       <div id="weekCards" class="v21-game-slate"></div>
     </section>
+
+    <section id="cfpBracketSection" class="cfp-bracket-shell hidden" aria-label="College Football Playoff bracket">
+      <div class="cfp-bracket-head">
+        <div><div class="cfp-bracket-kicker">COLLEGE FOOTBALL PLAYOFF</div><h3>Road to Miami.</h3></div>
+        <div id="cfpBracketMeta" class="cfp-bracket-meta"></div>
+      </div>
+      <div id="cfpBracketPath" class="cfp-bracket-path"></div>
+      <div class="cfp-bracket-scroll"><div id="cfpBracketBoard" class="cfp-bracket-grid"></div></div>
+    </section>
+
 
     <section class="v21-season-archive">
       <div class="v21-archive-head">
@@ -5204,9 +5264,31 @@ body{background:radial-gradient(circle at 50% 0,rgba(216,170,77,.08),transparent
           <div class="admin-card">
             <div class="kicker">📅 LEAGUE CONTROL</div>
             <h3>Active Week</h3>
-            <p>Controls the week surfaced throughout Saturday Foundry. The league auto-advances after every player-controlled game in the active week is complete; CPU-only games never hold the week back.</p>
+            <p>Controls the week surfaced throughout Saturday Foundry. Player-controlled weeks can advance through the normal flow; postseason stages can also be set manually here.</p>
             <div style="display:flex;gap:8px"><input id="activeWeekInput" type="number" min="0" placeholder="Week"><button id="setWeekBtn" class="btn primary">Set Week</button></div>
+            <div style="margin-top:8px;font-size:11px;font-weight:900;letter-spacing:.08em;color:var(--sf-gold-bright,#e5bd63)">POSTSEASON KEY · WEEK 15 = CONFERENCE CHAMPIONSHIPS · WEEK 16 = BOWL WEEK 1 / CFP FIRST ROUND · WEEK 17 = BOWL WEEK 2 / CFP QUARTERFINALS</div>
             <div id="weekAdminMessage" class="notice hidden"></div>
+          </div>
+          <div class="admin-card national-control-card">
+            <div class="kicker">🌎 NATIONAL RESULTS CONTROL</div>
+            <h3>Week Reconciliation</h3>
+            <p>Playing week and national finalization are intentionally separate. Once the dynasty advances, reconcile the previous week's simulated CPU slate here without holding up the next playable week.</p>
+            <div id="nationalStatusStrip" class="national-status-strip"></div>
+            <div class="national-toolbar">
+              <label>Reconcile Week<select id="nationalResultsWeek"></select></label>
+              <div id="nationalPhaseMessage" class="national-locked"></div>
+            </div>
+            <div id="nationalProgress" class="national-progress"></div>
+            <div id="nationalConferenceStatus" class="national-conf-grid"></div>
+            <div class="national-bulk">
+              <label>Bulk Paste<textarea id="nationalBulkPaste" placeholder="Georgia 31 | Auburn 24&#10;Ohio State 27 | Penn State 17&#10;Boise State 41 | Fresno State 20"></textarea></label>
+              <div class="national-action-row"><button id="parseNationalResultsBtn" class="btn">Parse Results</button><button id="clearNationalDraftBtn" class="btn">Clear Draft</button><button id="saveNationalResultsBtn" class="btn primary">Save Matched Results</button></div>
+              <div id="nationalResultsMessage" class="notice hidden"></div>
+            </div>
+            <div class="national-divider"></div>
+            <div class="national-rapid-head"><div><div class="kicker">RAPID ENTRY</div><strong>Unresolved CPU Games</strong></div><span>Scores save through the same protected national-results RPC.</span></div>
+            <div id="nationalRapidGrid" class="national-rapid-grid"></div>
+            <div class="national-finalize-row"><small id="nationalFinalizeHint">Finalize becomes available only after the dynasty has advanced and every game from this week is resolved.</small><button id="finalizeNationalWeekBtn" class="btn primary" disabled>Finalize National Week</button></div>
           </div>
           <div class="admin-card rankings-admin-card">
             <div class="kicker">★ NATIONAL POLL</div>
@@ -5471,6 +5553,9 @@ const Data={
  async cancelGame(gameId){const s=session();return req("/rest/v1/rpc/cancel_schedule_game",{method:"POST",token:s.access_token,body:{p_game_id:gameId}})},
  async activeWeek(dynastyId){const s=session();return req("/rest/v1/rpc/get_dynasty_active_week",{method:"POST",token:s.access_token,body:{p_dynasty_id:dynastyId}})},
  async setActiveWeek(dynastyId,week){const s=session();return req("/rest/v1/rpc/set_dynasty_active_week",{method:"POST",token:s.access_token,body:{p_dynasty_id:dynastyId,p_week:week}})},
+ async nationalFinalizedWeek(dynastyId,seasonId){const s=session();return req("/rest/v1/rpc/get_dynasty_national_finalized_week",{method:"POST",token:s.access_token,body:{p_dynasty_id:dynastyId,p_season_id:seasonId}})},
+ async submitNationalResults(dynastyId,seasonId,week,results){const s=session();return req("/rest/v1/rpc/commissioner_submit_national_results",{method:"POST",token:s.access_token,body:{p_dynasty_id:dynastyId,p_season_id:seasonId,p_week:week,p_results:results}})},
+ async finalizeNationalWeek(dynastyId,seasonId,week){const s=session();return req("/rest/v1/rpc/finalize_dynasty_national_week",{method:"POST",token:s.access_token,body:{p_dynasty_id:dynastyId,p_season_id:seasonId,p_week:week}})},
  async createInvite(dynastyId,maxUses,role){const s=session();return req("/rest/v1/rpc/create_dynasty_invite",{method:"POST",token:s.access_token,body:{p_dynasty_id:dynastyId,p_max_uses:maxUses,p_role:role}})},
  async listInvites(dynastyId){const s=session();return req("/rest/v1/rpc/list_dynasty_invites",{method:"POST",token:s.access_token,body:{p_dynasty_id:dynastyId}})||[]},
  async revokeInvite(inviteId){const s=session();return req("/rest/v1/rpc/revoke_dynasty_invite",{method:"POST",token:s.access_token,body:{p_invite_id:inviteId}})},
@@ -5483,8 +5568,9 @@ const Data={
  async powerContext(dynastyId){const s=session();return req("/rest/v1/rpc/get_dynasty_power_context",{method:"POST",token:s.access_token,body:{p_dynasty_id:dynastyId}})},
  async claim(code){const s=session();return req("/rest/v1/rpc/claim_dynasty_invite",{method:"POST",token:s.access_token,body:{invite_code:code}})}
 };
-let dynasties=[],seasons=[],D=null,S=null,state={programs:[],standings:[],games:[],career:[],careerStops:[],dynastyCoaches:[],coachMoves:[],trophies:[],heismans:[],powerContext:[],vegas:[],vegasAll:[],rankings:[],recapRankings:{},activeWeek:null};
+let dynasties=[],seasons=[],D=null,S=null,state={programs:[],standings:[],games:[],career:[],careerStops:[],dynastyCoaches:[],coachMoves:[],trophies:[],heismans:[],powerContext:[],vegas:[],vegasAll:[],rankings:[],recapRankings:{},activeWeek:null,nationalFinalizedWeek:null};
 let selectedWeek=null,winsChartInstance=null,efficiencyChartInstance=null,teamChoices=[],selectedGame=null;
+let nationalDraft=new Map(),nationalSelectedWeek=null,nationalParseMeta={matched:0,unmatched:[],locked:[]};
 let scheduleConference="__all__";
 let scheduleTeamPersonId=null;
 
@@ -6539,10 +6625,82 @@ async function saveMyScheduleGame(){
  }catch(e){msg($("myScheduleMessage"),e.message||String(e),"error")}
  finally{btn.disabled=false}
 }
+
+
+function cfpBracketTeamLogo(teamId,name){
+ const p=(state.programs||[]).find(x=>String(x.team_id||'')===String(teamId||'')||teamKey(x.team_name)===teamKey(name));
+ return p?.logo_url||window.CDHQLogoResolver?.knownLogo?.(name)||"";
+}
+function cfpBracketMeta(g){try{return g?.notes?JSON.parse(g.notes):{}}catch(_){return {}}}
+function cfpBracketDate(raw){if(!raw)return "";const m=String(raw).match(/^(\d{4})-(\d{2})-(\d{2})$/);if(!m)return String(raw);const mon=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"][Number(m[2])-1]||m[2];return `${mon} ${Number(m[3])}`}
+function cfpBracketWinner(g){
+ if(!g||g.status!=="completed"||g.points_for==null||g.points_against==null)return null;
+ const a=Number(g.points_for),b=Number(g.points_against);if(!Number.isFinite(a)||!Number.isFinite(b)||a===b)return null;
+ if(a>b)return {team_id:g.team_id,name:g.team_name,seed:Number(scheduleDisplayRanks(g).team||g.team_rank)||null,score:a,person_id:g.person_id||null};
+ return {team_id:g.opponent_team_id,name:g.opponent_team,seed:Number(scheduleDisplayRanks(g).opponent||g.opponent_rank)||null,score:b,person_id:g.opponent_person_id||null};
+}
+function cfpLatestSeedTeam(seed,weekHint){
+ const rows=(state.rankings||[]).filter(r=>Number(r.rank)===Number(seed)&&Number(r.week_number)<=Number(weekHint||999));
+ if(!rows.length)return null;
+ const r=[...rows].sort((a,b)=>Number(b.week_number)-Number(a.week_number))[0],t=r.team||{};
+ return {team_id:r.team_id,name:t.name||"TBD",seed:Number(seed),person_id:(state.programs||[]).find(p=>String(p.team_id||'')===String(r.team_id||''))?.person_id||null};
+}
+function cfpGamePair(g){
+ if(!g)return [];const ranks=scheduleDisplayRanks(g);
+ return [
+  {team_id:g.team_id,name:g.team_name||"TBD",seed:Number(ranks.team||g.team_rank)||null,score:g.status==="completed"?Number(g.points_for):null,person_id:g.person_id||null},
+  {team_id:g.opponent_team_id,name:g.opponent_team||"TBD",seed:Number(ranks.opponent||g.opponent_rank)||null,score:g.status==="completed"?Number(g.points_against):null,person_id:g.opponent_person_id||null}
+ ];
+}
+function cfpVirtualTeam(name,seed=null){return {name,seed,tbd:true,team_id:null,person_id:null,score:null}}
+function cfpBracketTeamRow(t,winnerName){
+ const controlled=!!t?.person_id,won=!!winnerName&&teamKey(t?.name)===teamKey(winnerName),logo=t?.tbd?"":cfpBracketTeamLogo(t?.team_id,t?.name);
+ return `<div class="cfp-team-slot ${controlled?"controlled":""} ${won?"winner":""} ${t?.tbd?"tbd":""}"><span class="cfp-seed">${t?.seed?esc(t.seed):"—"}</span>${logo?`<img class="cfp-team-logo" src="${esc(logo)}" alt="">`:`<span class="cfp-team-logo fallback">${t?.tbd?"?":esc(initials(t?.name||"TBD"))}</span>`}<span class="cfp-team-name">${esc(t?.name||"TBD")}<small class="cfp-team-sub">${controlled?"◆ FOUNDRY":t?.tbd?"ADVANCEMENT SLOT":""}</small></span><b class="cfp-team-score">${t?.score==null?"":esc(t.score)}</b></div>`;
+}
+function cfpBracketGameCard(slot,label,teams,game=null){
+ const winner=game?cfpBracketWinner(game):null,livePath=(teams||[]).some(t=>t?.person_id);
+ const status=game?.status==="completed"?"FINAL":game?.status==="scheduled"?"UPCOMING":"TBD";
+ return `<article class="cfp-bracket-game ${livePath?"live-path":""}"><div class="cfp-game-label"><span>${esc(label||slot)}</span><strong class="${status==="FINAL"?"final":""}">${esc(status)}</strong></div>${(teams||[]).map(t=>cfpBracketTeamRow(t,winner?.name)).join("")}</article>`;
+}
+function renderCfpBracket(allSeasonGames){
+ const section=$("cfpBracketSection"),board=$("cfpBracketBoard"),meta=$("cfpBracketMeta"),path=$("cfpBracketPath");if(!section||!board)return;
+ const playoffs=(allSeasonGames||[]).filter(g=>g.game_type==="playoff"||g.game_type==="national_championship");
+ const first=playoffs.filter(g=>/first round/i.test(String(g.week_label||g.event_name||""))||/cfp-fr[1-4]$/i.test(String(g.legacy_game_id||"")));
+ if(!first.length){section.classList.add("hidden");board.innerHTML="";return}
+ section.classList.remove("hidden");
+ const firstWeek=Math.min(...first.map(g=>Number(g.week_number)||999));
+ const pairKey=g=>cfpGamePair(g).map(t=>Number(t.seed)).filter(Boolean).sort((a,b)=>a-b).join("-");
+ const pairOrder={"5-12":0,"8-9":1,"6-11":2,"7-10":3};
+ const fr=[...first].sort((a,b)=>(pairOrder[pairKey(a)]??9)-(pairOrder[pairKey(b)]??9));
+ const targetSeedByPair={"5-12":4,"8-9":1,"6-11":3,"7-10":2};
+ const qfActual=playoffs.filter(g=>/quarterfinal/i.test(String(g.week_label||g.event_name||"")));
+ const sfActual=playoffs.filter(g=>/semifinal/i.test(String(g.week_label||g.event_name||"")));
+ const ncActual=playoffs.filter(g=>g.game_type==="national_championship"||/national championship/i.test(String(g.week_label||g.event_name||"")));
+ const findActualWithTeam=(games,t)=>games.find(g=>[g.team_id,g.opponent_team_id].some(id=>id&&t?.team_id&&String(id)===String(t.team_id))||[g.team_name,g.opponent_team].some(n=>teamKey(n)===teamKey(t?.name)));
+ const qf=fr.map((g,i)=>{const targetSeed=targetSeedByPair[pairKey(g)]||[4,1,3,2][i],bye=cfpLatestSeedTeam(targetSeed,firstWeek),adv=cfpBracketWinner(g),actual=findActualWithTeam(qfActual,bye),meta=cfpBracketMeta(g);let teams=actual?cfpGamePair(actual):[bye||cfpVirtualTeam(`#${targetSeed} seed`,targetSeed),adv||cfpVirtualTeam(`Winner ${pairKey(g).split('-').map(x=>'#'+x).join(' / ')}`)];if(actual&&adv){const open=teams.findIndex(t=>!t?.team_id||t?.tbd||teamKey(t?.name)==="tbd");if(open>=0)teams[open]=adv}return {slot:`QF${i+1}`,seed:targetSeed,bye,adv,game:actual,meta,sourceGame:g,teams}});
+ const qfWinner=q=>q.game?cfpBracketWinner(q.game):null;
+ const semiDefs=[[qf[0],qf[1]],[qf[2],qf[3]]];
+ const semis=semiDefs.map((pair,i)=>{const a=qfWinner(pair[0]),b=qfWinner(pair[1]);let actual=null;if(sfActual.length){actual=sfActual.find(g=>[a,b].filter(Boolean).some(t=>[g.team_id,g.opponent_team_id].some(id=>id&&t.team_id&&String(id)===String(t.team_id))))||sfActual[i]||null}return {slot:`SF${i+1}`,game:actual,teams:actual?cfpGamePair(actual):[a||cfpVirtualTeam(`Winner ${pair[0].slot}`),b||cfpVirtualTeam(`Winner ${pair[1].slot}`)]}});
+ const semiWinner=s=>s.game?cfpBracketWinner(s.game):null;
+ const champGame=ncActual[0]||null;
+ const champTeams=champGame?cfpGamePair(champGame):[semiWinner(semis[0])||cfpVirtualTeam("Winner SF1"),semiWinner(semis[1])||cfpVirtualTeam("Winner SF2")];
+ const controlled=fr.flatMap(cfpGamePair).find(t=>t.person_id);
+ const controlledGame=controlled?fr.find(g=>cfpGamePair(g).some(t=>String(t.person_id||'')===String(controlled.person_id))):null;
+ const cPair=controlledGame?pairKey(controlledGame):null,cTarget=cPair?targetSeedByPair[cPair]:null,cBye=cTarget?cfpLatestSeedTeam(cTarget,firstWeek):null,cMeta=controlledGame?cfpBracketMeta(controlledGame):{};
+ meta.innerHTML=`<strong>${esc(S?.year||"")} CFP</strong> · 12-team field · ${playoffs.filter(g=>g.status==="completed").length} playoff final${playoffs.filter(g=>g.status==="completed").length===1?"":"s"}`;
+ path.innerHTML=controlled?`<b>FOUNDRY PATH</b> · #${esc(controlled.seed||"")} ${esc(controlled.name)} → ${cMeta.quarterfinal_bowl?`${esc(cMeta.quarterfinal_bowl)} vs `:""}${cBye?`#${esc(cBye.seed)} ${esc(cBye.name)}`:"Quarterfinal"} → Semifinal → Miami`:`<b>BRACKET LIVE</b> · Winners advance automatically as playoff results are entered.`;
+ const round=(title,cards)=>`<section class="cfp-round"><div class="cfp-round-head">${esc(title)}</div><div class="cfp-round-stack">${cards.join("")}</div></section>`;
+ const frCards=fr.map((g,i)=>{const gm=cfpBracketMeta(g),dt=cfpBracketDate(gm.scheduled_date);return cfpBracketGameCard(`FR${i+1}`,`First Round${dt?` · ${dt}`:""} · ${pairKey(g).split('-').map(x=>'#'+x).join(' vs ')}`,cfpGamePair(g),g)});
+ const qfCards=qf.map(q=>{const bowl=q.meta?.quarterfinal_bowl||"Quarterfinal",dt=cfpBracketDate(q.meta?.quarterfinal_date);return cfpBracketGameCard(q.slot,`${bowl}${dt?` · ${dt}`:""} · #${q.seed} bye`,q.teams,q.game)});
+ const sfCards=semis.map(s=>cfpBracketGameCard(s.slot,"CFP Semifinal",s.teams,s.game));
+ const ncCards=[cfpBracketGameCard("NC","National Championship",champTeams,champGame)+`<div class="cfp-destination"><span>Championship Site</span><b>Miami · Hard Rock Stadium</b></div>`];
+ board.innerHTML=round("First Round",frCards)+round("Quarterfinal",qfCards)+round("Semifinal",sfCards)+round("National Championship",ncCards);
+}
+
 function renderSchedule(){
  const scheduleSource=(Array.isArray(state.scheduleGames)&&state.scheduleGames.length)?state.scheduleGames:(state.games||[]);
  const allSeasonGames=scheduleSource.filter(g=>Number.isFinite(Number(g.week_number)));
- const isDynastyScheduleGame=g=>!!(g&&(g.person_id||g.opponent_person_id||g.coach_name||g.opponent_coach_name||g.season_program_id||g.opponent_season_program_id));
+ const isDynastyScheduleGame=g=>!!(g&&(g.person_id||g.opponent_person_id));
  const conferencesForGame=g=>[g?.team_conference,g?.opponent_conference].filter(Boolean).map(x=>String(x).trim());
  const conferenceNames=[...new Set(allSeasonGames.flatMap(conferencesForGame))].sort((a,b)=>a.localeCompare(b));
  if(scheduleConference!=="__all__"&&!conferenceNames.some(c=>c.toLowerCase()===String(scheduleConference).toLowerCase())) scheduleConference="__all__";
@@ -6554,12 +6712,14 @@ function renderSchedule(){
    [g.person_id,g.opponent_person_id].some(id=>id&&String(id)===String(scheduleTeamPersonId))
  ):allSeasonGames;
  const visibleGames=teamFilteredGames.filter(matchesConference);
+ renderCfpBracket(allSeasonGames);
  $("scheduleSeasonLabel").textContent=S.season_number;
 
 
  const gameWeekMap=new Map(allSeasonGames.map(g=>[Number(g.week_number||0),g.week_label||`Week ${g.week_number}`]));
+ const postseasonWeekLabel=n=>n===15?"Conference Championships":n===16?"Bowl Week 1":n===17?"Bowl Week 2":null;
  const maxStoredWeek=Math.max(13,...[...gameWeekMap.keys()].filter(n=>Number.isFinite(n)));
- const weeks=Array.from({length:maxStoredWeek+1},(_,i)=>({n:i,label:gameWeekMap.get(i)||`Week ${i}`}));
+ const weeks=Array.from({length:maxStoredWeek+1},(_,i)=>({n:i,label:postseasonWeekLabel(i)||gameWeekMap.get(i)||`Week ${i}`}));
  if(selectedWeek===null||selectedWeek<0||selectedWeek>maxStoredWeek) selectedWeek=Math.max(0,Math.min(maxStoredWeek,currentWeek()??0));
 
  $("weekNav").innerHTML=weeks.map(w=>`<button class="week-btn ${w.n===selectedWeek?"active":""}" data-week="${w.n}">${esc(w.label)}</button>`).join("");
@@ -6602,12 +6762,36 @@ function renderSchedule(){
    return "Non-Conference";
  };
 
+ const controlledPerspectiveForGame=g=>{
+   const done=g?.status==="completed";
+   if(!done||g?.points_for==null||g?.points_against==null)return null;
+   // Only an actual person assignment creates a user-controlled perspective.
+   // CPU-v-CPU games stay neutral regardless of result_method, program rows, or home/away order.
+   const homeControlled=!!g.person_id;
+   const awayControlled=!!g.opponent_person_id;
+   if(!homeControlled&&!awayControlled)return null;
+   const mine=myProgramForSeason();
+   const isMine=personId=>!!mine&&personId&&String(personId)===String(mine.person_id);
+   let useAway=false;
+   if(homeControlled&&awayControlled){
+     const homeMine=isMine(g.person_id),awayMine=isMine(g.opponent_person_id);
+     if(!homeMine&&!awayMine)return null;
+     useAway=awayMine&&!homeMine;
+   }else if(awayControlled){
+     useAway=true;
+   }
+   const pf=Number(useAway?g.points_against:g.points_for),pa=Number(useAway?g.points_for:g.points_against);
+   if(!Number.isFinite(pf)||!Number.isFinite(pa)||pf===pa)return null;
+   return {result:pf>pa?"W":"L",pointsFor:pf,pointsAgainst:pa};
+ };
+
  const gameCard=g=>{
    const done=g.status==="completed";
    const displayRank=scheduleDisplayRanks(g);
-   const resultClass=g.result==="W"?"pos":g.result==="L"?"neg":"";
-   const resultLabel=done?`${esc(g.result||"FINAL")} ${g.points_for??""}-${g.points_against??""}`:"UPCOMING";
    const dynastyGame=isDynastyScheduleGame(g);
+   const controlledPerspective=controlledPerspectiveForGame(g);
+   const resultClass=controlledPerspective?.result==="W"?"schedule-user-win":controlledPerspective?.result==="L"?"schedule-user-loss":done?"schedule-neutral-final":"";
+   const resultLabel=done?(controlledPerspective?`${controlledPerspective.result} ${controlledPerspective.pointsFor}-${controlledPerspective.pointsAgainst}`:`FINAL ${g.points_for??""}-${g.points_against??""}`):"UPCOMING";
    const hasVegas=!!vegasForGame(g.id);
    const contextLabel=conferenceLabelForGame(g);
    return `<article class="v21-matchup-card ${g.id===featured?.id?"featured":""} ${done?"final":"upcoming"} " data-game-card="${g.id}">
@@ -6674,7 +6858,7 @@ function renderSchedule(){
              <span>${displayRank.team?`#${displayRank.team} `:""}${esc(g.team_name)} ${g.home_away==="away"?"@":"vs"} ${displayRank.opponent?`#${displayRank.opponent} `:""}${esc(g.opponent_team||"TBD")} <em class="conf-game-badge ${g.is_conference_game===true?"conf":"nonconf"}">${esc(gameClassification(g))}</em></span>
              ${logoFor(g.opponent_team_id,g.opponent_team)?`<img class="v23-archive-logo" src="${esc(logoFor(g.opponent_team_id,g.opponent_team))}" alt="">`:`<span class="v23-archive-logo-placeholder" data-team-logo-name="${esc(g.opponent_team||"")}"></span>`}
            </span>
-          <span class="v21-archive-result ${g.result==="W"?"pos":g.result==="L"?"neg":""}">${g.status==="completed"?`${esc(g.result||"")} ${g.points_for??""}-${g.points_against??""}`:"UPCOMING"}</span>
+          ${(()=>{const p=controlledPerspectiveForGame(g);const cls=p?.result==="W"?"pos":p?.result==="L"?"neg":"";const label=g.status==="completed"?(p?`${p.result} ${p.pointsFor}-${p.pointsAgainst}`:`FINAL ${g.points_for??""}-${g.points_against??""}`):"UPCOMING";return `<span class="v21-archive-result ${cls}">${label}</span>`})()}
           <span class="v21-archive-broadcast">${liveStreamLinkMarkup(g,true)}</span>
         </div>`}).join("")}
        ${b.map(g=>`<div class="v21-archive-game bye"><span class="v21-archive-coach">${esc(g.coach_name||"—")}</span><span class="v21-archive-match">${esc(g.team_name||"Program")} · BYE</span><span class="v21-muted">BYE</span><span></span></div>`).join("")}
@@ -7101,6 +7285,67 @@ function renderCoachMediaAdmin(){
  const chosen=coaches.find(c=>String(c.person_id)===String(sel.value));
  if(chosen){$("streamPlatform").value=["YouTube","Twitch","Other"].includes(chosen.stream_platform)?chosen.stream_platform:"Other";$("streamUrl").value=chosen.stream_url||""}
 }
+
+function nationalNormalizeName(v){return String(v||"").toLowerCase().replace(/&/g," and ").replace(/\bstate\b/g,"st").replace(/\bsaint\b/g,"st").replace(/\buniversity\b/g," ").replace(/[^a-z0-9]+/g," ").trim().replace(/\s+/g," ")}
+function nationalWeekRows(week){return (state.scheduleGames||state.games||[]).filter(g=>Number(g.week_number)===Number(week))}
+function nationalIsControlled(g){return !!(g?.person_id||g?.opponent_person_id)}
+function nationalIsResolved(g){return !!g?.is_bye||["completed","cancelled"].includes(String(g?.status||""))}
+function nationalWeekStats(week){
+ const rows=nationalWeekRows(week),games=rows.filter(g=>!g.is_bye),controlled=games.filter(nationalIsControlled),cpu=games.filter(g=>!nationalIsControlled(g));
+ const resolved=games.filter(nationalIsResolved).length,cpuDone=cpu.filter(nationalIsResolved).length,userDone=controlled.filter(nationalIsResolved).length;
+ return {rows,games,controlled,cpu,resolved,total:games.length,pending:games.length-resolved,cpuDone,cpuPending:cpu.length-cpuDone,userDone,userPending:controlled.length-userDone,byes:rows.filter(g=>g.is_bye).length};
+}
+function nationalAvailableWeeks(){
+ const active=currentWeek(),weeks=[...new Set((state.scheduleGames||state.games||[]).map(g=>Number(g.week_number)).filter(w=>Number.isInteger(w)&&w>=0&&w<active))].sort((a,b)=>a-b);
+ return weeks;
+}
+function nationalConferenceSummary(rows){
+ const map=new Map();for(const g of rows.filter(x=>!x.is_bye)){const conf=String(g.team_conference||"Independent").trim()||"Independent";const x=map.get(conf)||{total:0,done:0};x.total++;if(nationalIsResolved(g))x.done++;map.set(conf,x)}return [...map.entries()].sort((a,b)=>a[0].localeCompare(b[0]));
+}
+function nationalAliasVariants(name){const n=nationalNormalizeName(name),out=new Set([n]);out.add(n.replace(/\bst\b/g,"state"));out.add(n.replace(/\bstate\b/g,"st"));return [...out].filter(Boolean)}
+function nationalPairRegex(nameA,nameB){
+ const escRx=x=>x.replace(/[.*+?^${}()|[\]\\]/g,"\\$&").replace(/\\ /g,"\\s+");
+ const variants=[];for(const a of nationalAliasVariants(nameA))for(const b of nationalAliasVariants(nameB)){variants.push(new RegExp(`^${escRx(a)}\\s+(\\d{1,3})\\s+${escRx(b)}\\s+(\\d{1,3})$`,`i`))}return variants;
+}
+function nationalParseLine(line,week){
+ const raw=String(line||"").trim();if(!raw)return null;const norm=nationalNormalizeName(raw.replace(/[|,]/g," "));const rows=nationalWeekRows(week).filter(g=>!g.is_bye);
+ for(const g of rows){
+   for(const rx of nationalPairRegex(g.team_name,g.opponent_team)){const m=norm.match(rx);if(m)return {game:g,homeScore:Number(m[1]),awayScore:Number(m[2])}}
+   for(const rx of nationalPairRegex(g.opponent_team,g.team_name)){const m=norm.match(rx);if(m)return {game:g,homeScore:Number(m[2]),awayScore:Number(m[1])}}
+ }
+ return null;
+}
+function renderNationalResults(){
+ const sel=$("nationalResultsWeek"),strip=$("nationalStatusStrip"),progress=$("nationalProgress"),conf=$("nationalConferenceStatus"),grid=$("nationalRapidGrid"),phase=$("nationalPhaseMessage"),finalBtn=$("finalizeNationalWeekBtn"),hint=$("nationalFinalizeHint");if(!sel||!strip||!progress||!conf||!grid)return;
+ const active=currentWeek(),finalized=Number.isInteger(Number(state.nationalFinalizedWeek))?Number(state.nationalFinalizedWeek):-1,weeks=nationalAvailableWeeks();
+ const preferred=nationalSelectedWeek!=null?Number(nationalSelectedWeek):Math.max(0,active-1);const target=weeks.includes(preferred)?preferred:(weeks.includes(active-1)?active-1:(weeks.at(-1)??0));nationalSelectedWeek=target;
+ sel.innerHTML=weeks.map(w=>`<option value="${w}" ${w===target?"selected":""}>Week ${w}${w<=finalized?" · Finalized":""}</option>`).join("")||'<option value="0">No prior weeks</option>';
+ const st=nationalWeekStats(target),pct=st.total?Math.round(st.resolved/st.total*100):0,advanced=active>target,userReady=st.userPending===0,finalReady=advanced&&st.pending===0&&target>=finalized;
+ strip.innerHTML=`<div class="national-status-chip"><span>Playing</span><b>Week ${active}</b></div><div class="national-status-chip ${finalized>=0?"good":"warn"}"><span>National Final</span><b>${finalized>=0?`Week ${finalized}`:"None"}</b></div><div class="national-status-chip ${st.pending?"warn":"good"}"><span>Week ${target} Slate</span><b>${st.resolved}/${st.total}</b></div>`;
+ let phaseText;if(!advanced)phaseText=userReady?`✓ User slate complete. Advance the dynasty to Week ${target+1} so the CPU slate can simulate.`:`${st.userDone}/${st.controlled.length} player-controlled games complete. CPU results should remain pending until the dynasty advances.`;else if(st.cpuPending)phaseText=`Foundry is staged on Week ${active}. After you advance the in-game dynasty, reconcile ${st.cpuPending} simulated CPU results here.`;else if(st.pending)phaseText=`CPU slate is reconciled; ${st.userPending} player-controlled result${st.userPending===1?"":"s"} remain unresolved.`;else phaseText=`✓ Week ${target} is fully resolved and ready for national finalization.`;phase.innerHTML=phaseText;
+ progress.innerHTML=`<div class="national-progress-head"><span><strong>${st.resolved}/${st.total}</strong> games resolved · ${st.cpuDone}/${st.cpu.length} CPU · ${st.userDone}/${st.controlled.length} user</span><span>${pct}%</span></div><div class="national-progress-track"><div class="national-progress-fill" style="width:${pct}%"></div></div>`;
+ conf.innerHTML=nationalConferenceSummary(st.rows).map(([c,x])=>`<div class="national-conf-chip ${x.done===x.total?"done":"pending"}"><span>${esc(c)}</span><b>${x.done}/${x.total}</b></div>`).join("");
+ const pendingCpu=st.cpu.filter(g=>!nationalIsResolved(g));grid.innerHTML=pendingCpu.map(g=>{const d=nationalDraft.get(String(g.id))||{};return `<div class="national-result-row" data-national-game="${esc(g.id)}"><div class="national-result-team away">${esc(g.opponent_team||"Away")}</div><input class="national-score-input" data-national-away="${esc(g.id)}" type="number" min="0" inputmode="numeric" value="${d.awayScore??""}" placeholder="—"><span class="national-result-vs">@</span><div class="national-result-team">${esc(g.team_name||"Home")}</div><input class="national-score-input" data-national-home="${esc(g.id)}" type="number" min="0" inputmode="numeric" value="${d.homeScore??""}" placeholder="—"></div>`}).join("")||`<div class="national-locked"><strong>${st.cpu.length?"CPU slate complete.":"No CPU games in this week."}</strong>${st.pending?" Remaining unresolved games belong to Dynasty coaches.":" Nothing left to enter."}</div>`;
+ const alreadyFinal=target<=finalized;finalBtn.disabled=alreadyFinal||!finalReady;finalBtn.textContent=alreadyFinal?`Week ${target} Finalized`:`Finalize Week ${target}`;hint.textContent=alreadyFinal?`National results are finalized through Week ${finalized}.`:(finalReady?`All Week ${target} games are resolved and the dynasty is already on Week ${active}.`:`Finalize unlocks after the dynasty advances beyond Week ${target} and every scheduled game is resolved.`);
+ $("saveNationalResultsBtn").disabled=!advanced||pendingCpu.length===0;$("parseNationalResultsBtn").disabled=!advanced||pendingCpu.length===0;
+}
+function parseNationalBulk(){
+ const week=Number(nationalSelectedWeek),lines=String($("nationalBulkPaste")?.value||"").split(/\n+/).map(x=>x.trim()).filter(Boolean),meta={matched:0,unmatched:[],locked:[]};
+ for(const line of lines){const parsed=nationalParseLine(line,week);if(!parsed){meta.unmatched.push(line);continue}const g=parsed.game;if(nationalIsControlled(g)||nationalIsResolved(g)){meta.locked.push(line);continue}nationalDraft.set(String(g.id),{homeScore:parsed.homeScore,awayScore:parsed.awayScore,overtime:false});meta.matched++}
+ nationalParseMeta=meta;renderNationalResults();const details=[`${meta.matched} matched`];if(meta.locked.length)details.push(`${meta.locked.length} already entered/locked`);if(meta.unmatched.length)details.push(`${meta.unmatched.length} need review`);msg($("nationalResultsMessage"),details.join(" · "),meta.unmatched.length?"error":"success");
+}
+async function saveNationalResults(){
+ const week=Number(nationalSelectedWeek),rows=nationalWeekStats(week).cpu.filter(g=>!nationalIsResolved(g)),results=[];for(const g of rows){const d=nationalDraft.get(String(g.id));if(!d||d.homeScore==null||d.awayScore==null)continue;const hs=Number(d.homeScore),as=Number(d.awayScore);if(!Number.isInteger(hs)||!Number.isInteger(as)||hs<0||as<0)continue;if(hs===as)return msg($("nationalResultsMessage"),`${g.opponent_team} at ${g.team_name} cannot be saved as a tie.`,"error");results.push({game_id:g.id,home_score:hs,away_score:as,overtime:!!d.overtime})}
+ if(!results.length)return msg($("nationalResultsMessage"),"Enter or parse at least one complete CPU score first.","error");const btn=$("saveNationalResultsBtn");try{btn.disabled=true;msg($("nationalResultsMessage"),`Saving ${results.length} national result${results.length===1?"":"s"}…`);await Data.submitNationalResults(D.dynasty_id,S.season_id,week,results);nationalDraft.clear();await loadSeason(S.season_id);msg($("nationalResultsMessage"),`${results.length} national result${results.length===1?"":"s"} saved to Week ${week}.`,"success")}catch(e){msg($("nationalResultsMessage"),e.message||String(e),"error")}finally{btn.disabled=false}
+}
+async function finalizeNationalWeek(){const week=Number(nationalSelectedWeek);if(!confirm(`Finalize Week ${week} national results? This marks the national slate complete while keeping the playing week independent.`))return;const btn=$("finalizeNationalWeekBtn");try{btn.disabled=true;const saved=await Data.finalizeNationalWeek(D.dynasty_id,S.season_id,week);state.nationalFinalizedWeek=Number(saved);msg($("nationalResultsMessage"),`Week ${week} national results finalized. Playing week remains Week ${currentWeek()}.`,"success");renderNationalResults()}catch(e){msg($("nationalResultsMessage"),e.message||String(e),"error")}finally{renderNationalResults()}}
+$("nationalResultsWeek")?.addEventListener("change",e=>{nationalSelectedWeek=Number(e.target.value);nationalDraft.clear();nationalParseMeta={matched:0,unmatched:[],locked:[]};hide($("nationalResultsMessage"));renderNationalResults()});
+$("parseNationalResultsBtn")?.addEventListener("click",parseNationalBulk);
+$("clearNationalDraftBtn")?.addEventListener("click",()=>{nationalDraft.clear();nationalParseMeta={matched:0,unmatched:[],locked:[]};if($("nationalBulkPaste"))$("nationalBulkPaste").value="";hide($("nationalResultsMessage"));renderNationalResults()});
+$("saveNationalResultsBtn")?.addEventListener("click",saveNationalResults);
+$("finalizeNationalWeekBtn")?.addEventListener("click",finalizeNationalWeek);
+$("nationalRapidGrid")?.addEventListener("input",e=>{const home=e.target.closest("[data-national-home]"),away=e.target.closest("[data-national-away]");const el=home||away;if(!el)return;const id=home?.dataset.nationalHome||away?.dataset.nationalAway,d=nationalDraft.get(String(id))||{};if(home)d.homeScore=home.value===""?null:Number(home.value);if(away)d.awayScore=away.value===""?null:Number(away.value);nationalDraft.set(String(id),d)});
+
 async function renderCommissioner(){
  const adminNav=$("adminNav");
  adminNav.classList.toggle("hidden",!isCommissioner());
@@ -7108,6 +7353,7 @@ async function renderCommissioner(){
  try{
    teamChoices=await Data.teamSelection(S.season_id);
    $("activeWeekInput").value=currentWeek(); if($("rankingsWeek"))$("rankingsWeek").value=currentWeek();
+   renderNationalResults();
    $("adminClaims").innerHTML=teamChoices.filter(t=>t.claimed).map(t=>`<div class="form-row retire-row"><div><b>${esc(t.claimed_by||"Coach")}</b><div style="font-size:12px;color:#657d86">${esc(t.team_name)}${t.conference?` · ${esc(t.conference)}`:""}</div></div><div class="claim-actions"><button class="release-team retire-team-btn" data-release-team="${t.team_id}" data-release-name="${esc(t.team_name)}" data-release-coach="${esc(t.claimed_by||"this coach")}">Retire Coach</button></div></div>`).join("")||'<div class="empty">No active coaches to retire.</div>';
    const seasonStarted=(state.games||[]).some(g=>g.status==="completed"&&!g.is_bye);
    const coachSel=$("careerMoveCoach"),teamSel=$("careerMoveTeam"),moveBtn=$("careerMoveBtn");
@@ -7348,18 +7594,19 @@ async function loadSeason(id){
   S=seasons.find(x=>x.season_id===id)||seasons.find(x=>x.is_active)||seasons[0];
   $("seasonSelect").value=S.season_id;
   const activeSeason=!!(S?.is_active||String(S?.status||"").toLowerCase()==="active");
-  const [programs,standings,games,scheduleGames,rankings,vegas,activeWeek]=await Promise.all([
+  const [programs,standings,games,scheduleGames,rankings,vegas,activeWeek,nationalFinalizedWeek]=await Promise.all([
     Data.programs(D.dynasty_id,S.season_id),
     Data.standings(D.dynasty_id,S.season_id),
     Data.games(D.dynasty_id,S.season_id),
     Data.scheduleGames(D.dynasty_id,S.season_id),
     Data.rankings(D.dynasty_id,S.season_id),
     Data.vegas(D.dynasty_id,S.season_id),
-    activeSeason?Data.activeWeek(D.dynasty_id):Promise.resolve(state.activeWeek)
+    activeSeason?Data.activeWeek(D.dynasty_id):Promise.resolve(state.activeWeek),
+    activeSeason?Data.nationalFinalizedWeek(D.dynasty_id,S.season_id):Promise.resolve(null)
   ]);
-  const normalizedWeek=Number(activeWeek);
+  const normalizedWeek=Number(activeWeek),normalizedNationalFinal=Number(nationalFinalizedWeek);
   const cleanVegas=Array.isArray(vegas)?vegas:[];
-  state={...state,programs,standings,games,scheduleGames,rankings,vegas:cleanVegas,gotwGames:[],activeWeek:activeSeason&&Number.isInteger(normalizedWeek)?normalizedWeek:state.activeWeek};
+  state={...state,programs,standings,games,scheduleGames,rankings,vegas:cleanVegas,gotwGames:[],activeWeek:activeSeason&&Number.isInteger(normalizedWeek)?normalizedWeek:state.activeWeek,nationalFinalizedWeek:activeSeason&&Number.isInteger(normalizedNationalFinal)?normalizedNationalFinal:null};
   vegasCache.set(vegasKey(D.dynasty_id,S.season_id),cleanVegas);
   renderAll();
   decorateGameCardsWithVegas(cleanVegas);
@@ -7572,7 +7819,7 @@ $("newSeasonBtn").onclick=async()=>{
 };
 $("setWeekBtn").onclick=async()=>{
  const btn=$("setWeekBtn"),w=Number($("activeWeekInput").value);if(!Number.isInteger(w)||w<0){msg($("weekAdminMessage"),"Enter a valid week.","error");return}
- try{btn.disabled=true;const saved=await Data.setActiveWeek(D.dynasty_id,w);state.activeWeek=Number.isInteger(Number(saved))?Number(saved):w;selectedWeek=state.activeWeek;msg($("weekAdminMessage"),`Active week set to ${state.activeWeek}.`,"success");renderAll()}catch(e){msg($("weekAdminMessage"),e.message,"error")}finally{btn.disabled=false}
+ try{btn.disabled=true;const saved=await Data.setActiveWeek(D.dynasty_id,w);state.activeWeek=Number.isInteger(Number(saved))?Number(saved):w;state.nationalFinalizedWeek=Number(await Data.nationalFinalizedWeek(D.dynasty_id,S.season_id));selectedWeek=state.activeWeek;nationalSelectedWeek=Math.max(0,state.activeWeek-1);const stage=state.activeWeek===15?" · Conference Championships":state.activeWeek===16?" · Bowl Week 1 / CFP First Round":state.activeWeek===17?" · Bowl Week 2 / CFP Quarterfinals":"";msg($("weekAdminMessage"),`Playing week set to ${state.activeWeek}${stage}. National finalization remains independent.`,"success");renderAll()}catch(e){msg($("weekAdminMessage"),e.message,"error")}finally{btn.disabled=false}
 };
 function rankingTeamLookup(name){const k=teamKey(name);return (teamChoices||[]).find(t=>teamKey(t.team_name)===k)||null}
 function parseRankingsPaste(text){return String(text||'').split(/\n+/).map(x=>x.trim()).filter(Boolean).map(line=>{const parts=line.split(/\s*\|\s*/);if(parts.length<2)throw Error(`Use rank | team | record format: ${line}`);const rank=Number(parts[0]),name=parts[1].trim(),m=String(parts[2]||'').match(/(\d+)\s*-\s*(\d+)/),team=rankingTeamLookup(name);if(!Number.isInteger(rank)||rank<1||rank>25)throw Error(`Invalid rank: ${line}`);if(!team)throw Error(`Team not found: ${name}`);return {rank,team_id:team.team_id,wins:m?Number(m[1]):null,losses:m?Number(m[2]):null,name:team.team_name}})}
@@ -9583,6 +9830,15 @@ button:focus-visible,a:focus-visible,select:focus-visible,input:focus-visible,te
     if(unknown.length)html+=boardMarkup('Sun Belt · Unassigned',unknown,{divisionMode:true,subtitle:'DIVISION DATA CHECK'});
     return {html,east,west};
   }
+  function renderStandardConference(teams,conf,showProjection){
+    const rows=teams.filter(t=>t.conf===conf).sort(sortRows);
+    let html=boardMarkup(conf,rows);
+    if(showProjection&&rows[0]&&rows[1]){
+      const first=rows[0],second=rows[1],fl=logo(first.id,first.name),sl=logo(second.id,second.name);
+      html=`<article class="conf-board" style="grid-column:1/-1"><div class="conf-board-head"><div><span>PROJECTED CHAMPIONSHIP MATCHUP</span><h3>${esc(conf)} Championship</h3></div><b>1 vs 2</b></div><div style="display:grid;grid-template-columns:1fr auto 1fr;gap:16px;align-items:center;padding:18px;text-align:center"><div>${fl?`<img src="${esc(fl)}" alt="" style="width:42px;height:42px;object-fit:contain">`:''}<strong style="display:block;color:#fff;margin-top:6px">${esc(first.name)}</strong><small style="color:#71858f">1st place · ${first.cw}-${first.cl}</small></div><b style="color:#f4c542;font-family:Teko,Impact,sans-serif;font-size:26px">VS</b><div>${sl?`<img src="${esc(sl)}" alt="" style="width:42px;height:42px;object-fit:contain">`:''}<strong style="display:block;color:#fff;margin-top:6px">${esc(second.name)}</strong><small style="color:#71858f">2nd place · ${second.cw}-${second.cl}</small></div></div></article>`+html;
+    }
+    return {html,rows};
+  }
   function render(){
     const root=document.getElementById('confRaceBoards');if(!root)return;
     const st=getState(),games=st.games||[];
@@ -9600,7 +9856,8 @@ button:focus-visible,a:focus-visible,select:focus-visible,input:focus-visible,te
         const leaders=new Set([sb.east[0]?.key,sb.west[0]?.key].filter(Boolean));
         championshipPosition+=activeTeams.filter(t=>t.dynasty&&t.conf===conf&&leaders.has(t.key)).length;
       }else{
-        const rows=teams.filter(t=>t.conf===conf).sort(sortRows);boards+=boardMarkup(conf,rows);
+        const standard=renderStandardConference(teams,conf,dconfs.has(conf));
+        const rows=standard.rows;boards+=standard.html;
         championshipPosition+=activeTeams.filter(t=>t.dynasty&&t.conf===conf&&rows.indexOf(t)<2).length;
       }
     }
@@ -9617,6 +9874,7 @@ button:focus-visible,a:focus-visible,select:focus-visible,input:focus-visible,te
   window.addEventListener('pageshow',()=>setTimeout(render,0));
 })();
 </script>
+<meta name="cdhq-release" content="9.6.8-projected-championship-restore">
 <meta name="cdhq-release" content="8.1-conference-race-icon">
 <meta name="cdhq-release" content="8.2-conference-race-external-asset">
 
@@ -10227,8 +10485,9 @@ body.dynasty-chooser-active #siteHeader .canonical-header-row>div:first-child>.m
 })();
 </script>
 <meta name="saturday-foundry-release" content="9.5.3-navigation-top25-gotw">
-<!-- Saturday Foundry 9.6.12 — Historical Trophy Hydration -->
-<meta name="saturday-foundry-release" content="9.6.12-historical-trophy-hydration">
+<!-- Saturday Foundry 9.6.13 — Postseason + Trophy Reconciliation -->
+<!-- 9.6.13 reconciliation: combines postseason schedule/CFP/national-result tooling with coach-centric Trophy Room bowl ledgers and historical hydration. -->
+<meta name="saturday-foundry-release" content="9.6.13-postseason-trophy-reconciliation">
 </body>
 </html>
 
