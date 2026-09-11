@@ -6700,7 +6700,7 @@ function renderCfpBracket(allSeasonGames){
 function renderSchedule(){
  const scheduleSource=(Array.isArray(state.scheduleGames)&&state.scheduleGames.length)?state.scheduleGames:(state.games||[]);
  const allSeasonGames=scheduleSource.filter(g=>Number.isFinite(Number(g.week_number)));
- const isDynastyScheduleGame=g=>!!(g&&(g.person_id||g.opponent_person_id));
+ const isDynastyScheduleGame=g=>!!(g&&(dynastyProgramForTeam(g,"team")?.person_id||dynastyProgramForTeam(g,"opponent")?.person_id));
  const conferencesForGame=g=>[g?.team_conference,g?.opponent_conference].filter(Boolean).map(x=>String(x).trim());
  const conferenceNames=[...new Set(allSeasonGames.flatMap(conferencesForGame))].sort((a,b)=>a.localeCompare(b));
  if(scheduleConference!=="__all__"&&!conferenceNames.some(c=>c.toLowerCase()===String(scheduleConference).toLowerCase())) scheduleConference="__all__";
@@ -6765,24 +6765,45 @@ function renderSchedule(){
  const controlledPerspectiveForGame=g=>{
    const done=g?.status==="completed";
    if(!done||g?.points_for==null||g?.points_against==null)return null;
-   // Only an actual person assignment creates a user-controlled perspective.
-   // CPU-v-CPU games stay neutral regardless of result_method, program rows, or home/away order.
-   const homeControlled=!!g.person_id;
-   const awayControlled=!!g.opponent_person_id;
-   if(!homeControlled&&!awayControlled)return null;
+
+   // Determine control from the actual season program attached to each displayed team.
+   // Do NOT trust row-level person_id orientation: normalized/imported rows can carry the
+   // controlled coach on a row whose team_name is the CPU opponent (e.g. BYU vs Kennesaw).
+   const teamProgram=dynastyProgramForTeam(g,"team");
+   const oppProgram=dynastyProgramForTeam(g,"opponent");
+   const teamControlled=!!teamProgram?.person_id;
+   const oppControlled=!!oppProgram?.person_id;
+
+   // CPU-v-CPU is always neutral: score only, no W/L perspective or directional color.
+   if(!teamControlled&&!oppControlled)return null;
+
    const mine=myProgramForSeason();
-   const isMine=personId=>!!mine&&personId&&String(personId)===String(mine.person_id);
-   let useAway=false;
-   if(homeControlled&&awayControlled){
-     const homeMine=isMine(g.person_id),awayMine=isMine(g.opponent_person_id);
-     if(!homeMine&&!awayMine)return null;
-     useAway=awayMine&&!homeMine;
-   }else if(awayControlled){
-     useAway=true;
+   const isMineProgram=p=>!!mine&&!!p&&(
+     (p.person_id&&String(p.person_id)===String(mine.person_id))||
+     (p.season_program_id&&String(p.season_program_id)===String(mine.season_program_id))||
+     (p.team_id&&String(p.team_id)===String(mine.team_id))
+   );
+
+   let useOpponent=false;
+   if(teamControlled&&oppControlled){
+     // User-v-user: if the logged-in coach is playing, show the result from their side.
+     const teamMine=isMineProgram(teamProgram),oppMine=isMineProgram(oppProgram);
+     if(teamMine!==oppMine)useOpponent=oppMine;
+     else {
+       // Neutral viewer fallback: preserve the authoritative coach row when it can be
+       // matched to an actual controlled program; otherwise use the displayed team side.
+       const rowPerson=String(g.person_id||"");
+       if(rowPerson&&String(oppProgram.person_id||"")===rowPerson&&String(teamProgram.person_id||"")!==rowPerson)useOpponent=true;
+     }
+   }else if(oppControlled){
+     // User-v-CPU with the controlled program shown as the opponent.
+     useOpponent=true;
    }
-   const pf=Number(useAway?g.points_against:g.points_for),pa=Number(useAway?g.points_for:g.points_against);
+
+   const pf=Number(useOpponent?g.points_against:g.points_for);
+   const pa=Number(useOpponent?g.points_for:g.points_against);
    if(!Number.isFinite(pf)||!Number.isFinite(pa)||pf===pa)return null;
-   return {result:pf>pa?"W":"L",pointsFor:pf,pointsAgainst:pa};
+   return {result:pf>pa?"W":"L",pointsFor:pf,pointsAgainst:pa,side:useOpponent?"opponent":"team"};
  };
 
  const gameCard=g=>{
@@ -7288,7 +7309,7 @@ function renderCoachMediaAdmin(){
 
 function nationalNormalizeName(v){return String(v||"").toLowerCase().replace(/&/g," and ").replace(/\bstate\b/g,"st").replace(/\bsaint\b/g,"st").replace(/\buniversity\b/g," ").replace(/[^a-z0-9]+/g," ").trim().replace(/\s+/g," ")}
 function nationalWeekRows(week){return (state.scheduleGames||state.games||[]).filter(g=>Number(g.week_number)===Number(week))}
-function nationalIsControlled(g){return !!(g?.person_id||g?.opponent_person_id)}
+function nationalIsControlled(g){return !!(g&&(dynastyProgramForTeam(g,"team")?.person_id||dynastyProgramForTeam(g,"opponent")?.person_id))}
 function nationalIsResolved(g){return !!g?.is_bye||["completed","cancelled"].includes(String(g?.status||""))}
 function nationalWeekStats(week){
  const rows=nationalWeekRows(week),games=rows.filter(g=>!g.is_bye),controlled=games.filter(nationalIsControlled),cpu=games.filter(g=>!nationalIsControlled(g));
@@ -10485,9 +10506,9 @@ body.dynasty-chooser-active #siteHeader .canonical-header-row>div:first-child>.m
 })();
 </script>
 <meta name="saturday-foundry-release" content="9.5.3-navigation-top25-gotw">
-<!-- Saturday Foundry 9.6.13 — Postseason + Trophy Reconciliation -->
+<!-- Saturday Foundry 9.6.14 — Schedule Result Perspective -->
 <!-- 9.6.13 reconciliation: combines postseason schedule/CFP/national-result tooling with coach-centric Trophy Room bowl ledgers and historical hydration. -->
-<meta name="saturday-foundry-release" content="9.6.13-postseason-trophy-reconciliation">
+<meta name="saturday-foundry-release" content="9.6.14-schedule-result-perspective">
 </body>
 </html>
 
