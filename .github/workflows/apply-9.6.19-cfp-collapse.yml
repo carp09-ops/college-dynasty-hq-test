@@ -1,0 +1,71 @@
+name: Apply Saturday Foundry 9.6.19 CFP completion collapse
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/apply-9.6.19-cfp-collapse.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Apply CFP completion collapse patch
+        shell: bash
+        run: |
+          set -euo pipefail
+          grep -q '9.6.18-cfp-bracket-priority' index.html
+          printf '%s' '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' | base64 -d | gunzip > /tmp/9.6.19.patch
+          echo 'c760b56feb4b4e3019f99990d39d6d9038b7d696fcc508b1f545210264135331  /tmp/9.6.19.patch' | sha256sum -c -
+          patch -p0 < /tmp/9.6.19.patch
+
+      - name: Verify regression anchors
+        shell: bash
+        run: |
+          set -euo pipefail
+          grep -q '9.6.19-cfp-completion-collapse' index.html
+          grep -q 'cfp-bracket-compact' index.html
+          grep -q 'CFP · COMPLETE' index.html || grep -q 'COLLEGE FOOTBALL PLAYOFF · COMPLETE' index.html
+          grep -q 'View CFP Bracket' index.html
+          grep -q 'Collapse CFP Bracket' index.html
+          grep -q 'function cfpAdvanceTeam(t){return t?{...t,score:null}:t}' index.html
+          grep -q 'q.game?.event_name||q.meta?.quarterfinal_bowl' index.html
+          grep -q 'window.CDHQRefresh=refreshFoundryData' index.html
+          grep -q 'CPU-v-CPU is always neutral' index.html
+          grep -q 'coach-bowl-ledger' index.html
+
+      - name: Verify JavaScript syntax
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          s=Path('index.html').read_text()
+          out=Path('/tmp/sfjs'); out.mkdir(exist_ok=True)
+          blocks=[]
+          for m in re.finditer(r'<script\b([^>]*)>(.*?)</script>',s,re.I|re.S):
+              if re.search(r'\bsrc\s*=',m.group(1),re.I): continue
+              blocks.append(m.group(2))
+          for i,b in enumerate(blocks): (out/f'{i:03}.js').write_text(b)
+          print(f'inline_scripts={len(blocks)}')
+          PY
+          for f in /tmp/sfjs/*.js; do node --check "$f" >/dev/null; done
+
+      - name: Commit build
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'Saturday Foundry Release Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add index.html
+          git diff --cached --quiet && exit 0
+          git commit -m 'Release Saturday Foundry 9.6.19 CFP completion collapse'
+          git push
