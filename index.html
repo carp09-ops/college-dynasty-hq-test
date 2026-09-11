@@ -3001,11 +3001,17 @@ body::after{
 .legacy-gold-rule{height:1px;background:linear-gradient(90deg,rgba(244,197,66,.48),rgba(244,197,66,.14));margin:20px 0 17px}
 .legacy-national-block{text-align:center;padding:4px 0 18px}.legacy-stadium-icon{font-size:41px;line-height:1.1;filter:saturate(.9);margin-bottom:7px}.legacy-national-block strong{display:block;font-family:"Barlow Condensed";font-size:40px;line-height:.9;color:#f4c542}.legacy-national-block span{display:block;margin-top:9px;font-size:8px;font-weight:950;letter-spacing:.10em;color:#919cac}
 .legacy-stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:auto}.legacy-stat-row>div{padding:12px 5px;border:1px solid rgba(244,197,66,.20);border-radius:12px;text-align:center;background:rgba(2,7,8,.66)}.legacy-stat-row b{display:block;font-family:"Barlow Condensed";font-size:26px;line-height:1;color:#f4c542}.legacy-stat-row small{display:block;margin-top:7px;font-size:7px;font-weight:900;line-height:1.35;letter-spacing:.09em;color:#9aa4b3}
-.legacy-heisman-list{margin-top:12px;padding-top:10px;border-top:1px solid rgba(244,197,66,.18);display:grid;gap:7px}.legacy-heisman-title{font-size:8px;font-weight:900;letter-spacing:.14em;color:#d9b84a;text-transform:uppercase;text-align:center}.legacy-heisman-item{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:7px 9px;border:1px solid rgba(244,197,66,.14);background:rgba(244,197,66,.035);border-radius:7px}.legacy-heisman-item strong{display:block;color:#f5f7f8;font-size:10px;line-height:1.2}.legacy-heisman-item span{display:block;color:#7f8d94;font-size:8px;margin-top:2px}.legacy-heisman-year{flex:0 0 auto;color:#f4c542!important;font-size:9px!important;font-weight:900;letter-spacing:.06em}.legacy-bowl-record{text-align:center;color:#97a1af;font-size:10px;margin-top:15px}.legacy-bowl-record b{color:#fff;font-size:11px}.legacy-decorated-note{text-align:center;margin-top:8px;font-size:6px;font-weight:850;text-transform:uppercase;letter-spacing:.1em;color:#665d3b}
+.legacy-heisman-list{margin-top:12px;padding-top:10px;border-top:1px solid rgba(244,197,66,.18);display:grid;gap:7px}.legacy-heisman-title{font-size:8px;font-weight:900;letter-spacing:.14em;color:#d9b84a;text-transform:uppercase;text-align:center}.legacy-heisman-item{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:7px 9px;border:1px solid rgba(244,197,66,.14);background:rgba(244,197,66,.035);border-radius:7px}.legacy-heisman-item strong{display:block;color:#f5f7f8;font-size:10px;line-height:1.2}.legacy-heisman-item span{display:block;color:#7f8d94;font-size:8px;margin-top:2px}.legacy-heisman-year{flex:0 0 auto;color:#f4c542!important;font-size:9px!important;font-weight:900;letter-spacing:.06em}.legacy-bowl-record{text-align:center;color:#97a1af;font-size:10px;margin-top:15px}.legacy-bowl-record b{color:#fff;font-size:11px}
+.coach-bowl-ledger{margin-top:10px}
+.coach-bowl-item{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 9px;border-top:1px solid rgba(244,197,66,.12)}
+.coach-bowl-item:first-of-type{border-top:0}
+.coach-bowl-item strong{display:block;color:#f5f7f8;font-size:10px;line-height:1.2}
+.coach-bowl-item small{display:block;color:#7f8d94;font-size:8px;margin-top:2px}
+.coach-bowl-item>span{flex:0 0 auto;font-size:9px;font-weight:900}.legacy-decorated-note{text-align:center;margin-top:8px;font-size:6px;font-weight:850;text-transform:uppercase;letter-spacing:.1em;color:#665d3b}
 .dynasty-legacy-strip{display:flex;align-items:center;gap:16px;margin-top:18px;padding:15px 18px;border:1px solid rgba(244,197,66,.26);border-radius:16px;background:linear-gradient(145deg,rgba(10,13,12,.95),rgba(5,9,10,.98))}.dynasty-legacy-star{font-size:30px;color:#f4c542}.dynasty-legacy-strip b{display:block;font-size:9px;letter-spacing:.14em;color:#f4c542}.dynasty-legacy-strip span{display:block;font-size:10px;color:#a5adba;margin-top:4px}
 @media(max-width:1120px){#trophies .legacy-trophy-grid{grid-template-columns:repeat(2,minmax(0,1fr))}#trophies .legacy-trophy-hero{align-items:flex-start;flex-direction:column}.legacy-trophy-summary{min-width:100%!important;width:100%}}
 @media(max-width:650px){#trophies .legacy-trophy-grid{grid-template-columns:1fr}.legacy-trophy-copy h2{font-size:39px!important}#trophies .legacy-trophy-hero{padding:20px}.legacy-trophy-summary{grid-template-columns:repeat(3,1fr)!important;gap:7px!important}.legacy-summary-icon{font-size:18px}.legacy-summary-card b{font-size:26px!important}.legacy-program-card{min-height:390px!important}.dynasty-legacy-strip{align-items:flex-start}}
-/* 9.6.10 — Bowl history reconciliation: verified archival baseline + dynamic future bowl decisions. */
+/* 9.6.11 — Career bowl ledger: visible 3-1 reconciliation + dynamic future bowl decisions. */
 #trophies .coach-legacy-card{min-height:470px}
 #trophies .coach-legacy-head{align-items:center}
 #trophies .coach-legacy-monogram{display:grid!important;place-items:center!important;border:1px solid rgba(244,197,66,.34)!important;background:radial-gradient(circle at 35% 25%,rgba(244,197,66,.18),transparent 48%),#071012!important;color:#f4c542!important;font-family:"Barlow Condensed",sans-serif;font-size:25px!important;font-weight:900!important;letter-spacing:.04em}
@@ -6865,8 +6871,13 @@ function renderTrophies(){
  const isPlayoffGame=g=>["playoff","national_championship"].includes(norm(g?.game_type));
  const isBowlGame=g=>norm(g?.game_type)==="bowl"||/\bbowl\b/.test(norm(g?.event_name));
  const legacyBowlBaseline={
-   // Verified Saturday Foundry archive through Season 3. The normalized import does not fully preserve all four historical decisions.
-   "b6d17b8d-e74f-4266-80cb-7a4b2b256cad":{throughSeason:3,w:3,l:1}
+   // Verified Saturday Foundry archive through Season 3. Preserve the four career decisions visibly even where the normalized import is incomplete.
+   "b6d17b8d-e74f-4266-80cb-7a4b2b256cad":{throughSeason:3,w:3,l:1,ledger:[
+     {season_number:2,event_name:"New Orleans Bowl",team_name:"Kennesaw State",opponent_team:"Louisiana Tech",points_for:38,points_against:17,result:"W"},
+     {season_number:3,event_name:"Cotton Bowl",team_name:"Kennesaw State",opponent_team:"Florida State",points_for:31,points_against:24,result:"W"},
+     {season_number:3,event_name:"Peach Bowl",team_name:"Kennesaw State",opponent_team:"LSU",points_for:35,points_against:28,result:"W"},
+     {season_number:3,event_name:"National Championship",team_name:"Kennesaw State",opponent_team:"Matchup details not preserved",points_for:null,points_against:null,result:"L",archived:true}
+   ]}
  };
  const byPerson=(t,p)=>t?.person_id&&p?.person_id?String(t.person_id)===String(p.person_id):norm(t?.coach_name||t?.recipient_name)===norm(p?.coach_name);
  const gamesFor=p=>allGames.filter(g=>g?.person_id&&p?.person_id?String(g.person_id)===String(p.person_id):norm(g?.coach_name)===norm(p?.coach_name));
@@ -6922,6 +6933,12 @@ function renderTrophies(){
    const baseline=c?.person_id?legacyBowlBaseline[String(c.person_id)]:null;
    const bowls=games.filter(g=>isBowlGame(g)&&(!baseline||Number(g.season_number||0)>Number(baseline.throughSeason||0)));
    const bowlW=Number(baseline?.w||0)+bowls.filter(g=>g.result==="W").length,bowlL=Number(baseline?.l||0)+bowls.filter(g=>g.result==="L").length;
+   const bowlLedger=[...(baseline?.ledger||[]),...bowls.map(g=>({season_number:g.season_number,event_name:g.event_name||"Bowl Game",team_name:g.team_name||"Program",opponent_team:g.opponent_team||"Opponent",points_for:g.points_for,points_against:g.points_against,result:g.result,archived:false}))].sort((a,b)=>Number(a.season_number||0)-Number(b.season_number||0));
+   const bowlLedgerHtml=bowlLedger.map(g=>{
+     const score=(g.points_for!=null&&g.points_against!=null)?`${g.points_for}-${g.points_against}`:"Archived result";
+     const resultClass=g.result==="W"?"pos":g.result==="L"?"neg":"";
+     return `<div class="coach-bowl-item"><div><strong>${esc(g.event_name||"Bowl Game")}</strong><small>Season ${esc(g.season_number||"—")} · ${esc(g.team_name||"Program")} · vs ${esc(g.opponent_team||"Opponent")}</small></div><span class="${resultClass}">${esc(g.result||"—")} · ${esc(score)}</span></div>`;
+   }).join("");
    const trophySeasons=new Set(honors.map(t=>Number(t.season_number||seasonMetaFor(t)?.season_number||0)).filter(Boolean));
    const decorated=trophySeasons.size;
    const hardware=[...honors].sort((a,b)=>Number(seasonMetaFor(b)?.season_number||b.season_number||0)-Number(seasonMetaFor(a)?.season_number||a.season_number||0)).map(t=>{
@@ -6944,6 +6961,7 @@ function renderTrophies(){
         <div><b>${heisman}</b><small>HEISMANS<br>COACHED</small></div>
       </div>
       <div class="legacy-bowl-record">Career Bowl Record <b>${bowlW}-${bowlL}</b></div>
+      <div class="coach-hardware-ledger coach-bowl-ledger"><div class="coach-hardware-title">CAREER BOWL LEDGER</div>${bowlLedgerHtml||'<div class="coach-hardware-empty">No bowl results recorded yet.</div>'}</div>
       <div class="coach-hardware-ledger"><div class="coach-hardware-title">CAREER HARDWARE LEDGER</div>${hardware||'<div class="coach-hardware-empty">No recorded hardware yet. The career ledger remains continuous across every coaching stop.</div>'}</div>
       ${decorated?`<div class="legacy-decorated-note">${decorated} decorated season${decorated===1?"":"s"} across this coaching career</div>`:""}
     </article>`;
@@ -10209,8 +10227,8 @@ body.dynasty-chooser-active #siteHeader .canonical-header-row>div:first-child>.m
 })();
 </script>
 <meta name="saturday-foundry-release" content="9.5.3-navigation-top25-gotw">
-<!-- Saturday Foundry 9.6.10 — Bowl History Reconciliation -->
-<meta name="saturday-foundry-release" content="9.6.10-bowl-history-reconciliation">
+<!-- Saturday Foundry 9.6.11 — Career Bowl Ledger -->
+<meta name="saturday-foundry-release" content="9.6.11-career-bowl-ledger">
 </body>
 </html>
 
