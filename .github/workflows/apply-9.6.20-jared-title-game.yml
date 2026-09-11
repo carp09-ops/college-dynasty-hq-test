@@ -41,7 +41,7 @@ jobs:
           set -euo pipefail
           grep -q '9.6.20-jared-championship-reconciliation' index.html
           grep -q 'opponent_team:"Oklahoma",points_for:24,points_against:45,result:"L"' index.html
-          grep -q 'cfp-complete-compact' index.html
+          grep -q 'cfp-compact-kicker' index.html
           grep -q 'function cfpAdvanceTeam(t){return t?{...t,score:null}:t}' index.html
           grep -q 'window.CDHQRefresh=refreshFoundryData' index.html
           grep -q 'CPU-v-CPU is always neutral' index.html
