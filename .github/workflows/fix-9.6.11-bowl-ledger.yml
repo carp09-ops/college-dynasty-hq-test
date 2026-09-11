@@ -1,0 +1,75 @@
+name: Apply Saturday Foundry 9.6.11 career bowl ledger
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/fix-9.6.11-bowl-ledger.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Patch Career Bowl Ledger
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text()
+
+          old=''' const legacyBowlBaseline={\n   // Verified Saturday Foundry archive through Season 3. The normalized import does not fully preserve all four historical decisions.\n   "b6d17b8d-e74f-4266-80cb-7a4b2b256cad":{throughSeason:3,w:3,l:1}\n };'''
+          new=''' const legacyBowlBaseline={\n   // Verified Saturday Foundry archive through Season 3. Preserve the four career decisions visibly even where the normalized import is incomplete.\n   "b6d17b8d-e74f-4266-80cb-7a4b2b256cad":{throughSeason:3,w:3,l:1,ledger:[\n     {season_number:2,event_name:"New Orleans Bowl",team_name:"Kennesaw State",opponent_team:"Louisiana Tech",points_for:38,points_against:17,result:"W"},\n     {season_number:3,event_name:"Cotton Bowl",team_name:"Kennesaw State",opponent_team:"Florida State",points_for:31,points_against:24,result:"W"},\n     {season_number:3,event_name:"Peach Bowl",team_name:"Kennesaw State",opponent_team:"LSU",points_for:35,points_against:28,result:"W"},\n     {season_number:3,event_name:"National Championship",team_name:"Kennesaw State",opponent_team:"Matchup details not preserved",points_for:null,points_against:null,result:"L",archived:true}\n   ]}\n };'''
+          if old not in s:
+              raise SystemExit('Expected 9.6.10 legacy bowl baseline not found')
+          s=s.replace(old,new,1)
+
+          old2='''   const bowlW=Number(baseline?.w||0)+bowls.filter(g=>g.result==="W").length,bowlL=Number(baseline?.l||0)+bowls.filter(g=>g.result==="L").length;'''
+          new2='''   const bowlW=Number(baseline?.w||0)+bowls.filter(g=>g.result==="W").length,bowlL=Number(baseline?.l||0)+bowls.filter(g=>g.result==="L").length;\n   const bowlLedger=[...(baseline?.ledger||[]),...bowls.map(g=>({season_number:g.season_number,event_name:g.event_name||"Bowl Game",team_name:g.team_name||"Program",opponent_team:g.opponent_team||"Opponent",points_for:g.points_for,points_against:g.points_against,result:g.result,archived:false}))]\n     .sort((a,b)=>Number(a.season_number||0)-Number(b.season_number||0));\n   const bowlLedgerHtml=bowlLedger.map(g=>{\n     const score=(g.points_for!=null&&g.points_against!=null)?`${g.points_for}-${g.points_against}`:"Archived result";\n     const resultClass=g.result==="W"?"pos":g.result==="L"?"neg":"";\n     return `<div class="coach-bowl-item"><div><strong>${esc(g.event_name||"Bowl Game")}</strong><small>Season ${esc(g.season_number||"—")} · ${esc(g.team_name||"Program")} · vs ${esc(g.opponent_team||"Opponent")}</small></div><span class="${resultClass}">${esc(g.result||"—")} · ${esc(score)}</span></div>`;\n   }).join("");'''
+          if old2 not in s:
+              raise SystemExit('Expected 9.6.10 bowl calculation not found')
+          s=s.replace(old2,new2,1)
+
+          old3='''      <div class="legacy-bowl-record">Career Bowl Record <b>${bowlW}-${bowlL}</b></div>\n      <div class="coach-hardware-ledger"><div class="coach-hardware-title">CAREER HARDWARE LEDGER</div>${hardware||'<div class="coach-hardware-empty">Hardware earned across every program will live here.</div>'}</div>'''
+          new3='''      <div class="legacy-bowl-record">Career Bowl Record <b>${bowlW}-${bowlL}</b></div>\n      <div class="coach-hardware-ledger coach-bowl-ledger"><div class="coach-hardware-title">CAREER BOWL LEDGER</div>${bowlLedgerHtml||'<div class="coach-hardware-empty">No bowl results recorded yet.</div>'}</div>\n      <div class="coach-hardware-ledger"><div class="coach-hardware-title">CAREER HARDWARE LEDGER</div>${hardware||'<div class="coach-hardware-empty">Hardware earned across every program will live here.</div>'}</div>'''
+          if old3 not in s:
+              raise SystemExit('Expected Trophy Room bowl record block not found')
+          s=s.replace(old3,new3,1)
+
+          css_anchor='.legacy-bowl-record{text-align:center;color:#97a1af;font-size:10px;margin-top:15px}.legacy-bowl-record b{color:#fff;font-size:11px}'
+          css_add=css_anchor+'''\n.coach-bowl-ledger{margin-top:10px}\n.coach-bowl-item{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 9px;border-top:1px solid rgba(244,197,66,.12)}\n.coach-bowl-item:first-of-type{border-top:0}\n.coach-bowl-item strong{display:block;color:#f5f7f8;font-size:10px;line-height:1.2}\n.coach-bowl-item small{display:block;color:#7f8d94;font-size:8px;margin-top:2px}\n.coach-bowl-item>span{flex:0 0 auto;font-size:9px;font-weight:900}'''
+          if css_anchor not in s:
+              raise SystemExit('Expected bowl CSS anchor not found')
+          s=s.replace(css_anchor,css_add,1)
+
+          s=s.replace('/* 9.6.10 — Bowl history reconciliation: verified archival baseline + dynamic future bowl decisions. */','/* 9.6.11 — Career bowl ledger: visible 3-1 reconciliation + dynamic future bowl decisions. */',1)
+          s=s.replace('<!-- Saturday Foundry 9.6.10 — Bowl History Reconciliation -->','<!-- Saturday Foundry 9.6.11 — Career Bowl Ledger -->',1)
+          s=s.replace('<meta name="saturday-foundry-release" content="9.6.10-bowl-history-reconciliation">','<meta name="saturday-foundry-release" content="9.6.11-career-bowl-ledger">',1)
+          p.write_text(s)
+          PY
+
+      - name: Verify JavaScript syntax
+        run: |
+          node - <<'NODE'
+          const fs=require('fs');
+          const s=fs.readFileSync('index.html','utf8');
+          const scripts=[...s.matchAll(/<script(?:\s[^>]*)?>([\s\S]*?)<\/script>/gi)].map(m=>m[1]);
+          let bad=0;
+          scripts.forEach((x,i)=>{try{new Function(x)}catch(e){bad++;console.error(`script ${i}: ${e.message}`)}});
+          console.log(`scripts=${scripts.length} bad=${bad}`);
+          if(bad) process.exit(1);
+          NODE
+
+      - name: Commit 9.6.11
+        run: |
+          git config user.name "Saturday Foundry Release Bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add index.html
+          git commit -m "Release Saturday Foundry 9.6.11 career bowl ledger"
+          git push
