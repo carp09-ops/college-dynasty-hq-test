@@ -6327,6 +6327,7 @@ function conferenceRecord(personId,seasonNo=null){
 }
 function gameClassification(g){
  const type=String(g?.game_type||"regular_season");
+ const event=String(g?.event_name||"").trim();
  if(type==="conference")return "CONFERENCE";
  if(type==="non_conference")return "NON-CONFERENCE";
  if(type==="regular_season"){
@@ -6334,6 +6335,9 @@ function gameClassification(g){
    if(g?.is_conference_game===false)return "NON-CONFERENCE";
    return "REGULAR SEASON";
  }
+ // Postseason event names are authoritative display context. If the database says
+ // "Cotton Bowl — CFP Quarterfinal", never collapse that to a generic PLAYOFF/BOWL label.
+ if(event&&["conference_championship","bowl","playoff","national_championship"].includes(type))return event.toUpperCase();
  return ({conference_championship:"CONFERENCE CHAMPIONSHIP",bowl:"BOWL",playoff:"PLAYOFF",national_championship:"NATIONAL CHAMPIONSHIP"})[type]||type.replaceAll("_"," ").toUpperCase();
 }
 function formatCoachKickoff(v){
@@ -6661,7 +6665,8 @@ function cfpBracketTeamRow(t,winnerName){
 function cfpBracketGameCard(slot,label,teams,game=null){
  const winner=game?cfpBracketWinner(game):null,livePath=(teams||[]).some(t=>t?.person_id);
  const status=game?.status==="completed"?"FINAL":game?.status==="scheduled"?"UPCOMING":"TBD";
- return `<article class="cfp-bracket-game ${livePath?"live-path":""}"><div class="cfp-game-label"><span>${esc(label||slot)}</span><strong class="${status==="FINAL"?"final":""}">${esc(status)}</strong></div>${(teams||[]).map(t=>cfpBracketTeamRow(t,winner?.name)).join("")}</article>`;
+ const displayLabel=String(game?.event_name||label||slot).trim();
+ return `<article class="cfp-bracket-game ${livePath?"live-path":""}"><div class="cfp-game-label"><span>${esc(displayLabel)}</span><strong class="${status==="FINAL"?"final":""}">${esc(status)}</strong></div>${(teams||[]).map(t=>cfpBracketTeamRow(t,winner?.name)).join("")}</article>`;
 }
 function renderCfpBracket(allSeasonGames){
  const section=$("cfpBracketSection"),board=$("cfpBracketBoard"),meta=$("cfpBracketMeta"),path=$("cfpBracketPath");if(!section||!board)return;
@@ -6692,7 +6697,7 @@ function renderCfpBracket(allSeasonGames){
  path.innerHTML=controlled?`<b>FOUNDRY PATH</b> · #${esc(controlled.seed||"")} ${esc(controlled.name)} → ${cMeta.quarterfinal_bowl?`${esc(cMeta.quarterfinal_bowl)} vs `:""}${cBye?`#${esc(cBye.seed)} ${esc(cBye.name)}`:"Quarterfinal"} → Semifinal → Miami`:`<b>BRACKET LIVE</b> · Winners advance automatically as playoff results are entered.`;
  const round=(title,cards)=>`<section class="cfp-round"><div class="cfp-round-head">${esc(title)}</div><div class="cfp-round-stack">${cards.join("")}</div></section>`;
  const frCards=fr.map((g,i)=>{const gm=cfpBracketMeta(g),dt=cfpBracketDate(gm.scheduled_date);return cfpBracketGameCard(`FR${i+1}`,`First Round${dt?` · ${dt}`:""} · ${pairKey(g).split('-').map(x=>'#'+x).join(' vs ')}`,cfpGamePair(g),g)});
- const qfCards=qf.map(q=>{const bowl=q.meta?.quarterfinal_bowl||"Quarterfinal",dt=cfpBracketDate(q.meta?.quarterfinal_date);return cfpBracketGameCard(q.slot,`${bowl}${dt?` · ${dt}`:""} · #${q.seed} bye`,q.teams,q.game)});
+ const qfCards=qf.map(q=>{const bowl=q.game?.event_name||q.meta?.quarterfinal_bowl||"Quarterfinal",dt=cfpBracketDate(q.meta?.quarterfinal_date);return cfpBracketGameCard(q.slot,`${bowl}${dt?` · ${dt}`:""} · #${q.seed} bye`,q.teams,q.game)});
  const sfCards=semis.map(s=>cfpBracketGameCard(s.slot,"CFP Semifinal",s.teams,s.game));
  const ncCards=[cfpBracketGameCard("NC","National Championship",champTeams,champGame)+`<div class="cfp-destination"><span>Championship Site</span><b>Miami · Hard Rock Stadium</b></div>`];
  board.innerHTML=round("First Round",frCards)+round("Quarterfinal",qfCards)+round("Semifinal",sfCards)+round("National Championship",ncCards);
@@ -10507,9 +10512,9 @@ body.dynasty-chooser-active #siteHeader .canonical-header-row>div:first-child>.m
 })();
 </script>
 <meta name="saturday-foundry-release" content="9.5.3-navigation-top25-gotw">
-<!-- Saturday Foundry 9.6.16 — CFP Score Carryover Fix -->
+<!-- Saturday Foundry 9.6.17 — Bowl Name Visibility -->
 <!-- 9.6.13 reconciliation: combines postseason schedule/CFP/national-result tooling with coach-centric Trophy Room bowl ledgers and historical hydration. -->
-<meta name="saturday-foundry-release" content="9.6.16-cfp-score-carryover-fix">
+<meta name="saturday-foundry-release" content="9.6.17-bowl-name-visibility">
 </body>
 </html>
 
