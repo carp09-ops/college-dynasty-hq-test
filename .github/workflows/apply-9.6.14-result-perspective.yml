@@ -1,0 +1,88 @@
+name: Apply Saturday Foundry 9.6.14 schedule perspective fix
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/apply-9.6.14-result-perspective.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Apply result perspective fix
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text()
+
+          old=' const isDynastyScheduleGame=g=>!!(g&&(g.person_id||g.opponent_person_id));'
+          new=' const isDynastyScheduleGame=g=>!!(g&&(dynastyProgramForTeam(g,"team")?.person_id||dynastyProgramForTeam(g,"opponent")?.person_id));'
+          if old not in s: raise SystemExit('isDynastyScheduleGame anchor missing')
+          s=s.replace(old,new,1)
+
+          old_block=''' const controlledPerspectiveForGame=g=>{\n   const done=g?.status==="completed";\n   if(!done||g?.points_for==null||g?.points_against==null)return null;\n   // Only an actual person assignment creates a user-controlled perspective.\n   // CPU-v-CPU games stay neutral regardless of result_method, program rows, or home/away order.\n   const homeControlled=!!g.person_id;\n   const awayControlled=!!g.opponent_person_id;\n   if(!homeControlled&&!awayControlled)return null;\n   const mine=myProgramForSeason();\n   const isMine=personId=>!!mine&&personId&&String(personId)===String(mine.person_id);\n   let useAway=false;\n   if(homeControlled&&awayControlled){\n     const homeMine=isMine(g.person_id),awayMine=isMine(g.opponent_person_id);\n     if(!homeMine&&!awayMine)return null;\n     useAway=awayMine&&!homeMine;\n   }else if(awayControlled){\n     useAway=true;\n   }\n   const pf=Number(useAway?g.points_against:g.points_for),pa=Number(useAway?g.points_for:g.points_against);\n   if(!Number.isFinite(pf)||!Number.isFinite(pa)||pf===pa)return null;\n   return {result:pf>pa?"W":"L",pointsFor:pf,pointsAgainst:pa};\n };'''
+          new_block=''' const controlledPerspectiveForGame=g=>{\n   const done=g?.status==="completed";\n   if(!done||g?.points_for==null||g?.points_against==null)return null;\n\n   // Determine control from the actual season program attached to each displayed team.\n   // Do NOT trust row-level person_id orientation: normalized/imported rows can carry the\n   // controlled coach on a row whose team_name is the CPU opponent (e.g. BYU vs Kennesaw).\n   const teamProgram=dynastyProgramForTeam(g,"team");\n   const oppProgram=dynastyProgramForTeam(g,"opponent");\n   const teamControlled=!!teamProgram?.person_id;\n   const oppControlled=!!oppProgram?.person_id;\n\n   // CPU-v-CPU is always neutral: score only, no W/L perspective or directional color.\n   if(!teamControlled&&!oppControlled)return null;\n\n   const mine=myProgramForSeason();\n   const isMineProgram=p=>!!mine&&!!p&&(\n     (p.person_id&&String(p.person_id)===String(mine.person_id))||\n     (p.season_program_id&&String(p.season_program_id)===String(mine.season_program_id))||\n     (p.team_id&&String(p.team_id)===String(mine.team_id))\n   );\n\n   let useOpponent=false;\n   if(teamControlled&&oppControlled){\n     // User-v-user: if the logged-in coach is playing, show the result from their side.\n     const teamMine=isMineProgram(teamProgram),oppMine=isMineProgram(oppProgram);\n     if(teamMine!==oppMine)useOpponent=oppMine;\n     else {\n       // Neutral viewer fallback: preserve the authoritative coach row when it can be\n       // matched to an actual controlled program; otherwise use the displayed team side.\n       const rowPerson=String(g.person_id||"");\n       if(rowPerson&&String(oppProgram.person_id||"")===rowPerson&&String(teamProgram.person_id||"")!==rowPerson)useOpponent=true;\n     }\n   }else if(oppControlled){\n     // User-v-CPU with the controlled program shown as the opponent.\n     useOpponent=true;\n   }\n\n   const pf=Number(useOpponent?g.points_against:g.points_for);\n   const pa=Number(useOpponent?g.points_for:g.points_against);\n   if(!Number.isFinite(pf)||!Number.isFinite(pa)||pf===pa)return null;\n   return {result:pf>pa?"W":"L",pointsFor:pf,pointsAgainst:pa,side:useOpponent?"opponent":"team"};\n };'''
+          if old_block not in s: raise SystemExit('controlledPerspectiveForGame anchor missing')
+          s=s.replace(old_block,new_block,1)
+
+          old='function nationalIsControlled(g){return !!(g?.person_id||g?.opponent_person_id)}'
+          new='function nationalIsControlled(g){return !!(g&&(dynastyProgramForTeam(g,"team")?.person_id||dynastyProgramForTeam(g,"opponent")?.person_id))}'
+          if old not in s: raise SystemExit('nationalIsControlled anchor missing')
+          s=s.replace(old,new,1)
+
+          s=s.replace('9.6.13-postseason-trophy-reconciliation','9.6.14-schedule-result-perspective',1)
+          s=s.replace('Saturday Foundry 9.6.13 — Postseason + Trophy Reconciliation','Saturday Foundry 9.6.14 — Schedule Result Perspective',1)
+          p.write_text(s)
+          PY
+
+      - name: Verify regression anchors
+        shell: bash
+        run: |
+          set -euo pipefail
+          grep -q '9.6.14-schedule-result-perspective' index.html
+          grep -q 'CPU-v-CPU is always neutral' index.html
+          grep -q 'dynastyProgramForTeam(g,"opponent")?.person_id' index.html
+          grep -q 'cfpBracketSection' index.html
+          grep -q 'LEGACY DEFINES THE COACH\|Legacy Defines the Coach' index.html
+          grep -q '9.6.11 — Career bowl ledger' index.html
+          grep -q 'renderTrophies' index.html
+
+      - name: Verify JavaScript syntax
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          s=Path('index.html').read_text()
+          out=Path('/tmp/sfjs'); out.mkdir(exist_ok=True)
+          blocks=[]
+          for m in re.finditer(r'<script\b([^>]*)>(.*?)</script>',s,re.I|re.S):
+              if re.search(r'\bsrc\s*=',m.group(1),re.I): continue
+              blocks.append(m.group(2))
+          for i,b in enumerate(blocks): (out/f'{i:03}.js').write_text(b)
+          print(f'inline_scripts={len(blocks)}')
+          PY
+          for f in /tmp/sfjs/*.js; do node --check "$f" >/dev/null; done
+
+      - name: Commit fixed build
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'Saturday Foundry Release Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add index.html
+          git diff --cached --quiet && exit 0
+          git commit -m 'Release Saturday Foundry 9.6.14 schedule result perspective fix'
+          git push
