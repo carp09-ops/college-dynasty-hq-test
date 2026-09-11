@@ -5104,6 +5104,15 @@ body{background:radial-gradient(circle at 50% 0,rgba(216,170,77,.08),transparent
 <style id="cfp-bracket-v1">
 .cfp-bracket-shell{margin:16px 0 18px;padding:18px;border:1px solid rgba(229,189,99,.32);border-radius:16px;background:linear-gradient(145deg,rgba(5,18,24,.98),rgba(2,9,13,.98));box-shadow:inset 0 1px rgba(255,255,255,.025)}
 .cfp-bracket-shell.hidden{display:none}
+.cfp-bracket-compact{display:none}
+.cfp-bracket-shell.cfp-complete:not(.cfp-expanded){padding:14px 16px}
+.cfp-bracket-shell.cfp-complete:not(.cfp-expanded) .cfp-bracket-compact{display:grid;grid-template-columns:1fr auto;gap:10px 14px;align-items:center}
+.cfp-bracket-shell.cfp-complete:not(.cfp-expanded) .cfp-bracket-head,.cfp-bracket-shell.cfp-complete:not(.cfp-expanded) .cfp-bracket-path,.cfp-bracket-shell.cfp-complete:not(.cfp-expanded) .cfp-bracket-scroll{display:none}
+.cfp-compact-kicker{font-size:9px;font-weight:900;letter-spacing:.16em;color:var(--sf-gold-bright,#e5bd63)}
+.cfp-compact-title{margin:3px 0 0;font-family:"Barlow Condensed",sans-serif;font-size:23px;line-height:1.05;text-transform:uppercase;color:#f6f4ee}
+.cfp-compact-meta{margin-top:5px;font-size:10px;color:#9eb0b8}.cfp-compact-meta b{color:#dce8ec}
+.cfp-compact-foundry{grid-column:1/-1;padding-top:9px;border-top:1px solid rgba(229,189,99,.14);font-size:9px;color:#8fa2aa;letter-spacing:.03em}.cfp-compact-foundry b{color:var(--sf-gold-bright,#e5bd63)}
+.cfp-compact-toggle{appearance:none;border:1px solid rgba(229,189,99,.38);border-radius:999px;background:rgba(229,189,99,.08);color:#f1d88d;font-size:9px;font-weight:900;letter-spacing:.08em;text-transform:uppercase;padding:9px 12px;white-space:nowrap}
 .cfp-bracket-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:14px}
 .cfp-bracket-kicker{font-size:9px;font-weight:900;letter-spacing:.16em;color:var(--sf-gold-bright,#e5bd63)}
 .cfp-bracket-head h3{margin:4px 0 2px;font-family:"Barlow Condensed",sans-serif;font-size:30px;line-height:1;text-transform:uppercase;color:#f6f4ee}
@@ -5120,7 +5129,7 @@ body{background:radial-gradient(circle at 50% 0,rgba(216,170,77,.08),transparent
 .cfp-team-name{min-width:0;font-size:11px;font-weight:900;color:#eef4f6;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.cfp-team-sub{display:block;margin-top:2px;font-size:7px;font-weight:800;letter-spacing:.06em;color:#758a94;text-transform:uppercase}.cfp-team-slot.controlled .cfp-team-sub{color:var(--sf-gold-bright,#e5bd63)}
 .cfp-team-score{font-family:"Barlow Condensed",sans-serif;font-size:22px;font-weight:900;color:#dce6ea}.cfp-team-slot.winner .cfp-team-score{color:#8dd7bb}
 .cfp-champ-stage{min-height:116px;display:grid;align-content:center}.cfp-destination{margin-top:10px;padding:10px;border:1px solid rgba(229,189,99,.22);border-radius:10px;text-align:center}.cfp-destination span{display:block;font-size:8px;letter-spacing:.12em;color:#758a94;text-transform:uppercase}.cfp-destination b{display:block;margin-top:3px;font-family:"Barlow Condensed",sans-serif;font-size:20px;color:var(--sf-gold-bright,#e5bd63);text-transform:uppercase}
-@media(max-width:720px){.cfp-bracket-shell{margin:12px 0 14px;padding:13px 10px}.cfp-bracket-head{align-items:flex-start;flex-direction:column;gap:5px}.cfp-bracket-head h3{font-size:27px}.cfp-bracket-meta{text-align:left}.cfp-bracket-grid{grid-template-columns:repeat(4,210px);min-width:882px}.cfp-bracket-scroll{margin-right:-6px}.cfp-team-slot{grid-template-columns:22px 26px 1fr auto;padding:8px 7px}.cfp-team-name{font-size:10px}}
+@media(max-width:720px){.cfp-bracket-shell{margin:12px 0 14px;padding:13px 10px}.cfp-bracket-shell.cfp-complete:not(.cfp-expanded){padding:12px}.cfp-bracket-shell.cfp-complete:not(.cfp-expanded) .cfp-bracket-compact{grid-template-columns:1fr}.cfp-compact-toggle{justify-self:start}.cfp-bracket-head{align-items:flex-start;flex-direction:column;gap:5px}.cfp-bracket-head h3{font-size:27px}.cfp-bracket-meta{text-align:left}.cfp-bracket-grid{grid-template-columns:repeat(4,210px);min-width:882px}.cfp-bracket-scroll{margin-right:-6px}.cfp-team-slot{grid-template-columns:22px 26px 1fr auto;padding:8px 7px}.cfp-team-name{font-size:10px}}
 </style>
 
 <section id="schedule" class="view">
@@ -5139,6 +5148,7 @@ body{background:radial-gradient(circle at 50% 0,rgba(216,170,77,.08),transparent
     </div>
 
     <section id="cfpBracketSection" class="cfp-bracket-shell hidden" aria-label="College Football Playoff bracket">
+      <div id="cfpBracketCompact" class="cfp-bracket-compact"></div>
       <div class="cfp-bracket-head">
         <div><div class="cfp-bracket-kicker">COLLEGE FOOTBALL PLAYOFF</div><h3>Road to Miami.</h3></div>
         <div id="cfpBracketMeta" class="cfp-bracket-meta"></div>
@@ -6668,11 +6678,18 @@ function cfpBracketGameCard(slot,label,teams,game=null){
  const displayLabel=String(game?.event_name||label||slot).trim();
  return `<article class="cfp-bracket-game ${livePath?"live-path":""}"><div class="cfp-game-label"><span>${esc(displayLabel)}</span><strong class="${status==="FINAL"?"final":""}">${esc(status)}</strong></div>${(teams||[]).map(t=>cfpBracketTeamRow(t,winner?.name)).join("")}</article>`;
 }
+let cfpExpandedSeasonId=null;
+function toggleCfpBracketComplete(){
+ const sid=String(S?.season_id||"");
+ cfpExpandedSeasonId=String(cfpExpandedSeasonId||"")===sid?null:sid;
+ renderSchedule();
+}
+window.toggleCfpBracketComplete=toggleCfpBracketComplete;
 function renderCfpBracket(allSeasonGames){
- const section=$("cfpBracketSection"),board=$("cfpBracketBoard"),meta=$("cfpBracketMeta"),path=$("cfpBracketPath");if(!section||!board)return;
+ const section=$("cfpBracketSection"),board=$("cfpBracketBoard"),meta=$("cfpBracketMeta"),path=$("cfpBracketPath"),compact=$("cfpBracketCompact");if(!section||!board)return;
  const playoffs=(allSeasonGames||[]).filter(g=>g.game_type==="playoff"||g.game_type==="national_championship");
  const first=playoffs.filter(g=>/first round/i.test(String(g.week_label||g.event_name||""))||/cfp-fr[1-4]$/i.test(String(g.legacy_game_id||"")));
- if(!first.length){section.classList.add("hidden");board.innerHTML="";return}
+ if(!first.length){section.classList.add("hidden");section.classList.remove("cfp-complete","cfp-expanded");board.innerHTML="";if(compact)compact.innerHTML="";return}
  section.classList.remove("hidden");
  const firstWeek=Math.min(...first.map(g=>Number(g.week_number)||999));
  const pairKey=g=>cfpGamePair(g).map(t=>Number(t.seed)).filter(Boolean).sort((a,b)=>a-b).join("-");
@@ -6690,10 +6707,34 @@ function renderCfpBracket(allSeasonGames){
  const semiWinner=s=>s.game?cfpBracketWinner(s.game):null;
  const champGame=ncActual[0]||null;
  const champTeams=champGame?cfpGamePair(champGame):[cfpAdvanceTeam(semiWinner(semis[0]))||cfpVirtualTeam("Winner SF1"),cfpAdvanceTeam(semiWinner(semis[1]))||cfpVirtualTeam("Winner SF2")];
- const controlled=fr.flatMap(cfpGamePair).find(t=>t.person_id);
- const controlledGame=controlled?fr.find(g=>cfpGamePair(g).some(t=>String(t.person_id||'')===String(controlled.person_id))):null;
+ const controlled=fr.flatMap(cfpGamePair).find(t=>t.person_id)||fr.flatMap(g=>[{...cfpGamePair(g)[0],person_id:dynastyProgramForTeam(g,"team")?.person_id||null},{...cfpGamePair(g)[1],person_id:dynastyProgramForTeam(g,"opponent")?.person_id||null}]).find(t=>t.person_id);
+ const controlledGame=controlled?fr.find(g=>[dynastyProgramForTeam(g,"team")?.person_id,dynastyProgramForTeam(g,"opponent")?.person_id,g.person_id,g.opponent_person_id].some(id=>id&&String(id)===String(controlled.person_id))):null;
+ const champion=champGame?.status==="completed"?cfpBracketWinner(champGame):null;
+ const championshipComplete=!!champion;
+ const expandedAfterComplete=String(cfpExpandedSeasonId||"")===String(S?.season_id||"");
+ section.classList.toggle("cfp-complete",championshipComplete);
+ section.classList.toggle("cfp-expanded",!championshipComplete||expandedAfterComplete);
+ if(championshipComplete&&compact){
+   const pair=cfpGamePair(champGame),runner=pair.find(t=>teamKey(t?.name)!==teamKey(champion?.name));
+   const champScore=runner&&champion?.score!=null&&runner?.score!=null?`${esc(champion.score)}–${esc(runner.score)}`:"Final";
+   const controlledPid=controlled?.person_id||null;
+   const foundryGames=controlledPid?playoffs.filter(g=>[dynastyProgramForTeam(g,"team")?.person_id,dynastyProgramForTeam(g,"opponent")?.person_id,g.person_id,g.opponent_person_id].some(id=>id&&String(id)===String(controlledPid))):[];
+   const stageRank=g=>g.game_type==="national_championship"||/national championship/i.test(String(g.week_label||g.event_name||""))?4:/semifinal/i.test(String(g.week_label||g.event_name||""))?3:/quarterfinal/i.test(String(g.week_label||g.event_name||""))?2:1;
+   const lastFoundry=[...foundryGames].sort((a,b)=>stageRank(b)-stageRank(a)||Number(b.week_number||0)-Number(a.week_number||0))[0]||null;
+   let foundrySummary="";
+   if(lastFoundry&&controlled){
+     const teamProg=dynastyProgramForTeam(lastFoundry,"team"),oppProg=dynastyProgramForTeam(lastFoundry,"opponent");
+     const useOpp=String(oppProg?.person_id||lastFoundry.opponent_person_id||"")===String(controlledPid);
+     const pf=Number(useOpp?lastFoundry.points_against:lastFoundry.points_for),pa=Number(useOpp?lastFoundry.points_for:lastFoundry.points_against);
+     const result=lastFoundry.status==="completed"&&Number.isFinite(pf)&&Number.isFinite(pa)&&pf!==pa?(pf>pa?"W":"L"):"";
+     const stage=String(lastFoundry.event_name||lastFoundry.week_label||"CFP");
+     foundrySummary=`<div class="cfp-compact-foundry"><b>FOUNDRY PATH</b> · ${esc(controlled.name)} · ${esc(stage)}${result?` · ${esc(result)} ${esc(pf)}–${esc(pa)}`:""}</div>`;
+   }
+   compact.innerHTML=`<div><div class="cfp-compact-kicker">COLLEGE FOOTBALL PLAYOFF · COMPLETE</div><div class="cfp-compact-title">${esc(champion.name)} · National Champion</div><div class="cfp-compact-meta"><b>${esc(champScore)}</b>${runner?` vs ${esc(runner.name)}`:""} · ${esc(champGame.event_name||"National Championship")}</div></div><button id="cfpBracketToggleBtn" class="cfp-compact-toggle" type="button" onclick="window.toggleCfpBracketComplete()">View CFP Bracket</button>${foundrySummary}`;
+ }else if(compact){compact.innerHTML=""}
+
  const cPair=controlledGame?pairKey(controlledGame):null,cTarget=cPair?targetSeedByPair[cPair]:null,cBye=cTarget?cfpLatestSeedTeam(cTarget,firstWeek):null,cMeta=controlledGame?cfpBracketMeta(controlledGame):{};
- meta.innerHTML=`<strong>${esc(S?.year||"")} CFP</strong> · 12-team field · ${playoffs.filter(g=>g.status==="completed").length} playoff final${playoffs.filter(g=>g.status==="completed").length===1?"":"s"}`;
+ meta.innerHTML=`<strong>${esc(S?.year||"")} CFP</strong> · 12-team field · ${playoffs.filter(g=>g.status==="completed").length} playoff final${playoffs.filter(g=>g.status==="completed").length===1?"":"s"}${championshipComplete&&expandedAfterComplete?` · <button class="cfp-compact-toggle" type="button" onclick="window.toggleCfpBracketComplete()">Collapse CFP Bracket</button>`:""}`;
  path.innerHTML=controlled?`<b>FOUNDRY PATH</b> · #${esc(controlled.seed||"")} ${esc(controlled.name)} → ${cMeta.quarterfinal_bowl?`${esc(cMeta.quarterfinal_bowl)} vs `:""}${cBye?`#${esc(cBye.seed)} ${esc(cBye.name)}`:"Quarterfinal"} → Semifinal → Miami`:`<b>BRACKET LIVE</b> · Winners advance automatically as playoff results are entered.`;
  const round=(title,cards)=>`<section class="cfp-round"><div class="cfp-round-head">${esc(title)}</div><div class="cfp-round-stack">${cards.join("")}</div></section>`;
  const frCards=fr.map((g,i)=>{const gm=cfpBracketMeta(g),dt=cfpBracketDate(gm.scheduled_date);return cfpBracketGameCard(`FR${i+1}`,`First Round${dt?` · ${dt}`:""} · ${pairKey(g).split('-').map(x=>'#'+x).join(' vs ')}`,cfpGamePair(g),g)});
@@ -10512,9 +10553,9 @@ body.dynasty-chooser-active #siteHeader .canonical-header-row>div:first-child>.m
 })();
 </script>
 <meta name="saturday-foundry-release" content="9.5.3-navigation-top25-gotw">
-<!-- Saturday Foundry 9.6.18 — CFP Bracket Priority -->
+<!-- Saturday Foundry 9.6.19 — CFP Completion Collapse -->
 <!-- 9.6.13 reconciliation: combines postseason schedule/CFP/national-result tooling with coach-centric Trophy Room bowl ledgers and historical hydration. -->
-<meta name="saturday-foundry-release" content="9.6.18-cfp-bracket-priority">
+<meta name="saturday-foundry-release" content="9.6.19-cfp-completion-collapse">
 </body>
 </html>
 
