@@ -6861,7 +6861,7 @@ function renderCareer(){
 }
 function renderTrophies(){
  const trophies=[...(state.trophies||[])];
- const allGames=[...(state.allGames||[])];
+ const allGames=(Array.isArray(state.allGames)&&state.allGames.length)?[...state.allGames]:[...(state.games||[])];
  const norm=v=>String(v||"").trim().toLowerCase();
  const typeOf=t=>norm(t?.type||t?.name);
  const isNat=t=>/national/.test(typeOf(t));
@@ -7400,7 +7400,7 @@ async function loadDynasty(i=0){
  window.CDHQLoader?.hide();
  Promise.allSettled(seasons.map(s=>Data.games(D.dynasty_id,s.season_id))).then(results=>{
    const sets=results.filter(r=>r.status==='fulfilled').map(r=>Array.isArray(r.value)?r.value:[]);
-   if(sets.length){state.allGames=sets.flat();renderCoaches();renderStorylines();renderRivalries();renderHQCommand();renderSeasonRecap();renderRecordBook();renderCareer();updateOverviewDataVisibility();}
+   if(sets.length){state.allGames=sets.flat();renderCoaches();renderStorylines();renderRivalries();renderHQCommand();renderSeasonRecap();renderRecordBook();renderCareer();renderTrophies();updateOverviewDataVisibility();}
  }).catch(err=>console.warn('Historical dynasty enrichment skipped:',err));
 }
 function hideDynastyChooser(){
@@ -10227,8 +10227,8 @@ body.dynasty-chooser-active #siteHeader .canonical-header-row>div:first-child>.m
 })();
 </script>
 <meta name="saturday-foundry-release" content="9.5.3-navigation-top25-gotw">
-<!-- Saturday Foundry 9.6.11 — Career Bowl Ledger -->
-<meta name="saturday-foundry-release" content="9.6.11-career-bowl-ledger">
+<!-- Saturday Foundry 9.6.12 — Historical Trophy Hydration -->
+<meta name="saturday-foundry-release" content="9.6.12-historical-trophy-hydration">
 </body>
 </html>
 
