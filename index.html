@@ -3005,7 +3005,7 @@ body::after{
 .dynasty-legacy-strip{display:flex;align-items:center;gap:16px;margin-top:18px;padding:15px 18px;border:1px solid rgba(244,197,66,.26);border-radius:16px;background:linear-gradient(145deg,rgba(10,13,12,.95),rgba(5,9,10,.98))}.dynasty-legacy-star{font-size:30px;color:#f4c542}.dynasty-legacy-strip b{display:block;font-size:9px;letter-spacing:.14em;color:#f4c542}.dynasty-legacy-strip span{display:block;font-size:10px;color:#a5adba;margin-top:4px}
 @media(max-width:1120px){#trophies .legacy-trophy-grid{grid-template-columns:repeat(2,minmax(0,1fr))}#trophies .legacy-trophy-hero{align-items:flex-start;flex-direction:column}.legacy-trophy-summary{min-width:100%!important;width:100%}}
 @media(max-width:650px){#trophies .legacy-trophy-grid{grid-template-columns:1fr}.legacy-trophy-copy h2{font-size:39px!important}#trophies .legacy-trophy-hero{padding:20px}.legacy-trophy-summary{grid-template-columns:repeat(3,1fr)!important;gap:7px!important}.legacy-summary-icon{font-size:18px}.legacy-summary-card b{font-size:26px!important}.legacy-program-card{min-height:390px!important}.dynasty-legacy-strip{align-items:flex-start}}
-/* 9.6.9 — Coach-centric continuity: coach owns the résumé; programs are historical context. */
+/* 9.6.10 — Bowl history reconciliation: verified archival baseline + dynamic future bowl decisions. */
 #trophies .coach-legacy-card{min-height:470px}
 #trophies .coach-legacy-head{align-items:center}
 #trophies .coach-legacy-monogram{display:grid!important;place-items:center!important;border:1px solid rgba(244,197,66,.34)!important;background:radial-gradient(circle at 35% 25%,rgba(244,197,66,.18),transparent 48%),#071012!important;color:#f4c542!important;font-family:"Barlow Condensed",sans-serif;font-size:25px!important;font-weight:900!important;letter-spacing:.04em}
@@ -6863,7 +6863,11 @@ function renderTrophies(){
  const isHeisman=t=>/heisman/.test(typeOf(t));
  const isBowl=t=>/bowl/.test(typeOf(t));
  const isPlayoffGame=g=>["playoff","national_championship"].includes(norm(g?.game_type));
- const isBowlGame=g=>norm(g?.game_type)==="bowl";
+ const isBowlGame=g=>norm(g?.game_type)==="bowl"||/\bbowl\b/.test(norm(g?.event_name));
+ const legacyBowlBaseline={
+   // Verified Saturday Foundry archive through Season 3. The normalized import does not fully preserve all four historical decisions.
+   "b6d17b8d-e74f-4266-80cb-7a4b2b256cad":{throughSeason:3,w:3,l:1}
+ };
  const byPerson=(t,p)=>t?.person_id&&p?.person_id?String(t.person_id)===String(p.person_id):norm(t?.coach_name||t?.recipient_name)===norm(p?.coach_name);
  const gamesFor=p=>allGames.filter(g=>g?.person_id&&p?.person_id?String(g.person_id)===String(p.person_id):norm(g?.coach_name)===norm(p?.coach_name));
  const stopsFor=p=>(state.careerStops||[]).filter(x=>x?.person_id&&p?.person_id?String(x.person_id)===String(p.person_id):norm(x?.coach_name)===norm(p?.coach_name)).sort((a,b)=>Number(a.season_number||0)-Number(b.season_number||0));
@@ -6915,7 +6919,9 @@ function renderTrophies(){
    const games=gamesFor(c).filter(g=>g.status==="completed"&&!g.is_bye);
    const nat=honors.filter(isNat).length,conf=honors.filter(isConf).length,heisman=honors.filter(isHeisman).length;
    const playoffSeasons=new Set(games.filter(isPlayoffGame).map(g=>Number(g.season_number||0)).filter(Boolean));
-   const bowls=games.filter(isBowlGame),bowlW=bowls.filter(g=>g.result==="W").length,bowlL=bowls.filter(g=>g.result==="L").length;
+   const baseline=c?.person_id?legacyBowlBaseline[String(c.person_id)]:null;
+   const bowls=games.filter(g=>isBowlGame(g)&&(!baseline||Number(g.season_number||0)>Number(baseline.throughSeason||0)));
+   const bowlW=Number(baseline?.w||0)+bowls.filter(g=>g.result==="W").length,bowlL=Number(baseline?.l||0)+bowls.filter(g=>g.result==="L").length;
    const trophySeasons=new Set(honors.map(t=>Number(t.season_number||seasonMetaFor(t)?.season_number||0)).filter(Boolean));
    const decorated=trophySeasons.size;
    const hardware=[...honors].sort((a,b)=>Number(seasonMetaFor(b)?.season_number||b.season_number||0)-Number(seasonMetaFor(a)?.season_number||a.season_number||0)).map(t=>{
@@ -10203,8 +10209,8 @@ body.dynasty-chooser-active #siteHeader .canonical-header-row>div:first-child>.m
 })();
 </script>
 <meta name="saturday-foundry-release" content="9.5.3-navigation-top25-gotw">
-<!-- Saturday Foundry 9.6.9 — Coach-Centric Continuity -->
-<meta name="saturday-foundry-release" content="9.6.9-coach-centric-continuity">
+<!-- Saturday Foundry 9.6.10 — Bowl History Reconciliation -->
+<meta name="saturday-foundry-release" content="9.6.10-bowl-history-reconciliation">
 </body>
 </html>
 
