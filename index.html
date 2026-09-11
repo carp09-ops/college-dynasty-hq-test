@@ -6653,6 +6653,7 @@ function cfpGamePair(g){
  ];
 }
 function cfpVirtualTeam(name,seed=null){return {name,seed,tbd:true,team_id:null,person_id:null,score:null}}
+function cfpAdvanceTeam(t){return t?{...t,score:null}:t}
 function cfpBracketTeamRow(t,winnerName){
  const controlled=!!t?.person_id,won=!!winnerName&&teamKey(t?.name)===teamKey(winnerName),logo=t?.tbd?"":cfpBracketTeamLogo(t?.team_id,t?.name);
  return `<div class="cfp-team-slot ${controlled?"controlled":""} ${won?"winner":""} ${t?.tbd?"tbd":""}"><span class="cfp-seed">${t?.seed?esc(t.seed):"—"}</span>${logo?`<img class="cfp-team-logo" src="${esc(logo)}" alt="">`:`<span class="cfp-team-logo fallback">${t?.tbd?"?":esc(initials(t?.name||"TBD"))}</span>`}<span class="cfp-team-name">${esc(t?.name||"TBD")}<small class="cfp-team-sub">${controlled?"◆ FOUNDRY":t?.tbd?"ADVANCEMENT SLOT":""}</small></span><b class="cfp-team-score">${t?.score==null?"":esc(t.score)}</b></div>`;
@@ -6677,13 +6678,13 @@ function renderCfpBracket(allSeasonGames){
  const sfActual=playoffs.filter(g=>/semifinal/i.test(String(g.week_label||g.event_name||"")));
  const ncActual=playoffs.filter(g=>g.game_type==="national_championship"||/national championship/i.test(String(g.week_label||g.event_name||"")));
  const findActualWithTeam=(games,t)=>games.find(g=>[g.team_id,g.opponent_team_id].some(id=>id&&t?.team_id&&String(id)===String(t.team_id))||[g.team_name,g.opponent_team].some(n=>teamKey(n)===teamKey(t?.name)));
- const qf=fr.map((g,i)=>{const targetSeed=targetSeedByPair[pairKey(g)]||[4,1,3,2][i],bye=cfpLatestSeedTeam(targetSeed,firstWeek),adv=cfpBracketWinner(g),actual=findActualWithTeam(qfActual,bye),meta=cfpBracketMeta(g);let teams=actual?cfpGamePair(actual):[bye||cfpVirtualTeam(`#${targetSeed} seed`,targetSeed),adv||cfpVirtualTeam(`Winner ${pairKey(g).split('-').map(x=>'#'+x).join(' / ')}`)];if(actual&&adv){const open=teams.findIndex(t=>!t?.team_id||t?.tbd||teamKey(t?.name)==="tbd");if(open>=0)teams[open]=adv}return {slot:`QF${i+1}`,seed:targetSeed,bye,adv,game:actual,meta,sourceGame:g,teams}});
+ const qf=fr.map((g,i)=>{const targetSeed=targetSeedByPair[pairKey(g)]||[4,1,3,2][i],bye=cfpLatestSeedTeam(targetSeed,firstWeek),adv=cfpBracketWinner(g),actual=findActualWithTeam(qfActual,bye),meta=cfpBracketMeta(g);let teams=actual?cfpGamePair(actual):[bye||cfpVirtualTeam(`#${targetSeed} seed`,targetSeed),cfpAdvanceTeam(adv)||cfpVirtualTeam(`Winner ${pairKey(g).split('-').map(x=>'#'+x).join(' / ')}`)];if(actual&&adv){const open=teams.findIndex(t=>!t?.team_id||t?.tbd||teamKey(t?.name)==="tbd");if(open>=0)teams[open]=cfpAdvanceTeam(adv)}return {slot:`QF${i+1}`,seed:targetSeed,bye,adv,game:actual,meta,sourceGame:g,teams}});
  const qfWinner=q=>q.game?cfpBracketWinner(q.game):null;
  const semiDefs=[[qf[0],qf[1]],[qf[2],qf[3]]];
- const semis=semiDefs.map((pair,i)=>{const a=qfWinner(pair[0]),b=qfWinner(pair[1]);let actual=null;if(sfActual.length){actual=sfActual.find(g=>[a,b].filter(Boolean).some(t=>[g.team_id,g.opponent_team_id].some(id=>id&&t.team_id&&String(id)===String(t.team_id))))||sfActual[i]||null}return {slot:`SF${i+1}`,game:actual,teams:actual?cfpGamePair(actual):[a||cfpVirtualTeam(`Winner ${pair[0].slot}`),b||cfpVirtualTeam(`Winner ${pair[1].slot}`)]}});
+ const semis=semiDefs.map((pair,i)=>{const a=qfWinner(pair[0]),b=qfWinner(pair[1]);let actual=null;if(sfActual.length){actual=sfActual.find(g=>[a,b].filter(Boolean).some(t=>[g.team_id,g.opponent_team_id].some(id=>id&&t.team_id&&String(id)===String(t.team_id))))||sfActual[i]||null}return {slot:`SF${i+1}`,game:actual,teams:actual?cfpGamePair(actual):[cfpAdvanceTeam(a)||cfpVirtualTeam(`Winner ${pair[0].slot}`),cfpAdvanceTeam(b)||cfpVirtualTeam(`Winner ${pair[1].slot}`)]}});
  const semiWinner=s=>s.game?cfpBracketWinner(s.game):null;
  const champGame=ncActual[0]||null;
- const champTeams=champGame?cfpGamePair(champGame):[semiWinner(semis[0])||cfpVirtualTeam("Winner SF1"),semiWinner(semis[1])||cfpVirtualTeam("Winner SF2")];
+ const champTeams=champGame?cfpGamePair(champGame):[cfpAdvanceTeam(semiWinner(semis[0]))||cfpVirtualTeam("Winner SF1"),cfpAdvanceTeam(semiWinner(semis[1]))||cfpVirtualTeam("Winner SF2")];
  const controlled=fr.flatMap(cfpGamePair).find(t=>t.person_id);
  const controlledGame=controlled?fr.find(g=>cfpGamePair(g).some(t=>String(t.person_id||'')===String(controlled.person_id))):null;
  const cPair=controlledGame?pairKey(controlledGame):null,cTarget=cPair?targetSeedByPair[cPair]:null,cBye=cTarget?cfpLatestSeedTeam(cTarget,firstWeek):null,cMeta=controlledGame?cfpBracketMeta(controlledGame):{};
@@ -10506,9 +10507,9 @@ body.dynasty-chooser-active #siteHeader .canonical-header-row>div:first-child>.m
 })();
 </script>
 <meta name="saturday-foundry-release" content="9.5.3-navigation-top25-gotw">
-<!-- Saturday Foundry 9.6.15 — State-Preserving In-App Refresh -->
+<!-- Saturday Foundry 9.6.16 — CFP Score Carryover Fix -->
 <!-- 9.6.13 reconciliation: combines postseason schedule/CFP/national-result tooling with coach-centric Trophy Room bowl ledgers and historical hydration. -->
-<meta name="saturday-foundry-release" content="9.6.15-state-preserving-refresh">
+<meta name="saturday-foundry-release" content="9.6.16-cfp-score-carryover-fix">
 </body>
 </html>
 
