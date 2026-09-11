@@ -10506,9 +10506,9 @@ body.dynasty-chooser-active #siteHeader .canonical-header-row>div:first-child>.m
 })();
 </script>
 <meta name="saturday-foundry-release" content="9.5.3-navigation-top25-gotw">
-<!-- Saturday Foundry 9.6.14 — Schedule Result Perspective -->
+<!-- Saturday Foundry 9.6.15 — State-Preserving In-App Refresh -->
 <!-- 9.6.13 reconciliation: combines postseason schedule/CFP/national-result tooling with coach-centric Trophy Room bowl ledgers and historical hydration. -->
-<meta name="saturday-foundry-release" content="9.6.14-schedule-result-perspective">
+<meta name="saturday-foundry-release" content="9.6.15-state-preserving-refresh">
 </body>
 </html>
 
@@ -11817,3 +11817,207 @@ body.dynasty-chooser-active .dynasty-chooser-empty{
 })();
 </script>
 <meta name="saturday-foundry-release-9-5-4" content="definitive-ipad-gotw-dynasty-button-gateway-branding">
+
+
+<!-- Saturday Foundry 9.6.15 — State-Preserving In-App Refresh -->
+<style id="sf-release-9-6-15-refresh-style">
+/* In-app refresh: compact desktop control + explicit mobile More action. */
+#refreshDataBtn{
+  width:38px!important;min-width:38px!important;height:36px!important;min-height:36px!important;
+  display:inline-grid!important;place-items:center!important;padding:0!important;
+  border:1px solid rgba(216,170,77,.30)!important;border-radius:9px!important;
+  background:linear-gradient(180deg,rgba(31,29,23,.96),rgba(12,13,12,.99))!important;
+  color:#f4d17d!important;box-shadow:inset 0 1px rgba(255,255,255,.025)!important;
+  cursor:pointer!important;flex:0 0 38px!important;
+}
+#refreshDataBtn:hover,#refreshDataBtn:focus-visible{border-color:rgba(244,209,125,.62)!important;outline:none!important}
+#refreshDataBtn .sf-refresh-glyph{display:block;font-size:22px;line-height:1;font-weight:800;transform-origin:50% 50%}
+#refreshDataBtn .utility-label{display:none!important}
+#refreshDataBtn.is-refreshing .sf-refresh-glyph{animation:sf-refresh-spin .75s linear infinite}
+#refreshDataBtn:disabled{opacity:.58!important;cursor:wait!important}
+@keyframes sf-refresh-spin{to{transform:rotate(360deg)}}
+@media(min-width:769px){
+  body:not(.sf-auth-visible):not(.dynasty-chooser-active) #siteHeader #sessionBar{max-width:224px!important}
+}
+#hqMobileMoreGrid [data-mobile-more-action="refresh"] .hq-more-icon{
+  font-size:27px!important;font-weight:900!important;color:#f4d17d!important;line-height:1!important;
+}
+#hqMobileMoreGrid [data-mobile-more-action="refresh"].is-refreshing .hq-more-icon{animation:sf-refresh-spin .75s linear infinite}
+</style>
+<script id="sf-release-9-6-15-refresh-runtime">
+(function(){
+  'use strict';
+  let refreshing=false;
+  const byId=id=>document.getElementById(id);
+  const escHtml=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+  function activeViewName(){return document.querySelector('.view.active')?.id||'overview'}
+  function setSyncStatus(text,kind=''){
+    const el=byId('syncStatus');
+    if(el){el.textContent=text;el.dataset.refreshState=kind||'';}
+    const mobile=document.querySelector('.canonical-mobile-head .text-emerald-300');
+    if(mobile)mobile.textContent=text;
+  }
+  function setRefreshControlsBusy(on){
+    document.querySelectorAll('#refreshDataBtn,[data-mobile-more-action="refresh"]').forEach(b=>{
+      b.disabled=!!on;b.classList.toggle('is-refreshing',!!on);b.setAttribute('aria-busy',on?'true':'false');
+    });
+  }
+  function ensureDesktopRefresh(){
+    const bar=byId('sessionBar');
+    if(!bar||byId('refreshDataBtn'))return;
+    const btn=document.createElement('button');
+    btn.id='refreshDataBtn';btn.type='button';btn.title='Refresh dynasty data';btn.setAttribute('aria-label','Refresh dynasty data');
+    btn.innerHTML='<span class="sf-refresh-glyph" aria-hidden="true">↻</span><span class="utility-label">Refresh</span>';
+    const email=byId('sessionEmail');
+    if(email)bar.insertBefore(btn,email);else bar.appendChild(btn);
+  }
+  function ensureMobileRefresh(){
+    const g=byId('hqMobileMoreGrid');
+    if(!g||g.querySelector('[data-mobile-more-action="refresh"]'))return;
+    const b=document.createElement('button');
+    b.type='button';b.dataset.mobileMoreAction='refresh';
+    b.innerHTML='<span class="hq-more-icon" aria-hidden="true">↻</span><span>Refresh Data</span>';
+    g.insertBefore(b,g.firstChild);
+  }
+  function restoreView(view,scrollX,scrollY){
+    document.querySelectorAll('.view').forEach(v=>v.classList.toggle('active',v.id===view));
+    document.querySelectorAll('#nav button[data-view]').forEach(b=>b.classList.toggle('active',b.dataset.view===view));
+    document.querySelectorAll('#hqMobileNav [data-mobile-view]').forEach(b=>b.classList.toggle('active',b.dataset.mobileView===view));
+    requestAnimationFrame(()=>requestAnimationFrame(()=>window.scrollTo({left:scrollX,top:scrollY,behavior:'auto'})));
+  }
+  function updateShellForDynasty(){
+    if(!D)return;
+    const title=byId('headerTitle');if(title)title.textContent=`${D.name} • Dynasty HQ`;
+    const logo=byId('leagueLogo');if(logo)logo.src=D.logo_url||'https://lh3.googleusercontent.com/d/1vL31iTvRJEjKHvHNGeqz1ddc7i-iEOmb';
+    const dynastySelect=byId('dynastySelect');
+    if(dynastySelect){
+      dynastySelect.innerHTML=(dynasties||[]).map((d,idx)=>`<option value="${idx}" ${String(d.dynasty_id)===String(D.dynasty_id)?'selected':''}>${escHtml(d.short_name||d.name)}</option>`).join('');
+      dynastySelect.classList.toggle('hidden',(dynasties||[]).length<2);
+    }
+    if(byId('dynastyHubList')&&typeof renderDynastyHub==='function')renderDynastyHub();
+  }
+  function updateSeasonSelector(){
+    const sel=byId('seasonSelect');if(!sel||!S)return;
+    sel.innerHTML=(seasons||[]).map(se=>`<option value="${se.season_id}">Season ${se.season_number}${se.year?` · ${escHtml(se.year)}`:''}${se.is_active?' · Active':''}</option>`).join('');
+    sel.value=S.season_id;
+  }
+
+  async function refreshFoundryData(){
+    if(refreshing)return;
+    if(!D?.dynasty_id||!S?.season_id){window.CDHQToast?.('Open a dynasty before refreshing.','error');return;}
+    refreshing=true;
+    const dynastyId=D.dynasty_id;
+    const requestedSeasonId=S.season_id;
+    const view=activeViewName();
+    const keepWeek=selectedWeek;
+    const scrollX=window.scrollX,scrollY=window.scrollY;
+    const recapSeason=byId('recapSeasonSelect')?.value||'';
+    const storySeason=byId('storySeasonSelect')?.value||'';
+    setRefreshControlsBusy(true);
+    setSyncStatus('● SYNCING','busy');
+    window.CDHQLoader?.show('Refreshing dynasty data');
+    try{
+      // Refresh dynasty metadata without calling enter()/loadDynasty(), which would route multi-league users back to the chooser.
+      const freshDynasties=await Data.dynasties();
+      if(Array.isArray(freshDynasties)&&freshDynasties.length){
+        dynasties=freshDynasties;
+        D=dynasties.find(d=>String(d.dynasty_id)===String(dynastyId))||D;
+        dynasties.forEach(d=>{delete d._chooserProgram;delete d._chooserProgramResolved;});
+      }
+
+      const [ss,career,trophies,heismans,myPrograms,powerContext,careerStops,dynastyCoaches,coachMoves,activeWeek]=await Promise.all([
+        Data.seasons(dynastyId),Data.career(dynastyId),Data.trophies(dynastyId),Data.listHeismans(dynastyId),
+        Data.myPrograms(dynastyId),Data.powerContext(dynastyId),Data.careerStops(dynastyId),Data.dynastyCoaches(dynastyId),
+        Data.coachMoves(dynastyId),Data.activeWeek(dynastyId)
+      ]);
+      seasons=Array.isArray(ss)?ss:[];
+      S=seasons.find(se=>String(se.season_id)===String(requestedSeasonId))||seasons.find(se=>se.is_active||String(se.status||'').toLowerCase()==='active')||seasons[0];
+      if(!S)throw Error('This dynasty does not have a season to refresh.');
+      const activeSeason=!!(S.is_active||String(S.status||'').toLowerCase()==='active');
+
+      const [programs,standings,games,scheduleGames,rankings,vegas,nationalFinalizedWeek]=await Promise.all([
+        Data.programs(dynastyId,S.season_id),Data.standings(dynastyId,S.season_id),Data.games(dynastyId,S.season_id),
+        Data.scheduleGames(dynastyId,S.season_id),Data.rankings(dynastyId,S.season_id),Data.vegas(dynastyId,S.season_id),
+        activeSeason?Data.nationalFinalizedWeek(dynastyId,S.season_id):Promise.resolve(null)
+      ]);
+
+      // Historical hydration is part of the refresh so Trophy Room, Chronicles and Record Book are correct immediately.
+      const historyResults=await Promise.allSettled((seasons||[]).map(se=>
+        String(se.season_id)===String(S.season_id)?Promise.resolve(games):Data.games(dynastyId,se.season_id)
+      ));
+      const allGames=historyResults.filter(r=>r.status==='fulfilled').flatMap(r=>Array.isArray(r.value)?r.value:[]);
+      const cleanVegas=Array.isArray(vegas)?vegas:[];
+      const aw=Number(activeWeek),nf=Number(nationalFinalizedWeek);
+      state={...state,career,trophies,heismans,myPrograms,powerContext,careerStops,dynastyCoaches,coachMoves,
+        programs,standings,games,scheduleGames,rankings,vegas:cleanVegas,vegasAll:[],gotwGames:[],allGames,
+        recapRankings:{},activeWeek:Number.isInteger(aw)?aw:null,
+        nationalFinalizedWeek:activeSeason&&Number.isInteger(nf)?nf:null};
+      selectedWeek=keepWeek;
+      vegasLegacyLoadedFor=null;
+      vegasCache.clear();
+      vegasCache.set(vegasKey(dynastyId,S.season_id),cleanVegas);
+
+      if(typeof refreshEditLog==='function'){
+        try{await refreshEditLog()}catch(err){console.warn('Edit history refresh skipped:',err)}
+      }
+
+      updateShellForDynasty();
+      updateSeasonSelector();
+      if(typeof hideDynastyChooser==='function')hideDynastyChooser();
+      byId('authScreen')?.classList.add('hidden');
+      byId('teamScreen')?.classList.add('hidden');
+      byId('claimScreen')?.classList.add('hidden');
+      byId('app')?.classList.remove('hidden');
+      byId('navWrap')?.classList.remove('hidden');
+
+      renderAll();
+      if(typeof renderRecordBook==='function')renderRecordBook();
+      if(typeof decorateGameCardsWithVegas==='function')decorateGameCardsWithVegas(cleanVegas);
+
+      // Restore secondary season selectors when the user was browsing a historical recap/story.
+      const recap=byId('recapSeasonSelect');
+      if(recapSeason&&recap&&[...recap.options].some(o=>o.value===recapSeason)){recap.value=recapSeason;if(view==='recap'&&typeof renderSeasonRecap==='function')renderSeasonRecap();}
+      const story=byId('storySeasonSelect');
+      if(storySeason&&story&&[...story.options].some(o=>o.value===storySeason)){story.value=storySeason;if(view==='storylines'&&typeof renderStorylines==='function')renderStorylines();}
+      if(view==='vegas'&&typeof renderVegas==='function')renderVegas();
+      if(view==='analytics'&&typeof renderAnalyticsSuite==='function')renderAnalyticsSuite();
+      if(view==='rivalries'&&typeof renderRivalries==='function')renderRivalries();
+      if(view==='trophies'&&typeof renderTrophies==='function')renderTrophies();
+      if(view==='schedule'&&typeof renderSchedule==='function')renderSchedule();
+      if(view==='overview'&&typeof renderHQCommand==='function')renderHQCommand();
+      if(typeof ensureVegasLegacy==='function')Promise.resolve(ensureVegasLegacy()).catch(err=>console.warn('Vegas background refresh skipped:',err));
+
+      restoreView(view,scrollX,scrollY);
+      setSyncStatus('● FIELD SYNCED','success');
+      window.CDHQToast?.(`Refreshed ${D?.short_name||D?.name||'dynasty'} · stayed on ${view==='overview'?'Overview':view}.`,'success');
+    }catch(err){
+      console.error('In-app refresh failed',err);
+      setSyncStatus('● SYNC ERROR','error');
+      window.CDHQToast?.(err?.message||'Could not refresh dynasty data.','error');
+      restoreView(view,scrollX,scrollY);
+      setTimeout(()=>setSyncStatus('● FIELD SYNCED',''),2200);
+    }finally{
+      setRefreshControlsBusy(false);
+      window.CDHQLoader?.hide();
+      refreshing=false;
+    }
+  }
+
+  window.CDHQRefresh=refreshFoundryData;
+  function boot(){
+    ensureDesktopRefresh();ensureMobileRefresh();
+    const g=byId('hqMobileMoreGrid');if(g)new MutationObserver(()=>ensureMobileRefresh()).observe(g,{childList:true});
+  }
+  document.addEventListener('click',e=>{
+    const target=e.target.closest?.('#refreshDataBtn,[data-mobile-more-action="refresh"]');
+    if(!target)return;
+    e.preventDefault();e.stopPropagation();
+    if(target.dataset.mobileMoreAction==='refresh')window.CDHQCloseMobileMore?.();
+    refreshFoundryData();
+  },true);
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',boot,{once:true});else boot();
+  window.addEventListener('pageshow',()=>{ensureDesktopRefresh();ensureMobileRefresh();});
+})();
+</script>
+<meta name="saturday-foundry-release" content="9.6.15-state-preserving-refresh">
