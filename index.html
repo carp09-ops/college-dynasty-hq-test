@@ -4560,36 +4560,89 @@ body{background:radial-gradient(circle at 50% 0,rgba(216,170,77,.08),transparent
 #schedule .v21-score.schedule-neutral-final span{color:#7f8c95!important}
 </style>
 <style id="record-book-trading-cards-v1">
-/* Record Book — Foundry Coach Trading Cards */
-.coach-card-collection{overflow:visible!important;background:radial-gradient(circle at 50% 0,rgba(244,197,66,.075),transparent 30%),linear-gradient(145deg,rgba(5,17,22,.97),rgba(3,10,13,.99))!important}
-.coach-trading-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,410px));justify-content:center;gap:22px;padding:5px 0 10px}
-.coach-trading-card{position:relative;width:100%;aspect-ratio:.705;perspective:1600px;isolation:isolate;outline:none}
-.coach-card-inner{position:absolute;inset:0;transform-style:preserve-3d;transition:transform .68s cubic-bezier(.2,.72,.22,1)}
-.coach-trading-card.is-flipped .coach-card-inner{transform:rotateY(180deg)}
-.coach-card-face{position:absolute;inset:0;overflow:hidden;border-radius:20px;backface-visibility:hidden;-webkit-backface-visibility:hidden;border:1px solid rgba(244,197,66,.62);background:#061016;box-shadow:0 26px 70px -30px #000,0 0 0 4px rgba(4,16,20,.94),0 0 0 5px rgba(244,197,66,.23)}
-.coach-card-face:before{content:"";position:absolute;inset:10px;border:1px solid rgba(244,197,66,.30);clip-path:polygon(0 18px,18px 0,calc(100% - 18px) 0,100% 18px,100% calc(100% - 18px),calc(100% - 18px) 100%,18px 100%,0 calc(100% - 18px));pointer-events:none;z-index:5}
-.coach-card-front{background:#071218}
-.coach-card-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 22%;filter:saturate(.92) contrast(1.04);transform:scale(1.015)}
-.coach-card-front:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(2,7,10,.06) 0%,rgba(2,7,10,.03) 38%,rgba(2,7,10,.42) 60%,rgba(2,7,10,.97) 88%,#02070a 100%),linear-gradient(90deg,rgba(2,7,10,.38),transparent 24%,transparent 74%,rgba(2,7,10,.25));z-index:1}
-.coach-card-chrome{position:absolute;inset:0;pointer-events:none;z-index:4;background:linear-gradient(120deg,rgba(255,255,255,.14),transparent 12%,transparent 83%,rgba(244,197,66,.09));mix-blend-mode:screen}
-.coach-card-front-top{position:absolute;z-index:6;left:24px;right:24px;top:22px;display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
-.coach-card-brand{display:flex;align-items:center;gap:8px;font:900 10px/1.05 "Barlow Condensed",sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#f8e39a;text-shadow:0 2px 10px #000}.coach-card-brand img{width:34px;height:34px;object-fit:contain;filter:drop-shadow(0 3px 10px #000)}
-.coach-card-number{text-align:right;font:900 18px/1 "Barlow Condensed",sans-serif;color:#fff}.coach-card-number small{display:block;margin-top:5px;font:800 7px/1 Inter,sans-serif;color:#e9cb6d;letter-spacing:.14em;text-transform:uppercase}
-.coach-card-front-copy{position:absolute;z-index:6;left:24px;right:24px;bottom:22px;text-shadow:0 3px 16px rgba(0,0,0,.96)}
-.coach-card-archetype{display:inline-flex;padding:5px 9px;border:1px solid rgba(244,197,66,.43);background:rgba(2,7,10,.66);border-radius:999px;font:900 8px/1 Inter,sans-serif;letter-spacing:.13em;color:#f5cf59;text-transform:uppercase;backdrop-filter:blur(8px)}
-.coach-card-name{margin-top:8px;font:900 clamp(38px,4vw,52px)/.84 "Barlow Condensed",sans-serif;letter-spacing:.02em;text-transform:uppercase;color:#fff}.coach-card-team{display:flex;align-items:center;gap:8px;margin-top:11px;font-size:10px;color:#d5dee3;font-weight:850;text-transform:uppercase;letter-spacing:.06em}.coach-card-team img{width:29px;height:29px;object-fit:contain;background:rgba(255,255,255,.93);border-radius:7px;padding:2px}
-.coach-card-mantra{margin-top:8px;color:#c5d0d6;font:800 8px/1.2 Inter,sans-serif;letter-spacing:.16em;text-transform:uppercase}
-.coach-card-front-stats{display:grid;grid-template-columns:1fr auto 1fr;align-items:end;gap:12px;margin-top:13px;padding-top:11px;border-top:1px solid rgba(244,197,66,.27)}.coach-card-front-stats>div:first-child{text-align:left}.coach-card-front-stats>div:last-child{text-align:right}.coach-card-front-stats small{display:block;font-size:6px;color:#899ca5;text-transform:uppercase;font-weight:900;letter-spacing:.11em}.coach-card-front-stats b{display:block;margin-top:2px;font:900 27px/.9 "Barlow Condensed",sans-serif;color:#f4c542}.coach-card-status{align-self:center;padding:4px 8px;border:1px solid rgba(25,211,154,.33);border-radius:5px;background:rgba(25,211,154,.11);font-size:7px;font-weight:950;color:#74e4be;letter-spacing:.12em;text-transform:uppercase}.coach-card-status.retired{border-color:rgba(239,83,80,.35);background:rgba(239,83,80,.11);color:#ff9ca0}
-.coach-card-flip{position:absolute;z-index:8;right:20px;bottom:20px;border:1px solid rgba(244,197,66,.34);border-radius:999px;background:rgba(2,7,10,.78);color:#f5d66c;min-height:34px!important;padding:7px 10px!important;font:900 8px/1 Inter,sans-serif;letter-spacing:.10em;text-transform:uppercase;cursor:pointer;backdrop-filter:blur(10px)}.coach-card-flip:hover,.coach-card-flip:focus-visible{border-color:#f4c542;color:#fff;outline:none}
-.coach-card-front .coach-card-flip{bottom:20px}.coach-card-front-copy{padding-bottom:42px}
-.coach-card-back{transform:rotateY(180deg);background:radial-gradient(circle at 50% -8%,rgba(244,197,66,.09),transparent 28%),linear-gradient(155deg,#07171e,#02090d 72%,#02070a)}
-.coach-card-back-scroll{position:absolute;inset:0;z-index:2;overflow:auto;padding:25px 22px 68px;scrollbar-width:thin;overscroll-behavior:contain}
-.coach-card-back-head{padding:3px 3px 14px;border-bottom:1px solid rgba(244,197,66,.28);text-align:center}.coach-card-back-brand{font-size:7px;font-weight:950;color:#d8b947;letter-spacing:.18em;text-transform:uppercase}.coach-card-back-head h4{margin:6px 0 2px;font:900 32px/.9 "Barlow Condensed",sans-serif;text-transform:uppercase;color:#fff}.coach-card-back-head p{margin:0;font-size:8px;color:#a3b1b8;text-transform:uppercase;font-weight:850;letter-spacing:.08em}.coach-card-back-head em{display:block;margin-top:7px;font:700 9px/1.25 Georgia,serif;color:#e4ca77}.coach-card-back-section{margin-top:13px}.coach-card-back-section>span{display:block;margin-bottom:6px;font-size:7px;font-weight:950;color:#f4c542;letter-spacing:.15em;text-transform:uppercase}.coach-card-season-table{width:100%;table-layout:fixed;border-collapse:collapse;border:1px solid rgba(89,166,192,.24);border-radius:8px;overflow:hidden;background:rgba(1,7,10,.48)}.coach-card-season-table th,.coach-card-season-table td{padding:6px 3px!important;border-bottom:1px solid rgba(148,163,184,.12)!important;text-align:center!important;white-space:normal!important;font-size:7px!important;line-height:1.1}.coach-card-season-table th{color:#738995!important;background:rgba(79,209,255,.035);text-transform:uppercase;letter-spacing:.04em}.coach-card-season-table td{color:#dbe4e8!important}.coach-card-season-table th:nth-child(2),.coach-card-season-table td:nth-child(2){width:23%;text-align:left!important}.coach-card-season-table td:nth-child(2){font-weight:850;color:#fff!important}.coach-card-career-total{display:grid;grid-template-columns:1.25fr repeat(6,1fr);gap:0;margin-top:8px;border:1px solid rgba(244,197,66,.34);border-radius:8px;overflow:hidden;background:rgba(244,197,66,.055)}.coach-card-career-total>div{padding:7px 2px;text-align:center;border-right:1px solid rgba(244,197,66,.12)}.coach-card-career-total>div:last-child{border-right:0}.coach-card-career-total small{display:block;font-size:5px;color:#7f919a;text-transform:uppercase;font-weight:900}.coach-card-career-total b{display:block;margin-top:2px;font:900 15px/1 "Barlow Condensed",sans-serif;color:#f5cf59}.coach-card-career-total .record b{font-size:19px;color:#fff}.coach-card-back-bio{padding:10px 11px;border-left:2px solid rgba(244,197,66,.55);background:rgba(244,197,66,.035);font-size:8px;line-height:1.42;color:#9db0b8}.coach-card-back-footer{margin-top:12px;padding-top:10px;border-top:1px solid rgba(148,163,184,.11);font-size:6px;text-align:center;color:#71858e;letter-spacing:.15em;text-transform:uppercase}
-.record-leaderboard-fold>summary{cursor:pointer;list-style:none;margin-bottom:0!important}.record-leaderboard-fold>summary::-webkit-details-marker{display:none}.record-leaderboard-body{padding-top:10px}.record-fold-chevron{display:inline-block;margin-left:5px;color:#f4c542;font-size:12px;transition:transform .2s ease}.record-leaderboard-fold[open] .record-fold-chevron{transform:rotate(180deg)}
-@media(max-width:900px){.coach-trading-grid{grid-template-columns:repeat(2,minmax(280px,380px));gap:18px}}
-@media(max-width:700px){.coach-trading-grid{grid-template-columns:minmax(0,1fr);gap:18px}.coach-trading-card{max-width:390px;margin:0 auto}.coach-card-front-top{left:20px;right:20px;top:19px}.coach-card-front-copy{left:20px;right:20px;bottom:18px}.coach-card-back-scroll{padding:21px 18px 65px}.coach-card-name{font-size:45px}.coach-card-season-table th,.coach-card-season-table td{font-size:6.5px!important;padding:5px 2px!important}}
-@media(max-width:380px){.coach-card-name{font-size:40px}.coach-card-back-scroll{padding-left:14px;padding-right:14px}.coach-card-season-table th,.coach-card-season-table td{font-size:6px!important}.coach-card-career-total b{font-size:13px}.coach-card-career-total .record b{font-size:17px}}
-@media(prefers-reduced-motion:reduce){.coach-card-inner{transition:none}}
+/* Coaches Card — mockup-matched collectible coach cards */
+#records{--card-gold:#d5a83e;--card-cream:#f4e0a0}
+#records .coaches-card-shell{max-width:1180px;margin:0 auto;padding:6px 0 16px}
+#records .coaches-card-heading{display:flex;align-items:end;justify-content:space-between;gap:18px;margin:4px 0 18px;padding:0 4px 14px;border-bottom:1px solid rgba(213,168,62,.25)}
+#records .coaches-card-heading span{display:block;font-size:10px!important;font-weight:950;color:#caa84b;letter-spacing:.15em;text-transform:uppercase}
+#records .coaches-card-heading h2{margin:4px 0 0;font:900 38px/.92 "Barlow Condensed",Oswald,sans-serif;text-transform:uppercase;color:#fff}
+#records .coaches-card-heading p{margin:0;max-width:390px;text-align:right;color:#80939c;font-size:11px;line-height:1.4}
+#records .coach-trading-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,410px));justify-content:center;gap:24px;padding:0 2px 10px}
+#records .coach-trading-card{--coach-accent:#d5a83e;position:relative;width:100%;aspect-ratio:.705;isolation:isolate;outline:none}
+#records .coach-card-inner{position:absolute;inset:0;transform:scaleX(1);transform-origin:center;transition:transform .18s cubic-bezier(.36,.08,.2,1)}
+#records .coach-trading-card.is-switching .coach-card-inner{transform:scaleX(.035)}
+#records .coach-card-face{position:absolute;inset:0;overflow:hidden;border-radius:18px;border:1px solid rgba(213,168,62,.78);background:#050b0e;box-shadow:0 24px 58px -28px #000,0 0 0 3px #061014,0 0 0 4px rgba(213,168,62,.26);opacity:0;visibility:hidden;pointer-events:none}
+#records .coach-card-face:before{content:"";position:absolute;inset:10px;border:1px solid rgba(213,168,62,.42);clip-path:polygon(0 18px,18px 0,calc(100% - 18px) 0,100% 18px,100% calc(100% - 18px),calc(100% - 18px) 100%,18px 100%,0 calc(100% - 18px));pointer-events:none;z-index:8}
+#records .coach-card-front{opacity:1;visibility:visible;pointer-events:auto;background:#061014}
+#records .coach-trading-card.is-flipped .coach-card-front{opacity:0;visibility:hidden;pointer-events:none}
+#records .coach-trading-card.is-flipped .coach-card-back{opacity:1;visibility:visible;pointer-events:auto}
+#records .coach-card-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 20%;filter:saturate(.95) contrast(1.04);transform:scale(1.012)}
+#records .coach-card-front:after{content:"";position:absolute;inset:0;z-index:2;background:linear-gradient(180deg,rgba(1,5,8,.02) 0%,rgba(1,5,8,.04) 40%,rgba(1,5,8,.27) 58%,rgba(1,5,8,.86) 78%,#020608 100%),linear-gradient(90deg,rgba(2,7,10,.32),transparent 26%,transparent 74%,rgba(2,7,10,.22))}
+#records .coach-card-chrome{position:absolute;inset:0;z-index:4;pointer-events:none;background:linear-gradient(122deg,rgba(255,255,255,.12),transparent 13%,transparent 82%,rgba(213,168,62,.10));mix-blend-mode:screen}
+#records .coach-card-front-top{position:absolute;z-index:9;left:24px;right:24px;top:22px;display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+#records .coach-card-brand{display:flex;align-items:center;gap:8px;font:900 9px/1.05 Inter,sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#f1d989;text-shadow:0 2px 10px #000}
+#records .coach-card-brand img{width:38px;height:38px;object-fit:contain;filter:drop-shadow(0 3px 10px #000)}
+#records .coach-card-number{text-align:right;font:900 22px/1 "Barlow Condensed",Oswald,sans-serif;color:#fff;text-shadow:0 2px 10px #000}
+#records .coach-card-number small{display:block;margin-top:5px;font:850 7px/1 Inter,sans-serif;color:#e7c65c;letter-spacing:.14em;text-transform:uppercase}
+#records .coach-card-scribble{position:absolute;z-index:7;max-width:108px;font:italic 800 12px/1.12 Georgia,serif;color:#f7e9bb;text-transform:uppercase;text-shadow:0 2px 9px #000;letter-spacing:.02em;opacity:.92}
+#records .coach-card-scribble.left{left:26px;top:31%}.coach-card-scribble.right{right:24px;top:39%;text-align:right}
+#records .coach-card-front-copy{position:absolute;z-index:9;left:24px;right:24px;bottom:24px;text-shadow:0 3px 16px rgba(0,0,0,.98)}
+#records .coach-card-signature{font:italic 700 28px/.9 Georgia,serif;color:#d8aa43;transform:rotate(-6deg);transform-origin:left center;margin-bottom:6px}
+#records .coach-card-role{font-size:7px;font-weight:900;color:#d8dee2;letter-spacing:.22em;text-transform:uppercase;text-align:center}
+#records .coach-card-name{margin-top:5px;font:900 clamp(42px,4.2vw,58px)/.82 "Barlow Condensed",Oswald,sans-serif;letter-spacing:.015em;text-transform:uppercase;text-align:center;color:#fff}
+#records .coach-card-mantra{margin-top:8px;text-align:center;color:#e8edf0;font:850 8px/1.2 Inter,sans-serif;letter-spacing:.19em;text-transform:uppercase}
+#records .coach-card-front-bottom{display:grid;grid-template-columns:1fr 1.05fr 1fr;align-items:end;gap:8px;margin-top:13px;padding-top:12px;border-top:1px solid rgba(213,168,62,.34)}
+#records .coach-card-front-bottom>div{text-align:center;min-width:0}
+#records .coach-card-front-bottom small{display:block;font-size:6px;color:#83949c;text-transform:uppercase;font-weight:900;letter-spacing:.10em}
+#records .coach-card-front-bottom b{display:block;margin-top:3px;font:900 26px/.9 "Barlow Condensed",Oswald,sans-serif;color:#e4b94e}
+#records .coach-card-program img{width:36px;height:36px;object-fit:contain;background:#fff;border-radius:8px;padding:2px;margin:0 auto 4px}
+#records .coach-card-program strong{display:block;font-size:8px;line-height:1.15;color:#fff;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#records .coach-card-status{display:inline-flex!important;align-items:center;justify-content:center;margin-top:6px!important;padding:5px 8px;border:1px solid color-mix(in srgb,var(--coach-accent) 65%,#ffffff 10%);border-radius:5px;background:color-mix(in srgb,var(--coach-accent) 13%,transparent);font:950 7px/1 Inter,sans-serif!important;color:#fff!important;letter-spacing:.12em;text-transform:uppercase}
+#records .coach-card-status.retired{border-color:rgba(239,83,80,.40);background:rgba(239,83,80,.12);color:#ff9ca0!important}
+#records .coach-card-flip{position:absolute;z-index:12;right:19px;bottom:18px;border:1px solid rgba(213,168,62,.48);border-radius:999px;background:rgba(1,6,9,.88);color:#f0d276;min-height:34px!important;padding:7px 10px!important;font:900 8px/1 Inter,sans-serif;letter-spacing:.10em;text-transform:uppercase;cursor:pointer}
+#records .coach-card-flip:focus-visible{outline:2px solid #f4c542;outline-offset:2px}
+#records .coach-card-front-copy{padding-bottom:42px}
+#records .coach-card-back{background:radial-gradient(circle at 50% -5%,rgba(213,168,62,.075),transparent 31%),linear-gradient(155deg,#071319,#02080b 76%,#010506)}
+#records .coach-card-back-scroll{position:absolute;inset:0;z-index:3;overflow:auto;padding:24px 21px 66px;scrollbar-width:thin;overscroll-behavior:contain}
+#records .coach-card-back-head{text-align:center;padding:2px 3px 12px;border-bottom:1px solid rgba(213,168,62,.30)}
+#records .coach-card-back-brand{display:inline-block;padding:4px 10px;border:1px solid rgba(213,168,62,.34);font:900 6px/1 Inter,sans-serif;color:#d6b452;letter-spacing:.20em;text-transform:uppercase}
+#records .coach-card-back-head h4{margin:8px 0 2px;font:900 34px/.85 "Barlow Condensed",Oswald,sans-serif;text-transform:uppercase;color:#fff}
+#records .coach-card-back-head p{margin:0;font:850 7px/1.2 Inter,sans-serif;color:#d2dce0;text-transform:uppercase;letter-spacing:.12em}
+#records .coach-card-back-head em{display:block;margin-top:8px;font:italic 700 9px/1.25 Georgia,serif;color:#e1c46a}
+#records .coach-card-profile-grid{display:grid;grid-template-columns:.86fr 1.14fr;gap:10px;margin-top:12px}
+#records .coach-card-profile-box{border:1px solid rgba(142,168,179,.25);background:rgba(2,9,12,.55);padding:10px;border-radius:7px;min-width:0}
+#records .coach-card-profile-box>span,#records .coach-card-back-section>span{display:block;margin-bottom:7px;font:950 6.5px/1 Inter,sans-serif;color:#d6ad43;letter-spacing:.16em;text-transform:uppercase}
+#records .coach-card-fact{padding:0 0 7px;margin-bottom:7px;border-bottom:1px solid rgba(148,163,184,.12)}
+#records .coach-card-fact:last-child{padding-bottom:0;margin-bottom:0;border-bottom:0}
+#records .coach-card-fact small{display:block;font-size:5.5px;color:#8a9ca4;font-weight:900;letter-spacing:.09em;text-transform:uppercase}
+#records .coach-card-fact b{display:block;margin-top:2px;font-size:7px;line-height:1.25;color:#fff;text-transform:uppercase}
+#records .coach-card-back-bio{font-size:7.2px;line-height:1.48;color:#bbc6cb}
+#records .coach-card-back-section{margin-top:12px}
+#records .coach-card-season-table{width:100%!important;table-layout:fixed!important;border-collapse:collapse!important;border:1px solid rgba(88,132,149,.28)!important;background:rgba(1,7,10,.58)!important}
+#records .coach-card-season-table th,#records .coach-card-season-table td{padding:5px 2px!important;border-bottom:1px solid rgba(148,163,184,.12)!important;text-align:center!important;white-space:normal!important;font-size:6.2px!important;line-height:1.1!important}
+#records .coach-card-season-table th{color:#8da0a8!important;background:rgba(255,255,255,.025)!important;text-transform:uppercase!important;letter-spacing:.035em!important}
+#records .coach-card-season-table td{color:#e0e7ea!important}
+#records .coach-card-season-table th:nth-child(2),#records .coach-card-season-table td:nth-child(2){width:24%!important;text-align:left!important}
+#records .coach-card-season-table td:nth-child(2){font-weight:850!important;color:#fff!important}
+#records .coach-card-career-total{display:grid;grid-template-columns:1.28fr repeat(6,1fr);gap:0;margin-top:8px;border:1px solid rgba(213,168,62,.40);overflow:hidden;background:rgba(213,168,62,.055)}
+#records .coach-card-career-total>div{padding:7px 2px;text-align:center;border-right:1px solid rgba(213,168,62,.13);min-width:0}
+#records .coach-card-career-total>div:last-child{border-right:0}
+#records .coach-card-career-total small{display:block;font-size:5px;color:#83939a;text-transform:uppercase;font-weight:900}
+#records .coach-card-career-total b{display:block;margin-top:2px;font:900 14px/1 "Barlow Condensed",Oswald,sans-serif;color:#e6bc50}
+#records .coach-card-career-total .record b{font-size:18px;color:#fff}
+#records .coach-card-highlights{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+#records .coach-card-highlight{min-width:0;padding:7px 8px;border:1px solid rgba(148,163,184,.14);background:rgba(255,255,255,.018);border-radius:6px}
+#records .coach-card-highlight small{display:block;font-size:5.5px;color:#8b9ca4;text-transform:uppercase;font-weight:900;letter-spacing:.07em}
+#records .coach-card-highlight b{display:block;margin-top:2px;font:900 12px/1 "Barlow Condensed",Oswald,sans-serif;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#records .coach-card-highlight em{display:block;margin-top:2px;font-size:5.8px;line-height:1.2;color:#b5c1c6;font-style:normal;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#records .coach-card-rivalries{display:grid;gap:5px}
+#records .coach-card-rivalry{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:center;padding:6px 8px;border-bottom:1px solid rgba(148,163,184,.11);font-size:7px;color:#b6c2c7}
+#records .coach-card-rivalry:last-child{border-bottom:0}.coach-card-rivalry b{color:#fff}.coach-card-rivalry strong{font:900 12px/1 "Barlow Condensed",Oswald,sans-serif;color:#e3ba50}
+#records .coach-card-back-footer{margin-top:11px;padding-top:9px;border-top:1px solid rgba(148,163,184,.11);font-size:5.8px;text-align:center;color:#758991;letter-spacing:.17em;text-transform:uppercase}
+@media(max-width:900px){#records .coach-trading-grid{grid-template-columns:repeat(2,minmax(280px,380px));gap:18px}}
+@media(max-width:700px){#records .coaches-card-shell{padding-top:0}#records .coaches-card-heading{align-items:flex-start;display:block;margin-bottom:15px}#records .coaches-card-heading h2{font-size:42px!important}#records .coaches-card-heading p{margin-top:7px;text-align:left;max-width:none;font-size:12px}#records .coach-trading-grid{grid-template-columns:minmax(0,1fr);gap:20px}#records .coach-trading-card{max-width:390px;margin:0 auto}#records .coach-card-scribble{font-size:11px}#records .coach-card-back-scroll{padding:20px 17px 64px}#records .coach-card-profile-grid{grid-template-columns:.88fr 1.12fr;gap:8px}#records .coach-card-season-table th,#records .coach-card-season-table td{font-size:6px!important;padding:4.5px 1.5px!important}}
+@media(max-width:380px){#records .coach-card-back-scroll{padding-left:14px;padding-right:14px}#records .coach-card-profile-grid{grid-template-columns:1fr}#records .coach-card-highlights{grid-template-columns:1fr 1fr}#records .coach-card-season-table th,#records .coach-card-season-table td{font-size:5.6px!important}#records .coach-card-career-total b{font-size:12px}#records .coach-card-career-total .record b{font-size:16px}}
+@media(prefers-reduced-motion:reduce){#records .coach-card-inner{transition:none}}
 </style>
 <meta name="cdhq-release-feature" content="record-book-coach-trading-cards-v1">
 </head>
@@ -4782,7 +4835,7 @@ body{background:radial-gradient(circle at 50% 0,rgba(216,170,77,.08),transparent
 <path d="M104 22H69c-10 0-18 5-18 14v72c5-5 12-7 20-7h33V22Z" fill="#071116" stroke="url(#gold-records)" stroke-width="5"/>
 <path d="M34 42h20M34 56h20M34 70h16M74 42h20M74 56h20M74 70h16" stroke="url(#gold-records)" stroke-width="4"/>
 </g>
-</svg></span><span class="hq-nav-label">Record Book</span></button>
+</svg></span><span class="hq-nav-label">Coaches Card</span></button>
         <button id="adminNav" class="hidden" data-view="admin"><span class="hq-nav-icon themed-nav-icon inline-svg-icon"><svg class="desktop-nav-svg" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" fill="none">
 
 <defs>
@@ -5268,33 +5321,13 @@ body{background:radial-gradient(circle at 50% 0,rgba(216,170,77,.08),transparent
 </section>
 
     <section id="records" class="view">
-  <div class="record-book-hero">
-    <div><span>DYNASTY HISTORY</span><h2>Record Book</h2><p>The permanent archive of the coaches who forged the dynasty — career cards, signature games, rivalries and all-time leaderboards.</p></div>
-    <div id="recordBookSummary" class="record-book-summary"></div>
-  </div>
-
-  <section class="record-book-section coach-card-collection">
-    <div class="record-book-heading"><div><span>FOUNDRY COACH COLLECTION</span><h3>Coach Trading Cards</h3></div><em>Tap a card to flip · career stats on back</em></div>
+  <div class="coaches-card-shell">
+    <div class="coaches-card-heading">
+      <div><span>FOUNDRY COACH COLLECTION</span><h2>Coaches Card</h2></div>
+      <p>Portrait on the front. Every career, season, record and rivalry stat on the back.</p>
+    </div>
     <div id="coachRecordCards" class="coach-trading-grid"></div>
-  </section>
-
-  <section class="record-book-section">
-    <div class="record-book-heading"><div><span>THE ARCHIVES</span><h3>Dynasty Game Records</h3></div><em>Single-game & season marks</em></div>
-    <div id="dynastyRecordCards" class="dynasty-record-grid"></div>
-    <div id="recordBookNote" class="record-book-note"></div>
-  </section>
-
-  <section class="record-book-section">
-    <div class="record-book-heading"><div><span>HEAD-TO-HEAD</span><h3>Rivalry Ledger</h3></div><em>Coach vs coach</em></div>
-    <div id="rivalryLedger" class="rivalry-ledger"></div>
-  </section>
-
-  <section class="record-book-section record-book-career-table">
-    <details class="record-leaderboard-fold">
-      <summary class="record-book-heading record-leaderboard-summary"><div><span>CAREER TOTALS</span><h3>Full Leaderboard</h3></div><em>Quick coach-vs-coach comparison <b class="record-fold-chevron">⌄</b></em></summary>
-      <div class="record-leaderboard-body"><div class="table-wrap"><table><thead><tr><th>Coach</th><th>Career</th><th>Win %</th><th>PF</th><th>PA</th><th>PD</th><th>Ranked W</th><th>OT</th></tr></thead><tbody id="careerRows"></tbody></table></div></div>
-    </details>
-  </section>
+  </div>
 </section>
 
     <section id="admin" class="view">
@@ -7095,10 +7128,10 @@ const COACH_CARD_PORTRAITS={
  pete:"assets/coach-cards/pete-coach-card.webp"
 };
 const COACH_CARD_IDENTITIES={
- corey:{archetype:"Field General",mantra:"BUILD • DEVELOP • WIN"},
- jared:{archetype:"Program Builder",mantra:"LEAD • DEVELOP • COMPETE"},
- saif:{archetype:"The Tactician",mantra:"CULTURE • DISCIPLINE • RESULTS"},
- pete:{archetype:"The Closer",mantra:"RECRUIT • DEVELOP • COMPETE"}
+ corey:{archetype:"Field General",mantra:"BUILD • DEVELOP • WIN",scribbleLeft:"People first. Process always.",scribbleRight:"Same standard. Higher tomorrow."},
+ jared:{archetype:"Program Builder",mantra:"LEAD • DEVELOP • COMPETE",scribbleLeft:"Good teams. Better people.",scribbleRight:"Discipline today. Wins tomorrow."},
+ saif:{archetype:"The Tactician",mantra:"CULTURE • DISCIPLINE • RESULTS",scribbleLeft:"Relentless people. Better football.",scribbleRight:"Discipline creates freedom."},
+ pete:{archetype:"The Closer",mantra:"RECRUIT • DEVELOP • COMPETE",scribbleLeft:"Pressure reveals.",scribbleRight:"Finish everything."}
 };
 function coachCardKey(name){return String(name||"").trim().toLowerCase().split(/\s+/)[0]||"coach"}
 function coachCardProgram(c){
@@ -7118,31 +7151,61 @@ function coachCardSeasonRows(c,games){
  });
  return [...by.values()].sort((a,b)=>b.season-a.season||a.team.localeCompare(b.team)).map(r=>({...r,gp:r.w+r.l,pct:(r.w+r.l)?(r.w/(r.w+r.l))*100:0,pd:r.pf-r.pa}));
 }
+function coachCardGameHighlights(c,games){
+ const cg=games.filter(g=>String(g.person_id)===String(c.person_id));
+ const wins=cg.filter(g=>g.result==="W");
+ const high=[...cg].sort((a,b)=>(Number(b.points_for||0)+Number(b.points_against||0))-(Number(a.points_for||0)+Number(a.points_against||0)))[0];
+ const lowWin=[...wins].sort((a,b)=>Number(a.points_for||0)-Number(b.points_for||0))[0];
+ const blowout=[...wins].sort((a,b)=>(Number(b.points_for||0)-Number(b.points_against||0))-(Number(a.points_for||0)-Number(a.points_against||0)))[0];
+ const close=[...cg].sort((a,b)=>Math.abs(Number(a.points_for||0)-Number(a.points_against||0))-Math.abs(Number(b.points_for||0)-Number(b.points_against||0)))[0];
+ const upset=[...wins].map(g=>{const vr=vegasForGame(g.id),vp=vr?vegasPerspective(vr,g):null,spread=vp?Number(vp.teamSpread):NaN;return {g,spread}}).filter(x=>Number.isFinite(x.spread)&&x.spread>0).sort((a,b)=>b.spread-a.spread)[0];
+ const seasons=new Map();cg.forEach(g=>{const sn=Number(g.season_number||0);seasons.set(sn,(seasons.get(sn)||0)+Number(g.points_for||0))});
+ const mostSeason=[...seasons].map(([season,pf])=>({season,pf})).sort((a,b)=>b.pf-a.pf)[0];
+ const fmtGame=(g)=>g?`S${g.season_number} · ${g.opponent_team||"Opponent"}`:"No data";
+ return [
+  {label:"Highest-Scoring Game",value:high?`${Number(high.points_for||0)+Number(high.points_against||0)} PTS`:"—",detail:fmtGame(high)},
+  {label:"Fewest Points in a Win",value:lowWin?`${lowWin.points_for} PTS`:"—",detail:fmtGame(lowWin)},
+  {label:"Largest Victory",value:blowout?`+${Number(blowout.points_for||0)-Number(blowout.points_against||0)}`:"—",detail:fmtGame(blowout)},
+  {label:"Closest Game",value:close?`${Math.abs(Number(close.points_for||0)-Number(close.points_against||0))} PT`:"—",detail:fmtGame(close)},
+  {label:"Biggest Upset",value:upset?`${fmtSpread(upset.spread)} DOG`:"—",detail:upset?fmtGame(upset.g):"No qualifying line"},
+  {label:"Most Points · Season",value:mostSeason?`${mostSeason.pf} PTS`:"—",detail:mostSeason?`Season ${mostSeason.season}`:"No data"}
+ ];
+}
+function coachCardRivalries(c){
+ return rivalryRecords().filter(r=>String(r.a)===String(c.person_id)||String(r.b)===String(c.person_id)).map(r=>{const me=String(r.a)===String(c.person_id)?r.a:r.b,opp=String(r.a)===String(c.person_id)?r.b:r.a;return {opp:coachNameFor(opp),w:Number(r.wins[me]||0),l:Number(r.wins[opp]||0),games:Number(r.games||0)}}).sort((a,b)=>b.games-a.games||b.w-a.w);
+}
 function coachTradingCard(c,index,games){
- const key=coachCardKey(c.coach_name),program=coachCardProgram(c),identity=COACH_CARD_IDENTITIES[key]||{archetype:(typeof storyLore==="function"?storyLore({...c,team_name:program.team}).archetype:"Coach"),mantra:"BUILD • DEVELOP • COMPETE"};
+ const key=coachCardKey(c.coach_name),program=coachCardProgram(c),identity=COACH_CARD_IDENTITIES[key]||{archetype:(typeof storyLore==="function"?storyLore({...c,team_name:program.team}).archetype:"Coach"),mantra:"BUILD • DEVELOP • COMPETE",scribbleLeft:"Build the standard.",scribbleRight:"Leave a legacy."};
  const portrait=COACH_CARD_PORTRAITS[key]||"assets/saturday-foundry-hero-wordless.webp";
  const rows=coachCardSeasonRows(c,games),gp=Number(c.games_played||((Number(c.wins||0)+Number(c.losses||0)))),pct=gp?((Number(c.wins||0)/gp)*100).toFixed(1):"0.0";
  const winPct=gp?`${pct}%`:"—",pd=Number(c.point_differential||0),record=`${Number(c.wins||0)}-${Number(c.losses||0)}`,ot=`${Number(c.overtime_wins||0)}-${Number(c.overtime_losses||0)}`;
  const quote=key==="saif"?"Discipline creates opportunity.":key==="jared"?"Build people. Win games. Leave a legacy.":key==="corey"?"People. Process. Progress.":key==="pete"?"Pressure creates better people.":"Your dynasty, forged on Saturdays.";
- const seasonMarkup=rows.map(r=>`<tr><td>S${r.season}</td><td>${esc(r.team)}</td><td>${r.w}-${r.l}</td><td>${r.pct.toFixed(1)}%</td><td>${r.pf}</td><td>${r.pa}</td><td class="${r.pd>=0?'pos':'neg'}">${signed(r.pd)}</td><td>${r.rankedWins}</td><td>${r.otW}-${r.otL}</td></tr>`).join("")||'<tr><td colspan="9">No completed season data yet.</td></tr>';
  const lore=(typeof storyLore==="function")?storyLore({...c,team_name:program.team}):null;
  const bio=lore?.bio||`${c.coach_name}'s coaching history is preserved season by season as the dynasty evolves.`;
- return `<article class="coach-trading-card" data-coach-card="${esc(c.person_id)}" aria-label="${esc(c.coach_name)} coach trading card">
+ const seasonMarkup=rows.map(r=>`<tr><td>S${r.season}</td><td>${esc(r.team)}</td><td>${r.w}-${r.l}</td><td>${r.pct.toFixed(1)}%</td><td>${r.pf}</td><td>${r.pa}</td><td class="${r.pd>=0?'pos':'neg'}">${signed(r.pd)}</td><td>${r.rankedWins}</td><td>${r.otW}-${r.otL}</td></tr>`).join("")||'<tr><td colspan="9">No completed season data yet.</td></tr>';
+ const highlights=coachCardGameHighlights(c,games),rivals=coachCardRivalries(c);
+ const highlightMarkup=highlights.map(h=>`<div class="coach-card-highlight"><small>${esc(h.label)}</small><b>${esc(h.value)}</b><em>${esc(h.detail)}</em></div>`).join("");
+ const rivalryMarkup=rivals.map(r=>`<div class="coach-card-rivalry"><div><b>vs ${esc(r.opp)}</b><br>${r.games} meeting${r.games===1?'':'s'}</div><strong>${r.w}-${r.l}</strong></div>`).join("")||'<div class="coach-card-rivalry"><div>No coach-vs-coach meetings yet.</div><strong>—</strong></div>';
+ const accent=(typeof teamColor==="function"?teamColor(program.team):"#d5a83e")||"#d5a83e";
+ return `<article class="coach-trading-card" data-coach-card="${esc(c.person_id)}" style="--coach-accent:${esc(accent)}" aria-label="${esc(c.coach_name)} coach card">
    <div class="coach-card-inner">
      <section class="coach-card-face coach-card-front" aria-hidden="false">
        <img class="coach-card-photo" src="${esc(portrait)}" alt="AI-generated Saturday Foundry portrait of ${esc(c.coach_name)}">
        <div class="coach-card-chrome"></div>
        <div class="coach-card-front-top"><div class="coach-card-brand"><img src="assets/saturday-foundry-shield.webp" alt=""><span>SATURDAY<br>FOUNDRY</span></div><div class="coach-card-number">#${String(index+1).padStart(2,"0")}<small>Coach Card</small></div></div>
-       <div class="coach-card-front-copy"><span class="coach-card-archetype">${esc(identity.archetype)}</span><div class="coach-card-name">${esc(c.coach_name)}</div><div class="coach-card-team">${program.logo?`<img src="${esc(program.logo)}" alt="">`:''}<span>${esc(program.team)}</span></div><div class="coach-card-mantra">${esc(identity.mantra)}</div><div class="coach-card-front-stats"><div><small>Career Record</small><b>${record}</b></div><span class="coach-card-status ${program.active?'':'retired'}">${program.active?'Active':'Retired'}</span><div><small>Win %</small><b>${winPct}</b></div></div></div>
+       <div class="coach-card-scribble left">${esc(identity.scribbleLeft)}</div><div class="coach-card-scribble right">${esc(identity.scribbleRight)}</div>
+       <div class="coach-card-front-copy"><div class="coach-card-signature">${esc(String(c.coach_name||'Coach').split(/\s+/)[0])}</div><div class="coach-card-role">Head Coach</div><div class="coach-card-name">${esc(c.coach_name)}</div><div class="coach-card-mantra">${esc(identity.mantra)}</div><div class="coach-card-front-bottom"><div><small>Career Record</small><b>${record}</b></div><div class="coach-card-program">${program.logo?`<img src="${esc(program.logo)}" alt="">`:''}<strong>${esc(program.team)}</strong></div><div><small>Status</small><span class="coach-card-status ${program.active?'':'retired'}">${program.active?'Active':'Retired'}</span></div></div></div>
        <button type="button" class="coach-card-flip" data-coach-card-flip aria-label="View ${esc(c.coach_name)} statistics">Stats ↻</button>
      </section>
      <section class="coach-card-face coach-card-back" aria-hidden="true">
        <div class="coach-card-back-scroll">
-         <header class="coach-card-back-head"><span class="coach-card-back-brand">Saturday Foundry · Coach Card #${String(index+1).padStart(2,"0")}</span><h4>${esc(c.coach_name)}</h4><p>${esc(identity.archetype)} · ${esc(program.team)}</p><em>“${esc(quote)}”</em></header>
-         <div class="coach-card-back-section"><span>Season-by-Season Record</span><div class="table-wrap"><table class="coach-card-season-table"><thead><tr><th>S</th><th>Team</th><th>Rec</th><th>Win%</th><th>PF</th><th>PA</th><th>PD</th><th>RK W</th><th>OT</th></tr></thead><tbody>${seasonMarkup}</tbody></table></div>
-           <div class="coach-card-career-total"><div class="record"><small>Career</small><b>${record}</b></div><div><small>Win%</small><b>${winPct}</b></div><div><small>PF</small><b>${Number(c.points_for||0)}</b></div><div><small>PA</small><b>${Number(c.points_against||0)}</b></div><div><small>PD</small><b class="${pd>=0?'pos':'neg'}">${signed(pd)}</b></div><div><small>RK W</small><b>${Number(c.ranked_wins||0)}</b></div><div><small>OT</small><b>${ot}</b></div></div>
+         <header class="coach-card-back-head"><span class="coach-card-back-brand">Saturday Foundry</span><h4>${esc(c.coach_name)}</h4><p>Head Coach &nbsp;|&nbsp; ${esc(program.team)}</p><em>“${esc(quote)}”</em></header>
+         <div class="coach-card-profile-grid"><div class="coach-card-profile-box"><span>Coach Profile</span><div class="coach-card-fact"><small>Archetype</small><b>${esc(identity.archetype)}</b></div><div class="coach-card-fact"><small>Football DNA</small><b>${esc(lore?.philosophy||"Adaptability and development")}</b></div><div class="coach-card-fact"><small>Recruiting</small><b>${esc(lore?.recruit||"Roster development")}</b></div><div class="coach-card-fact"><small>Career Seasons</small><b>${rows.length}</b></div></div><div class="coach-card-profile-box"><span>About</span><div class="coach-card-back-bio">${esc(bio)}</div></div></div>
+         <div class="coach-card-back-section"><span>Season-by-Season</span><table class="coach-card-season-table"><thead><tr><th>S</th><th>Team</th><th>Rec</th><th>Win%</th><th>PF</th><th>PA</th><th>PD</th><th>RK W</th><th>OT</th></tr></thead><tbody>${seasonMarkup}</tbody></table>
+           <div class="coach-card-career-total"><div class="record"><small>Career</small><b>${record}</b></div><div><small>Win%</small><b>${winPct}</b></div><div><small>PF</small><b>${Number(c.points_for||0)}</b></div><div><small>PA</small><b>${Number(c.points_against||0)}</b></div><div><small>PD</small><b>${signed(pd)}</b></div><div><small>RK W</small><b>${Number(c.ranked_wins||0)}</b></div><div><small>OT</small><b>${ot}</b></div></div>
          </div>
-         <div class="coach-card-back-section"><span>Coach Chronicle Profile</span><div class="coach-card-back-bio">${esc(bio)}</div></div>
+         <div class="coach-card-back-section"><span>Foundry Records</span><div class="coach-card-highlights">${highlightMarkup}</div></div>
+         <div class="coach-card-back-section"><span>Rivalry Ledger</span><div class="coach-card-rivalries">${rivalryMarkup}</div></div>
          <div class="coach-card-back-footer">Your dynasty, forged on Saturdays.</div>
        </div>
        <button type="button" class="coach-card-flip" data-coach-card-flip aria-label="Return to ${esc(c.coach_name)} portrait">Portrait ↻</button>
@@ -7153,49 +7216,20 @@ function coachTradingCard(c,index,games){
 function initCoachTradingCards(){
  const host=$("coachRecordCards");if(!host)return;
  host.querySelectorAll("[data-coach-card]").forEach(card=>{
-   card.querySelectorAll("[data-coach-card-flip]").forEach(btn=>btn.addEventListener("click",e=>{e.stopPropagation();const flipped=card.classList.toggle("is-flipped");card.querySelector(".coach-card-front")?.setAttribute("aria-hidden",String(flipped));card.querySelector(".coach-card-back")?.setAttribute("aria-hidden",String(!flipped));}));
+   card.querySelectorAll("[data-coach-card-flip]").forEach(btn=>btn.addEventListener("click",e=>{
+     e.stopPropagation();if(card.dataset.flipping==="1")return;card.dataset.flipping="1";card.classList.add("is-switching");
+     setTimeout(()=>{const flipped=card.classList.toggle("is-flipped");card.querySelector(".coach-card-front")?.setAttribute("aria-hidden",String(flipped));card.querySelector(".coach-card-back")?.setAttribute("aria-hidden",String(!flipped));requestAnimationFrame(()=>card.classList.remove("is-switching"));setTimeout(()=>{card.dataset.flipping="0"},190)},170);
+   }));
  });
 }
 function renderRecordBook(){
- const games=recordBookGames(),unique=uniqueCompletedGames(),career=[...(state.career||[])];
- $("recordBookSummary").innerHTML=`<div><b>${unique.length}</b><small>Completed Games</small></div><div><b>${career.length}</b><small>Coaches</small></div><div><b>${seasons.length}</b><small>Seasons</small></div>`;
-
- $("coachRecordCards").innerHTML=career.map((c,i)=>coachTradingCard(c,i,games)).join("")||'<div class="empty">No career records yet.</div>';
+ const games=recordBookGames(),career=[...(state.career||[])];
+ const host=$("coachRecordCards");if(!host)return;
+ host.innerHTML=career.map((c,i)=>coachTradingCard(c,i,games)).join("")||'<div class="empty">No career records yet.</div>';
  initCoachTradingCards();
-
- const wins=games.filter(g=>g.result==="W");
- const high=[...unique].sort((a,b)=>(Number(b.points_for)+Number(b.points_against))-(Number(a.points_for)+Number(a.points_against)))[0];
- const lowWin=[...wins].sort((a,b)=>Number(a.points_for)-Number(b.points_for))[0];
- const blowout=[...wins].sort((a,b)=>(Number(b.points_for)-Number(b.points_against))-(Number(a.points_for)-Number(a.points_against)))[0];
- const close=[...unique].sort((a,b)=>Math.abs(Number(a.points_for)-Number(a.points_against))-Math.abs(Number(b.points_for)-Number(b.points_against)))[0];
- const upsetCandidates=[...wins].map(g=>{
-   const vr=vegasForGame(g.id),vp=vr?vegasPerspective(vr,g):null,spread=vp?Number(vp.teamSpread):NaN;
-   return {g,spread};
- }).filter(x=>Number.isFinite(x.spread)&&x.spread>0).sort((a,b)=>b.spread-a.spread);
- const upset=upsetCandidates[0]||null;
- const seasonPoints=[];
- career.forEach(c=>seasons.forEach(ss=>{const gs=games.filter(g=>g.person_id===c.person_id&&Number(g.season_number)===Number(ss.season_number));if(gs.length)seasonPoints.push({person_id:c.person_id,coach_name:c.coach_name,season:ss.season_number,pf:gs.reduce((n,g)=>n+Number(g.points_for||0),0),team_name:gs.at(-1)?.team_name})}));
- const mostSeason=[...seasonPoints].sort((a,b)=>b.pf-a.pf)[0];
-
- $("dynastyRecordCards").innerHTML=[
-   gameRecordCard("Highest-Scoring Game",high,high?`${Number(high.points_for)+Number(high.points_against)} PTS`:"—",high?`S${high.season_number} W${high.week_number} · ${high.team_name} ${high.points_for}-${high.points_against} ${high.opponent_team}`:""),
-   gameRecordCard("Fewest Points in a Win",lowWin,lowWin?`${lowWin.points_for} PTS`:"—",lowWin?`S${lowWin.season_number} W${lowWin.week_number} · ${lowWin.team_name} ${lowWin.points_for}-${lowWin.points_against} ${lowWin.opponent_team}`:""),
-   gameRecordCard("Largest Victory",blowout,blowout?`+${Number(blowout.points_for)-Number(blowout.points_against)}`:"—",blowout?`S${blowout.season_number} W${blowout.week_number} · ${blowout.team_name} ${blowout.points_for}-${blowout.points_against} ${blowout.opponent_team}`:""),
-   gameRecordCard("Closest Game",close,close?`${Math.abs(Number(close.points_for)-Number(close.points_against))} PT`:"—",close?`S${close.season_number} W${close.week_number} · ${close.team_name} ${close.points_for}-${close.points_against} ${close.opponent_team}`:""),
-   gameRecordCard("Biggest Upset",upset?.g,upset?`${fmtSpread(upset.spread)} UNDERDOG`:"—",upset?`S${upset.g.season_number} W${upset.g.week_number} · ${upset.g.team_name} ${upset.g.points_for}-${upset.g.points_against} ${upset.g.opponent_team}`:""),
-   mostSeason?`<article class="dynasty-record-card"><small>Most Points in a Season</small><strong>${mostSeason.pf} PTS</strong><h4>${esc(mostSeason.coach_name)} · ${esc(mostSeason.team_name||"")}</h4><p>Season ${mostSeason.season}</p></article>`:`<article class="dynasty-record-card empty-record"><small>Most Points in a Season</small><strong>—</strong><p>Not enough season data yet.</p></article>`
- ].join("");
-
- $("recordBookNote").textContent="Largest comeback is intentionally not calculated because HQ stores final scores, not in-game deficit/play-by-play data.";
-
- const rivalries=rivalryRecords();
- $("rivalryLedger").innerHTML=rivalries.map(r=>{
-   const aw=r.wins[r.a]||0,bw=r.wins[r.b]||0,ap=r.points[r.a]||0,bp=r.points[r.b]||0;
-   return `<article class="rivalry-card"><div class="rivalry-coach"><small>${esc(coachNameFor(r.a))}</small><b>${aw}</b><span>${ap} PTS</span></div><div class="rivalry-center"><strong>${r.games}</strong><small>Meetings</small><span>${aw===bw?"Series Tied":aw>bw?`${esc(coachNameFor(r.a))} Leads`:`${esc(coachNameFor(r.b))} Leads`}</span></div><div class="rivalry-coach right"><small>${esc(coachNameFor(r.b))}</small><b>${bw}</b><span>${bp} PTS</span></div></article>`;
- }).join("")||'<div class="empty">No coach-vs-coach matchups are available in the completed game data.</div>';
 }
 function renderCareer(){
- $("careerRows").innerHTML=state.career.map(c=>{const gp=Number(c.games_played||0),pct=gp?((Number(c.wins)/gp)*100).toFixed(1):"0.0";return `<tr><td><b>${esc(c.coach_name)}</b></td><td class="record">${c.wins}-${c.losses}</td><td>${pct}%</td><td>${c.points_for}</td><td>${c.points_against}</td><td class="${Number(c.point_differential)>=0?"pos":"neg"}">${signed(c.point_differential)}</td><td>${c.ranked_wins}</td><td>${c.overtime_wins}-${c.overtime_losses}</td></tr>`}).join("");
+ const careerRowsEl=$("careerRows");if(careerRowsEl)careerRowsEl.innerHTML=state.career.map(c=>{const gp=Number(c.games_played||0),pct=gp?((Number(c.wins)/gp)*100).toFixed(1):"0.0";return `<tr><td><b>${esc(c.coach_name)}</b></td><td class="record">${c.wins}-${c.losses}</td><td>${pct}%</td><td>${c.points_for}</td><td>${c.points_against}</td><td class="${Number(c.point_differential)>=0?"pos":"neg"}">${signed(c.point_differential)}</td><td>${c.ranked_wins}</td><td>${c.overtime_wins}-${c.overtime_losses}</td></tr>`}).join("");
  const timeline=$("careerTimeline");
  if(timeline){
   const groups={};(state.careerStops||[]).forEach(x=>(groups[x.person_id]??=[]).push(x));
@@ -10648,6 +10682,7 @@ body.dynasty-chooser-active #siteHeader .canonical-header-row>div:first-child>.m
 <!-- Saturday Foundry 9.6.20 — Jared Championship Reconciliation -->
 <!-- 9.6.13 reconciliation: combines postseason schedule/CFP/national-result tooling with coach-centric Trophy Room bowl ledgers and historical hydration. -->
 <meta name="saturday-foundry-release" content="9.6.20-jared-championship-reconciliation">
+<meta name="saturday-foundry-release" content="9.6.21-coaches-card-mockup-v2">
 </body>
 </html>
 
