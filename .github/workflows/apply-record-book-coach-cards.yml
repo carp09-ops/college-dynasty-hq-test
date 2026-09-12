@@ -21,9 +21,23 @@ jobs:
           fetch-depth: 0
 
       - name: Apply Record Book upgrade
-        run: python3 .github/scripts/apply_record_cards.py
+        id: patch
+        continue-on-error: true
+        run: python3 .github/scripts/apply_record_cards.py > patch-debug.txt 2>&1
+
+      - name: Save patch diagnostics on failure
+        if: steps.patch.outcome == 'failure'
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add patch-debug.txt
+          git commit -m 'Capture Record Book patch diagnostics'
+          git push origin main
+          cat patch-debug.txt
+          exit 1
 
       - name: Validate upgrade
+        if: steps.patch.outcome == 'success'
         run: |
           grep -q 'record-book-trading-cards-v1' index.html
           grep -q 'COACH_CARD_PORTRAITS' index.html
@@ -35,6 +49,7 @@ jobs:
           git diff --check
 
       - name: Commit patched index
+        if: steps.patch.outcome == 'success'
         run: |
           if git diff --quiet -- index.html; then
             echo 'index.html already contains the coach card upgrade.'
