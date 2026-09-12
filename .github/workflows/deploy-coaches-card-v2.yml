@@ -1,0 +1,72 @@
+name: Deploy Saturday Foundry Coaches Card v2
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'saturday-foundry-coaches-card-v2-release.zip'
+      - '.github/workflows/deploy-coaches-card-v2.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Expand release bundle
+        run: |
+          set -euo pipefail
+          test -f saturday-foundry-coaches-card-v2-release.zip
+          rm -rf /tmp/sf-coaches-card-v2
+          mkdir -p /tmp/sf-coaches-card-v2
+          unzip -q -o saturday-foundry-coaches-card-v2-release.zip -d /tmp/sf-coaches-card-v2
+          test -f /tmp/sf-coaches-card-v2/index.html
+          test -f /tmp/sf-coaches-card-v2/_headers
+          test -d /tmp/sf-coaches-card-v2/assets
+          grep -q 'Coaches Card' /tmp/sf-coaches-card-v2/index.html
+          grep -q 'assets/coach-cards/corey-coach-card.webp' /tmp/sf-coaches-card-v2/index.html
+          grep -q 'assets/coach-cards/jared-coach-card.webp' /tmp/sf-coaches-card-v2/index.html
+          grep -q 'assets/coach-cards/saif-coach-card.webp' /tmp/sf-coaches-card-v2/index.html
+          grep -q 'assets/coach-cards/pete-coach-card.webp' /tmp/sf-coaches-card-v2/index.html
+
+      - name: Replace deploy tree
+        run: |
+          set -euo pipefail
+          rm -rf assets
+          cp /tmp/sf-coaches-card-v2/index.html ./index.html
+          cp /tmp/sf-coaches-card-v2/_headers ./_headers
+          cp -R /tmp/sf-coaches-card-v2/assets ./assets
+
+      - name: Validate deploy tree
+        run: |
+          set -euo pipefail
+          test -f index.html
+          test -f _headers
+          test -f assets/coach-cards/corey-coach-card.webp
+          test -f assets/coach-cards/jared-coach-card.webp
+          test -f assets/coach-cards/saif-coach-card.webp
+          test -f assets/coach-cards/pete-coach-card.webp
+          grep -q 'Coaches Card' index.html
+          grep -q 'Foundry Records' index.html
+          grep -q 'Rivalry Ledger' index.html
+          git diff --check
+
+      - name: Commit deploy tree
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html _headers assets
+          if git diff --cached --quiet; then
+            echo 'Deploy tree already matches Coaches Card v2 release.'
+            exit 0
+          fi
+          git commit -m 'Deploy Saturday Foundry Coaches Card v2'
+          git push origin main
